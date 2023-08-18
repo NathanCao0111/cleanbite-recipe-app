@@ -20,14 +20,14 @@ const RatingSchema = new Schema(
 
 const Recipe = new Schema(
   {
-    title: { type: String, required: true },
-    cuisine: String,
+    title: { type: String, trim: true, required: true },
+    cuisine: { type: String, trim: true },
     ingredients: { type: Array, required: true },
     method: { type: Array, required: true },
     time: TimeSchema,
     serves: { type: Number, required: true },
     rating: RatingSchema,
-    image: { type: String, required: true },
+    image: { type: String, trim: true, required: true },
   },
   { timestamps: true }
 );

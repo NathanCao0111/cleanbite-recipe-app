@@ -1,7 +1,16 @@
+const resClientData = require("../../utils/resClientData");
+const User = require("../models/User");
+
 class MeController {
-  async index(req, res) {
+  // [GET] /:id
+  async getId(req, res) {
     try {
-    } catch (error) {}
+      const { id } = req.params;
+      const user = await User.findOne({ _id: id }).select("-password");
+      resClientData(res, 200, user);
+    } catch (error) {
+      resClientData(res, 400, null, error.message);
+    }
   }
 }
 
