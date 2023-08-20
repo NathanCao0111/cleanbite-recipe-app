@@ -1,8 +1,14 @@
+import { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import styles from "../../scss/pages/Register.module.scss";
+import { Link } from "react-router-dom";
+import axios from "axios";
 
 function Register() {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
   const initialValues = {
     fullname: "",
     username: "",
@@ -40,37 +46,94 @@ function Register() {
       ),
   });
 
-  const handleRegisterSubmit = async () => {};
+  const handleRegisterSubmit = async (values) => {
+    try {
+      setLoading(true);
+      setError(null);
+      const response = await axios.post(
+        "http://localhost:3001/users/auth/register",
+        values
+      );
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
-    <div className={styles.container}>
+    <section className={styles.container}>
       <h3>Register</h3>
-      <Formik
-        initialValues={initialValues}
-        validationSchema={RegisterSchema}
-        onSubmit={handleRegisterSubmit}
-      >
-        {({ errors, touched }) => {
-          return (
-            <Form>
-              <div className={styles.inputContainer}>
-                <label htmlFor="fullname">Full name</label>
-                <Field
-                  id="fullname"
-                  name="fullname"
-                  type="text"
-                  placeholder="E.g. John Smith"
-                  spellCheck={false}
-                />
-                <ErrorMessage name="fullname">
-                  {(msg) => <div className={styles.error}>{msg}</div>}
-                </ErrorMessage>
-              </div>
-            </Form>
-          );
-        }}
-      </Formik>
-    </div>
+      <div className="form">
+        <Formik
+          initialValues={initialValues}
+          validationSchema={RegisterSchema}
+          onSubmit={handleRegisterSubmit}
+        >
+          {({ errors, touched }) => {
+            return (
+              <Form>
+                <div className={styles.inputContainer}>
+                  <label htmlFor="fullname">Full name</label>
+                  <Field
+                    id="fullname"
+                    name="fullname"
+                    type="text"
+                    placeholder="E.g. John Smith"
+                    spellCheck={false}
+                  />
+                  <ErrorMessage name="fullname">
+                    {(msg) => <div className={styles.error}>{msg}</div>}
+                  </ErrorMessage>
+                </div>
+                <div className={styles.inputContainer}>
+                  <label htmlFor="username">Username</label>
+                  <Field
+                    id="username"
+                    name="username"
+                    type="text"
+                    placeholder="E.g. johnsmith"
+                    spellCheck={false}
+                  />
+                  <ErrorMessage name="username">
+                    {(msg) => <div className={styles.error}>{msg}</div>}
+                  </ErrorMessage>
+                </div>
+                <div className={styles.inputContainer}>
+                  <label htmlFor="email">Email</label>
+                  <Field
+                    id="email"
+                    name="email"
+                    type="email"
+                    placeholder="E.g. johnsmith@gmail.com"
+                    spellCheck={false}
+                  />
+                  <ErrorMessage name="email">
+                    {(msg) => <div className={styles.error}>{msg}</div>}
+                  </ErrorMessage>
+                </div>
+                <div className={styles.inputContainer}>
+                  <label htmlFor="password">Password</label>
+                  <Field id="password" name="password" type="password" />
+                  <ErrorMessage name="password">
+                    {(msg) => <div className={styles.error}>{msg}</div>}
+                  </ErrorMessage>
+                </div>
+                <button type="submit">
+                  {loading ? "Loading..." : "Register"}
+                </button>
+                <p>
+                  <Link to="/login">
+                    Already have an account? <span>Log in</span>
+                  </Link>
+                </p>
+              </Form>
+            );
+          }}
+        </Formik>
+      </div>
+    </section>
   );
 }
 
