@@ -2,12 +2,13 @@ import { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import styles from "../../scss/pages/Register.module.scss";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function Register() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   const initialValues = {
     fullname: "",
@@ -54,9 +55,9 @@ function Register() {
         "http://localhost:3001/users/auth/register",
         values
       );
-      console.log(response);
+      navigate("/login");
     } catch (error) {
-      console.log(error);
+      setError(error.response.data.message);
     } finally {
       setLoading(false);
     }

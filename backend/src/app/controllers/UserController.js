@@ -43,9 +43,9 @@ class UserController {
   // [POST] /users/auth/login
   async login(req, res) {
     try {
-      const { username, email, password } = req.body;
+      const { email, password, confirmPassword } = req.body;
 
-      if (!(username && email && password)) {
+      if (!(email && password && confirmPassword)) {
         throw new Error("All input is required");
       }
 
