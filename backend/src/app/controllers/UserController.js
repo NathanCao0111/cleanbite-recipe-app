@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
 const { SECRET_KEY } = process.env;
 
 class UserController {
-  // [POST] /users/auth/register
+  // [POST] /api/v1/users/auth/register
   async register(req, res) {
     try {
       const { fullname, username, email, password } = req.body;
@@ -40,7 +40,7 @@ class UserController {
     }
   }
 
-  // [POST] /users/auth/login
+  // [POST] /api/v1/users/auth/login
   async login(req, res) {
     try {
       const { email, password, confirmPassword } = req.body;

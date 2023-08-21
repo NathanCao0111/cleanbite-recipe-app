@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import styles from "../../scss/pages/Register.module.scss";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+import authAPI from "../../services/authAPI";
 
 function Register() {
   const [loading, setLoading] = useState(false);
@@ -51,10 +51,8 @@ function Register() {
     try {
       setLoading(true);
       setError(null);
-      const response = await axios.post(
-        "http://localhost:3001/users/auth/register",
-        values
-      );
+      await authAPI.register(values);
+
       navigate("/login");
     } catch (error) {
       setError(error.response.data.message);
@@ -62,6 +60,16 @@ function Register() {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (error) {
+      const timer = setTimeout(() => {
+        setError(null);
+      }, 3000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [error]);
 
   return (
     <section className={styles.container}>
@@ -121,6 +129,7 @@ function Register() {
                     {(msg) => <div className={styles.error}>{msg}</div>}
                   </ErrorMessage>
                 </div>
+                {error && <p className={styles.axiosError}>{error}</p>}
                 <button type="submit">
                   {loading ? "Loading..." : "Register"}
                 </button>

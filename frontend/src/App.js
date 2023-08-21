@@ -1,21 +1,36 @@
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from "./pages/Home";
-import Register from "./pages/Register";
-import Login from "./pages/Login";
 import Header from "./components/layout/Header";
+import AuthState from "./contexts/AuthContext/AuthState";
+import routes from "./routes";
+import PrivateRoute from "./components/PrivateRoute";
 
 function App() {
   return (
     <Router>
-      <div className="app">
-        <Header />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
-        </Routes>
-      </div>
+      <AuthState>
+        <div className="app">
+          <Header />
+          <Routes>
+            {routes.map((route, index) => {
+              const { path, component: Component, isPrivate } = route;
+              return (
+                <Route
+                  key={index}
+                  path={path}
+                  element={
+                    isPrivate ? (
+                      <PrivateRoute component={Component} />
+                    ) : (
+                      <Component />
+                    )
+                  }
+                />
+              );
+            })}
+          </Routes>
+        </div>
+      </AuthState>
     </Router>
   );
 }

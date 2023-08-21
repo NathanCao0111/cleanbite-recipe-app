@@ -1,5 +1,6 @@
 import { useState } from "react";
 import AuthContext from "./AuthContext";
+import authAPI from "../../services/authAPI";
 
 const AuthState = ({ children }) => {
   const [auth, setAuth] = useState({
@@ -11,15 +12,22 @@ const AuthState = ({ children }) => {
   // 2. Update auth state
 
   const handleLogin = async () => {
-   try {
-
-   } catch (error) {
-    
-   }
-  }
+    try {
+      const response = await authAPI.authInfo();
+      const user = response.data.data;
+      setAuth({
+        isAuthenticated: true,
+        authInfo: user,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
-    <AuthContext.Provider value={{ auth }}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ auth, handleLogin }}>
+      {children}
+    </AuthContext.Provider>
   );
 };
 

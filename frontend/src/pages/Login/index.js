@@ -1,14 +1,16 @@
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import styles from "../../scss/pages/Login.module.scss";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+import authAPI from "../../services/authAPI";
+import AuthContext from "../../contexts/AuthContext/AuthContext";
 
 function Login() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const { handleLogin } = useContext(AuthContext);
 
   const initialValues = {
     email: "",
@@ -29,17 +31,30 @@ function Login() {
     try {
       setLoading(true);
       setError(null);
-      const response = await axios.post(
-        "http://localhost:3001/users/auth/login",
-        values
-      );
-      navigate(-1);
+      const response = await authAPI.login(values);
+
+      const accessToken = response.data.data;
+      localStorage.setItem("accessToken", accessToken);
+
+      await handleLogin();
+
+      navigate("/");
     } catch (error) {
       setError(error.response.data.message);
     } finally {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (error) {
+      const timer = setTimeout(() => {
+        setError(null);
+      }, 3000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [error]);
 
   return (
     <section className={styles.container}>
@@ -84,6 +99,7 @@ function Login() {
                     {(msg) => <div className={styles.error}>{msg}</div>}
                   </ErrorMessage>
                 </div>
+                {error && <p className={styles.axiosError}>{error}</p>}
                 <button type="submit">
                   {loading ? "Loading..." : "Log in"}
                 </button>

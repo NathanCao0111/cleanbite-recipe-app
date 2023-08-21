@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:5000";
+const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const axiosInstance = axios.create({
   baseURL: BASE_URL,
@@ -15,7 +15,7 @@ axiosInstance.interceptors.request.use((config) => {
     config.headers["x-access-token"] = accessToken;
   }
 
-  return config();
+  return config;
 }); //add token in req header
 
 export default axiosInstance;

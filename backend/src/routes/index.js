@@ -8,13 +8,13 @@ const logger = require("../middlewares/logger");
 function route(app) {
   app.use(logger);
 
-  app.use("/users", userRouter);
-  app.use("/recipes", recipesRouter);
-  app.use("/", siteRouter);
+  app.use("/api/v1/users", userRouter);
+  app.use("/api/v1/recipes", recipesRouter);
+  app.use("/api/v1/", siteRouter);
 
   app.use(auth);
 
-  app.use("/me", meRouter);
+  app.use("/api/v1/me", meRouter);
 }
 
 module.exports = route;
