@@ -2,7 +2,7 @@ import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./components/layout/Header";
 import AuthState from "./contexts/AuthContext/AuthState";
-import routes from "./routes";
+import routes from "./constants/routes/router";
 import PrivateRoute from "./components/PrivateRoute";
 
 function App() {

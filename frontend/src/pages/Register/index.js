@@ -1,14 +1,16 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import styles from "../../scss/pages/Register.module.scss";
-import { Link, useNavigate } from "react-router-dom";
-import authAPI from "../../services/authAPI";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import authService from "../../services/authService";
+import AuthContext from "../../contexts/AuthContext/AuthContext";
 
 function Register() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const { auth } = useContext(AuthContext);
 
   const initialValues = {
     fullname: "",
@@ -51,8 +53,7 @@ function Register() {
     try {
       setLoading(true);
       setError(null);
-      await authAPI.register(values);
-
+      await authService.register(values);
       navigate("/login");
     } catch (error) {
       setError(error.response.data.message);
@@ -70,6 +71,10 @@ function Register() {
       return () => clearTimeout(timer);
     }
   }, [error]);
+
+  if (auth.isAuthenticated) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <section className={styles.container}>

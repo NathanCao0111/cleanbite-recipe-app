@@ -1,5 +1,5 @@
 const resClientData = require("../../utils/resClientData");
-const User = require("../models/User");
+const { User } = require("../models");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { SECRET_KEY } = process.env;

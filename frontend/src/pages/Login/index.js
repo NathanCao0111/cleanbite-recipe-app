@@ -2,15 +2,15 @@ import { useState, useEffect, useContext } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import styles from "../../scss/pages/Login.module.scss";
-import { Link, useNavigate } from "react-router-dom";
-import authAPI from "../../services/authAPI";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import authService from "../../services/authService";
 import AuthContext from "../../contexts/AuthContext/AuthContext";
 
 function Login() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
-  const { handleLogin } = useContext(AuthContext);
+  const { auth, handleLogin } = useContext(AuthContext);
 
   const initialValues = {
     email: "",
@@ -31,7 +31,7 @@ function Login() {
     try {
       setLoading(true);
       setError(null);
-      const response = await authAPI.login(values);
+      const response = await authService.login(values);
 
       const accessToken = response.data.data;
       localStorage.setItem("accessToken", accessToken);
@@ -55,6 +55,10 @@ function Login() {
       return () => clearTimeout(timer);
     }
   }, [error]);
+
+  if (auth.isAuthenticated) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <section className={styles.container}>

@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import AuthContext from "./AuthContext";
-import authAPI from "../../services/authAPI";
+import authService from "../../services/authService";
 
 const AuthState = ({ children }) => {
   const [auth, setAuth] = useState({
@@ -13,7 +13,7 @@ const AuthState = ({ children }) => {
 
   const handleLogin = async () => {
     try {
-      const response = await authAPI.authInfo();
+      const response = await authService.authInfo();
       const user = response.data.data;
       setAuth({
         isAuthenticated: true,
@@ -24,8 +24,23 @@ const AuthState = ({ children }) => {
     }
   };
 
+  const handleLogout = () => {
+    setAuth({
+      isAuthenticated: false,
+      authInfo: {},
+    });
+  };
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem("accessToken");
+
+    if (accessToken) {
+      handleLogin();
+    }
+  }, []);
+
   return (
-    <AuthContext.Provider value={{ auth, handleLogin }}>
+    <AuthContext.Provider value={{ auth, handleLogin, handleLogout }}>
       {children}
     </AuthContext.Provider>
   );
