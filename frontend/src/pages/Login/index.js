@@ -63,7 +63,7 @@ function Login() {
   return (
     <section className={styles.container}>
       <h3>Login</h3>
-      <div className="form">
+      <div className={styles.form}>
         <Formik
           initialValues={initialValues}
           validationSchema={LoginSchema}

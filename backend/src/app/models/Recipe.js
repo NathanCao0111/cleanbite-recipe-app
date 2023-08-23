@@ -4,8 +4,8 @@ const mongooseDelete = require("mongoose-delete");
 
 const TimeSchema = new Schema(
   {
-    preparation: { type: String, required: true },
-    cooking: { type: String, required: true },
+    preparation: { type: String, trim: true, required: true },
+    cooking: { type: String, trim: true, required: true },
   },
   { _id: false }
 );
@@ -28,19 +28,7 @@ const RecipeSchema = new Schema(
     serves: { type: Number, required: true },
     // rating: RatingSchema,
     image: { type: String, trim: true, required: true },
-    user: { type: Schema.Types.ObjectId, ref: "User" },
-  },
-  { timestamps: true }
-);
-
-const UserSchema = new Schema(
-  {
-    avatar: { type: String, trim: true },
-    fullname: { type: String, trim: true },
-    username: { type: String, required: true, trim: true },
-    email: { type: String, trim: true, required: true, unique: true },
-    password: { type: String, trim: true, required: true },
-    recipes: [{ type: Schema.Types.ObjectId, ref: "Recipe" }],
+    userId: { type: Schema.Types.ObjectId, ref: "User" },
   },
   { timestamps: true }
 );
@@ -50,12 +38,4 @@ RecipeSchema.plugin(mongooseDelete, {
   overrideMethods: "all",
 });
 
-UserSchema.plugin(mongooseDelete, {
-  deletedAt: true,
-  overrideMethods: "all",
-});
-
-const Recipe = mongoose.model("Recipe", RecipeSchema);
-const User = mongoose.model("User", UserSchema);
-
-module.exports = { User, Recipe };
+module.exports = mongoose.model("Recipe", RecipeSchema);

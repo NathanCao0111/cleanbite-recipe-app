@@ -1,0 +1,26 @@
+@import 'normalize.css';
+
+:root {
+  // --primary: #e5e5e5;
+
+  // Default Layout
+  --default-layout-header-height: 120px;
+  --default-layout-max-width: 1200px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-weight: 400;
+  text-rendering: optimizeSpeed;
+}
+
+a {
+  color: #000;
+  text-decoration: none;
+}

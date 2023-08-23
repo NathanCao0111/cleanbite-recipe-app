@@ -1,5 +1,5 @@
 const resClientData = require("../../utils/resClientData");
-const { User } = require("../models");
+const User = require("../models/User");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { SECRET_KEY } = process.env;
@@ -32,7 +32,7 @@ class UserController {
       resClientData(
         res,
         201,
-        user,
+        {},
         `User ${email} has been created successfully`
       );
     } catch (error) {
@@ -69,7 +69,7 @@ class UserController {
         email: existingUser.email,
       };
       const token = jwt.sign(jwtPayload, SECRET_KEY, {
-        expiresIn: "1h",
+        expiresIn: "12h",
       });
 
       resClientData(res, 200, token, "User logged in successfully");
