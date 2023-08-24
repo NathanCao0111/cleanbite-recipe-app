@@ -11,12 +11,12 @@ const AuthState = ({ children }) => {
   // 1. call API /me => userInfo
   // 2. Update auth state
 
-  const handleLogin = async () => {
+  const fetchCurrentUser = async () => {
     try {
       const response = await authService.getMe();
       const user = response.data.data;
       if (response.status === 200) {
-        setAuth({
+        return setAuth({
           isAuthenticated: true,
           authInfo: user,
         });
@@ -24,6 +24,10 @@ const AuthState = ({ children }) => {
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const handleLogin = async () => {
+    await fetchCurrentUser();
   };
 
   const handleLogout = () => {
@@ -37,12 +41,12 @@ const AuthState = ({ children }) => {
     const accessToken = localStorage.getItem("accessToken");
 
     if (accessToken) {
-      handleLogin();
+      fetchCurrentUser();
     }
   }, []);
 
   return (
-    <AuthContext.Provider value={{ auth, handleLogin, handleLogout }}>
+    <AuthContext.Provider value={{ auth, fetchCurrentUser, handleLogin, handleLogout }}>
       {children}
     </AuthContext.Provider>
   );

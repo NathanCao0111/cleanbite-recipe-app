@@ -42,7 +42,9 @@ function Header() {
           )}
           {auth.isAuthenticated && (
             <li>
-              <Button color="secondary" onClick={handleLogoutBtn}>Logout</Button>
+              <Button color="secondary" onClick={handleLogoutBtn}>
+                Logout
+              </Button>
             </li>
           )}
         </ul>

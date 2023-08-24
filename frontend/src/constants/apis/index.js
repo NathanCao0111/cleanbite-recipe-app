@@ -4,6 +4,7 @@ export const MeApi = {
   GET_ME: "/me",
   CREATE_RECIPE: "/me/create",
   GET_CREATED_RECIPES: "/me/created",
+  UPLOAD_AVATAR: "/me/upload-avatar",
 };
 
 export const RecipesApi = {
