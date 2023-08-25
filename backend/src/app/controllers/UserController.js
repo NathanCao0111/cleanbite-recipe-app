@@ -59,7 +59,7 @@ class UserController {
         existingUser.password
       );
       if (!comparedPassword) {
-        throw new Error("Invalid credentials");
+        throw new Error("Invalid email or password");
       }
 
       const jwtPayload = {

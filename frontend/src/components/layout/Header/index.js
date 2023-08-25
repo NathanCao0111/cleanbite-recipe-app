@@ -21,12 +21,11 @@ function Header() {
 
   return (
     <header className={styles.container}>
-      <h3>Cleanbite</h3>
+      <h3>
+        <NavLink to="/">Cleanbite</NavLink>
+      </h3>
       <nav>
         <ul>
-          <li>
-            <NavLink to="/">Home</NavLink>
-          </li>
           <li>
             <NavLink to="/profile">Profile</NavLink>
           </li>

@@ -1,10 +1,16 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useContext } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import styles from "../../scss/pages/Login.module.scss";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import authService from "../../services/authService";
 import AuthContext from "../../contexts/AuthContext/AuthContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
+import { faLock } from "@fortawesome/free-solid-svg-icons";
+import AntdButton from "../../utils/Button";
+import Notification from "../../utils/Notification";
+import { NotificationType } from "../../constants/NotificationType";
 
 function Login() {
   const [loading, setLoading] = useState(false);
@@ -20,11 +26,12 @@ function Login() {
 
   const LoginSchema = Yup.object().shape({
     email: Yup.string().email("Invalid email").required("Required"),
-    password: Yup.string().min(8, "Password must be 8 characters long"),
-    confirmPassword: Yup.string().oneOf(
-      [Yup.ref("password"), null],
-      "Must match the field password"
-    ),
+    password: Yup.string()
+      .min(8, "Password must be at least 8 characters long")
+      .required("Required"),
+    confirmPassword: Yup.string()
+      .oneOf([Yup.ref("password"), null], "Must match the field password")
+      .required("Required"),
   });
 
   const handleLoginSubmit = async (values) => {
@@ -46,76 +53,83 @@ function Login() {
     }
   };
 
-  useEffect(() => {
-    if (error) {
-      const timer = setTimeout(() => {
-        setError(null);
-      }, 3000);
-
-      return () => clearTimeout(timer);
-    }
-  }, [error]);
-
   if (auth.isAuthenticated) {
     return <Navigate to="/" />;
   }
 
   return (
-    <section className={styles.container}>
+    <section className={styles.wrapper}>
+      {error && Notification(error, NotificationType.error)}
       <h3>Login</h3>
-      <div className={styles.form}>
-        <Formik
-          initialValues={initialValues}
-          validationSchema={LoginSchema}
-          onSubmit={handleLoginSubmit}
-        >
-          {({ errors, touched }) => {
-            return (
-              <Form>
-                <div className={styles.inputContainer}>
-                  <label htmlFor="email">Email</label>
-                  <Field
-                    id="email"
-                    name="email"
-                    type="email"
-                    placeholder="E.g. johnsmith@gmail.com"
-                    spellCheck={false}
-                  />
-                  <ErrorMessage name="email">
-                    {(msg) => <div className={styles.error}>{msg}</div>}
-                  </ErrorMessage>
-                </div>
-                <div className={styles.inputContainer}>
-                  <label htmlFor="password">Password</label>
-                  <Field id="password" name="password" type="password" />
-                  <ErrorMessage name="password">
-                    {(msg) => <div className={styles.error}>{msg}</div>}
-                  </ErrorMessage>
-                </div>
-                <div className={styles.inputContainer}>
-                  <label htmlFor="confirmPassword">Confirm password</label>
-                  <Field
-                    id="confirmPassword"
-                    name="confirmPassword"
-                    type="password"
-                  />
-                  <ErrorMessage name="confirmPassword">
-                    {(msg) => <div className={styles.error}>{msg}</div>}
-                  </ErrorMessage>
-                </div>
-                {error && <p className={styles.axiosError}>{error}</p>}
-                <button type="submit">
-                  {loading ? "Loading..." : "Log in"}
-                </button>
-                <p>
-                  <Link to="/register">
-                    Don't have an account yet? <span>Register</span>
-                  </Link>
-                </p>
-              </Form>
-            );
-          }}
-        </Formik>
+      <div className={styles.container}>
+        <div className={styles.form}>
+          <Formik
+            initialValues={initialValues}
+            validationSchema={LoginSchema}
+            onSubmit={handleLoginSubmit}
+          >
+            {({ errors, touched }) => {
+              return (
+                <Form>
+                  <div className={styles.inputContainer}>
+                    <div className={styles.input}>
+                      <span>
+                        <FontAwesomeIcon icon={faEnvelope} />
+                      </span>
+                      <Field
+                        id="email"
+                        name="email"
+                        type="email"
+                        placeholder="Email"
+                        spellCheck={false}
+                      />
+                    </div>
+                    <ErrorMessage name="email">
+                      {(msg) => <div className={styles.error}>{msg}</div>}
+                    </ErrorMessage>
+                  </div>
+                  <div className={styles.inputContainer}>
+                    <div className={styles.input}>
+                      <span>
+                        <FontAwesomeIcon icon={faLock} />
+                      </span>
+                      <Field
+                        id="password"
+                        name="password"
+                        type="password"
+                        placeholder="Password"
+                      />
+                    </div>
+                    <ErrorMessage name="password">
+                      {(msg) => <div className={styles.error}>{msg}</div>}
+                    </ErrorMessage>
+                  </div>
+                  <div className={styles.inputContainer}>
+                    <div className={styles.input}>
+                      <span>
+                        <FontAwesomeIcon icon={faLock} />
+                      </span>
+                      <Field
+                        id="confirmPassword"
+                        name="confirmPassword"
+                        type="password"
+                        placeholder="Confirm Password"
+                      />
+                    </div>
+                    <ErrorMessage name="confirmPassword">
+                      {(msg) => <div className={styles.error}>{msg}</div>}
+                    </ErrorMessage>
+                  </div>
+                  <AntdButton description={loading ? "Loading..." : "Log in"} />
+                  <p className={styles.subDescription}>
+                    Don't have an account yet?{" "}
+                    <Link to="/register">Register now</Link>
+                  </p>
+                </Form>
+              );
+            }}
+          </Formik>
+        </div>
       </div>
     </section>
   );

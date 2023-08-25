@@ -1,10 +1,16 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useContext } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import styles from "../../scss/pages/Register.module.scss";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import authService from "../../services/authService";
 import AuthContext from "../../contexts/AuthContext/AuthContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEnvelope, faUser } from "@fortawesome/free-regular-svg-icons";
+import { faLock } from "@fortawesome/free-solid-svg-icons";
+import AntdButton from "../../utils/Button";
+import Notification from "../../utils/Notification";
+import { NotificationType } from "../../constants/NotificationType";
 
 function Register() {
   const [loading, setLoading] = useState(false);
@@ -30,11 +36,12 @@ function Register() {
       .required("Required"),
     email: Yup.string().email("Invalid email").required("Required"),
     password: Yup.string()
-      .min(8, "Password must be 8 characters long")
+      .min(8, "Password must be at least 8 characters long")
       .matches(
         /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/,
         "Password requires a number, a lowercase letter, an uppercase letter & a symbol"
-      ),
+      )
+      .required("Required"),
   });
 
   const handleRegisterSubmit = async (values) => {
@@ -50,91 +57,103 @@ function Register() {
     }
   };
 
-  useEffect(() => {
-    if (error) {
-      const timer = setTimeout(() => {
-        setError(null);
-      }, 3000);
-
-      return () => clearTimeout(timer);
-    }
-  }, [error]);
-
   if (auth.isAuthenticated) {
     return <Navigate to="/" />;
   }
 
   return (
-    <section className={styles.container}>
+    <section className={styles.wrapper}>
+      {error && Notification(error, NotificationType.error)}
       <h3>Register</h3>
-      <div className="form">
-        <Formik
-          initialValues={initialValues}
-          validationSchema={RegisterSchema}
-          onSubmit={handleRegisterSubmit}
-        >
-          {({ errors, touched }) => {
-            return (
-              <Form>
-                <div className={styles.inputContainer}>
-                  <label htmlFor="fullname">Full name</label>
-                  <Field
-                    id="fullname"
-                    name="fullname"
-                    type="text"
-                    placeholder="E.g. John Smith"
-                    spellCheck={false}
+      <div className={styles.container}>
+        <div className={styles.form}>
+          <Formik
+            initialValues={initialValues}
+            validationSchema={RegisterSchema}
+            onSubmit={handleRegisterSubmit}
+          >
+            {({ errors, touched }) => {
+              return (
+                <Form>
+                  <div className={styles.inputContainer}>
+                    <div className={styles.input}>
+                      <span>
+                        <FontAwesomeIcon icon={faUser} />
+                      </span>
+                      <Field
+                        id="fullname"
+                        name="fullname"
+                        type="text"
+                        placeholder="Full name"
+                        spellCheck={false}
+                      />
+                    </div>
+                    <ErrorMessage name="fullname">
+                      {(msg) => <div className={styles.error}>{msg}</div>}
+                    </ErrorMessage>
+                  </div>
+                  <div className={styles.inputContainer}>
+                    <div className={styles.input}>
+                      <span>
+                        <FontAwesomeIcon icon={faUser} />
+                      </span>
+                      <Field
+                        id="username"
+                        name="username"
+                        type="text"
+                        placeholder="Username"
+                        spellCheck={false}
+                      />
+                    </div>
+                    <ErrorMessage name="username">
+                      {(msg) => <div className={styles.error}>{msg}</div>}
+                    </ErrorMessage>
+                  </div>
+                  <div className={styles.inputContainer}>
+                    <div className={styles.input}>
+                      <span>
+                        <FontAwesomeIcon icon={faEnvelope} />
+                      </span>
+                      <Field
+                        id="email"
+                        name="email"
+                        type="email"
+                        placeholder="Email"
+                        spellCheck={false}
+                      />
+                    </div>
+                    <ErrorMessage name="email">
+                      {(msg) => <div className={styles.error}>{msg}</div>}
+                    </ErrorMessage>
+                  </div>
+                  <div className={styles.inputContainer}>
+                    <div className={styles.input}>
+                      <span>
+                        <FontAwesomeIcon icon={faLock} />
+                      </span>
+                      <Field
+                        id="password"
+                        name="password"
+                        type="password"
+                        placeholder="Password"
+                      />
+                    </div>
+                    <ErrorMessage name="password">
+                      {(msg) => <div className={styles.error}>{msg}</div>}
+                    </ErrorMessage>
+                  </div>
+                  {error && <p className={styles.axiosError}>{error}</p>}
+                  <AntdButton
+                    description={loading ? "Loading..." : "Register"}
                   />
-                  <ErrorMessage name="fullname">
-                    {(msg) => <div className={styles.error}>{msg}</div>}
-                  </ErrorMessage>
-                </div>
-                <div className={styles.inputContainer}>
-                  <label htmlFor="username">Username</label>
-                  <Field
-                    id="username"
-                    name="username"
-                    type="text"
-                    placeholder="E.g. johnsmith"
-                    spellCheck={false}
-                  />
-                  <ErrorMessage name="username">
-                    {(msg) => <div className={styles.error}>{msg}</div>}
-                  </ErrorMessage>
-                </div>
-                <div className={styles.inputContainer}>
-                  <label htmlFor="email">Email</label>
-                  <Field
-                    id="email"
-                    name="email"
-                    type="email"
-                    placeholder="E.g. johnsmith@gmail.com"
-                    spellCheck={false}
-                  />
-                  <ErrorMessage name="email">
-                    {(msg) => <div className={styles.error}>{msg}</div>}
-                  </ErrorMessage>
-                </div>
-                <div className={styles.inputContainer}>
-                  <label htmlFor="password">Password</label>
-                  <Field id="password" name="password" type="password" />
-                  <ErrorMessage name="password">
-                    {(msg) => <div className={styles.error}>{msg}</div>}
-                  </ErrorMessage>
-                </div>
-                {error && <p className={styles.axiosError}>{error}</p>}
-                <button type="submit">
-                  {loading ? "Loading..." : "Register"}
-                </button>
-                <p>
-                  <Link to="/login">
-                    Already have an account? <span>Log in</span>
-                  </Link>
-                </p>
-              </Form>
-            );
-          }}
-        </Formik>
+                  <p className={styles.subDescription}>
+                    Already have an account? <Link to="/login">Log in</Link>
+                  </p>
+                </Form>
+              );
+            }}
+          </Formik>
+        </div>
       </div>
     </section>
   );
