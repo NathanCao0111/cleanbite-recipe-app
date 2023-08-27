@@ -7,7 +7,7 @@ import authService from "../../services/authService";
 import AuthContext from "../../contexts/AuthContext/AuthContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faUser } from "@fortawesome/free-regular-svg-icons";
-import { faLock } from "@fortawesome/free-solid-svg-icons";
+import { faLock, faAt } from "@fortawesome/free-solid-svg-icons";
 import AntdButton from "../../utils/Button";
 import Notification from "../../utils/Notification";
 import { NotificationType } from "../../constants/NotificationType";
@@ -95,7 +95,7 @@ function Register() {
                   <div className={styles.inputContainer}>
                     <div className={styles.input}>
                       <span>
-                        <FontAwesomeIcon icon={faUser} />
+                        <FontAwesomeIcon icon={faAt} />
                       </span>
                       <Field
                         id="username"
@@ -144,6 +144,7 @@ function Register() {
                   </div>
                   {error && <p className={styles.axiosError}>{error}</p>}
                   <AntdButton
+                    type="primary"
                     description={loading ? "Loading..." : "Register"}
                   />
                   <p className={styles.subDescription}>

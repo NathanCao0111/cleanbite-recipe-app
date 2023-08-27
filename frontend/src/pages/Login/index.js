@@ -120,7 +120,10 @@ function Login() {
                       {(msg) => <div className={styles.error}>{msg}</div>}
                     </ErrorMessage>
                   </div>
-                  <AntdButton description={loading ? "Loading..." : "Log in"} />
+                  <AntdButton
+                    type="primary"
+                    description={loading ? "Loading..." : "Log in"}
+                  />
                   <p className={styles.subDescription}>
                     Don't have an account yet?{" "}
                     <Link to="/register">Register now</Link>

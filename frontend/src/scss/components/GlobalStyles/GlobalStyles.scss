@@ -2,6 +2,7 @@
 
 :root {
   --primary: #ff642b;
+  --secondary: #7f7f7f;
 
   // border
   --border-input: 1px solid #d9d9d9;
@@ -9,12 +10,14 @@
   --border-radius: 6px;
 
   // input
-  --font-color-input: rgba(0, 0, 0, 0.88);
+  --font-color-input: #7f7f7f;
   --font-size-input: 14px;
   --box-shadow-input: 0 0 0 2px rgba(255, 165, 5, 0.1);
+  --height-input: 48px;
 
   // font
   --font-size-normal: 16px;
+  --font-size-heading: 36px;
 
   // Default Layout
   --default-layout-header-height: 120px;
@@ -28,6 +31,10 @@
   scroll-behavior: smooth;
 }
 
+*:focus {
+  outline: none;
+}
+
 body {
   font-weight: 400;
   text-rendering: optimizeSpeed;
@@ -38,22 +45,16 @@ a {
   text-decoration: none;
 }
 
-.form-button {
-  width: 100%;
-  height: 40px;
-  font-size: var(--font-size-normal);
-  background-color: var(--primary);
-  box-shadow: none;
-
-  &:hover {
-    background-color: var(--primary) !important;
-    opacity: 0.8;
-  }
+.resetBtn {
+  background-color: transparent;
+  border: none;
+  outline: none;
 }
 
 input:-webkit-autofill,
-input:-webkit-autofill:hover, 
-input:-webkit-autofill:focus, 
-input:-webkit-autofill:active{
-    -webkit-box-shadow: 0 0 0 30px white inset !important;
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px white inset !important;
+  -webkit-text-fill-color: var(--font-color-input);
 }

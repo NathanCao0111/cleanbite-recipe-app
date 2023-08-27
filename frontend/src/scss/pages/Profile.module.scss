@@ -1,0 +1,75 @@
+.wrapper {
+	margin-bottom: 30px;
+
+	.heading {
+		font-size: var(--font-size-heading);
+	}
+
+	.avatarImg {
+		margin-bottom: 20px;
+
+		img {
+			width: 200px;
+			height: 200px;
+			object-fit: cover;
+			border-radius: 50%;
+		}
+	}
+
+	.inputWrapper {
+		margin-bottom: 38px;
+
+		label {
+			color: var(--font-color-input);
+			font-size: 20px;
+			margin-bottom: 12px;
+		}
+
+		.inputContainer {
+			position: relative;
+
+			input {
+				border-radius: 0;
+				border: none;
+				border-bottom: 2px solid #d9d9d9;
+				width: 100%;
+				height: var(--height-input);
+				padding-left: 40px;
+				color: var(--font-color-input);
+
+				transition: {
+					property: all;
+					duration: 0.15s;
+					timing-function: ease-in-out;
+					delay: 0s;
+				}
+
+				&:focus {
+					box-shadow: none;
+					border-color: #000;
+					color: #000;
+				}
+			}
+
+			span {
+				position: absolute;
+				top: 8px;
+				left: 6px;
+				font-size: 20px;
+				color: var(--font-color-input);
+			}
+		}
+	}
+
+	.logoutBtn {
+		color: var(--secondary);
+
+		svg {
+			margin-right: 12px;
+		}
+	}
+
+	.deleteAccBtn {
+		color: var(--secondary);
+	}
+}
