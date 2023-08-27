@@ -16,6 +16,33 @@
 		}
 	}
 
+	.avatarBtns {
+		button {
+			height: var(--height-btn);
+			margin-left: 25px;
+
+			&:first-child {
+				background-color: var(--primary);
+				border: none;
+
+				label {
+					cursor: pointer;
+					padding: 0 45px;
+					line-height: 30px;
+				}
+
+				&:hover {
+					opacity: 0.8;
+				}
+			}
+
+			&:last-child {
+				padding: 0 45px;
+			}
+		}
+
+	}
+
 	.inputWrapper {
 		margin-bottom: 38px;
 

@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import styles from "../../scss/pages/Profile.module.scss";
 import clsx from "clsx";
 import meService from "../../services/meService";
@@ -6,6 +6,7 @@ import AuthContext from "../../contexts/AuthContext/AuthContext";
 import Notification from "../../utils/Notification";
 import { NotificationType } from "../../constants/NotificationType";
 import AntdButton from "../../utils/Button";
+import { Button } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faEnvelope } from "@fortawesome/free-regular-svg-icons";
 import {
@@ -47,8 +48,15 @@ const Profile = () => {
       setError(error.response.data.message);
     } finally {
       setLoading(false);
+      setSelectedFile(null);
     }
   };
+
+  useEffect(() => {
+    if (selectedFile) {
+      handleFileUpload();
+    }
+  }, [selectedFile]);
 
   return (
     <section className={styles.wrapper}>
@@ -59,19 +67,28 @@ const Profile = () => {
       <hr></hr>
       <div className="d-flex flex-wrap pt-3 pt-md-5 pb-4 mb-2 align-items-center">
         <div className={styles.avatarImg}>
-          <img src={authInfo?.avatar || ""} alt="avatar" />
+          <img
+            src={
+              authInfo?.avatar ||
+              "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
+            }
+            alt="avatar"
+          />
         </div>
-        <div className="d-flex">
-          <AntdButton
-            type="primary"
-            profileBtn="primary"
-            description="Change avatar"
-          />
-          <AntdButton
-            type="default"
-            profileBtn="default"
-            description="Delete"
-          />
+        <div className={styles.avatarBtns}>
+          <Button color="primary">
+            <label htmlFor="changeAvatar">
+              {loading ? "Loading..." : "Change avatar"}
+            </label>
+            <input
+              type="file"
+              id="changeAvatar"
+              hidden
+              onChange={handleFileChange}
+              accept="image/*"
+            />
+          </Button>
+          <Button color="outline-dark">Delete</Button>
         </div>
       </div>
       <div className="row">
@@ -123,12 +140,8 @@ const Profile = () => {
                 </div>
               </div>
             </div>
-            <div className="col-4 mb-5">
-              <AntdButton
-                type="primary"
-                profileBtn="profile"
-                description="Save"
-              />
+            <div className="col-3 mb-5">
+              <AntdButton description="Save" />
             </div>
           </form>
         </div>
@@ -139,12 +152,10 @@ const Profile = () => {
           <FontAwesomeIcon icon={faArrowRightFromBracket} />
           <span>Log out</span>
         </button>
-        <button className={clsx(styles.deleteAccBtn, "resetBtn")}>Delete account</button>
+        <button className={clsx(styles.deleteAccBtn, "resetBtn")}>
+          Delete account
+        </button>
       </div>
-
-      {/* {loading && <p>Avatar is uploading...</p>}
-      <input type="file" onChange={handleFileChange} accept="image/*" />
-      <button onClick={handleFileUpload}>Upload avatar</button> */}
     </section>
   );
 };

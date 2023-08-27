@@ -1,6 +1,6 @@
 .form-button {
   width: 100%;
-  height: 40px;
+  height: 48px;
   font-size: var(--font-size-normal);
   background-color: var(--primary);
   box-shadow: none;
@@ -8,29 +8,5 @@
   &:hover {
     background-color: var(--primary) !important;
     opacity: 0.8;
-  }
-}
-
-.profile-btn {
-  height: 48px;
-  font-size: 20px;
-}
-
-.primary-btn {
-  margin-left: 25px;
-  padding: 0 45px;
-}
-
-.default-btn {
-  margin-left: 25px;
-  padding: 0 45px;
-  background-color: transparent;
-  border: 1px solid #000;
-
-  &:hover {
-    background-color: #000 !important;
-    color: #fff !important;
-    opacity: 1 !important;
-    border: 1px solid #000 !important;
   }
 }

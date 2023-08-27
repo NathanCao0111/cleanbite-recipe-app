@@ -144,7 +144,6 @@ function Register() {
                   </div>
                   {error && <p className={styles.axiosError}>{error}</p>}
                   <AntdButton
-                    type="primary"
                     description={loading ? "Loading..." : "Register"}
                   />
                   <p className={styles.subDescription}>

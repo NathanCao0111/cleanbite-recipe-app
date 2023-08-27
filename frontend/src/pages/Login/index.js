@@ -121,7 +121,6 @@ function Login() {
                     </ErrorMessage>
                   </div>
                   <AntdButton
-                    type="primary"
                     description={loading ? "Loading..." : "Log in"}
                   />
                   <p className={styles.subDescription}>
