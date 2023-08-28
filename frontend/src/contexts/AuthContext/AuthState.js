@@ -15,12 +15,10 @@ const AuthState = ({ children }) => {
     try {
       const response = await authService.getMe();
       const user = response.data.data;
-      if (response.status === 200) {
-        return setAuth({
-          isAuthenticated: true,
-          user: user,
-        });
-      }
+      setAuth({
+        isAuthenticated: true,
+        user: user,
+      });
     } catch (error) {
       console.log(error);
     }

@@ -21,13 +21,12 @@ const Profile = () => {
   const [loadingDelete, setLoadingDelete] = useState(false);
   const [error, setError] = useState(null);
   const {
-    auth: { user },
+    auth,
     fetchCurrentUser,
   } = useContext(AuthContext);
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
-    console.log(file);
     setSelectedFile(file);
   };
 
@@ -55,9 +54,7 @@ const Profile = () => {
     try {
       setLoadingDelete(true);
 
-      meService.deleteAvatar();
-
-      setSelectedFile(null);
+      await meService.deleteAvatar();
 
       await fetchCurrentUser();
     } catch (error) {
@@ -84,7 +81,7 @@ const Profile = () => {
         <div className={styles.avatarImg}>
           <img
             src={
-              user?.avatar ||
+              auth.user.avatar ||
               "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
             }
             alt="avatar"
@@ -116,7 +113,7 @@ const Profile = () => {
                 <div className={styles.inputWrapper}>
                   <label>Full name</label>
                   <div className={styles.inputContainer}>
-                    <input type="text" value="abc" spellCheck={false} />
+                    <input type="text" spellCheck={false} />
                     <span>
                       <FontAwesomeIcon icon={faUser} />
                     </span>
@@ -127,7 +124,7 @@ const Profile = () => {
                 <div className={styles.inputWrapper}>
                   <label>Username</label>
                   <div className={styles.inputContainer}>
-                    <input type="text" value="abc" spellCheck={false} />
+                    <input type="text" spellCheck={false} />
                     <span>
                       <FontAwesomeIcon icon={faAt} />
                     </span>
@@ -138,7 +135,7 @@ const Profile = () => {
                 <div className={styles.inputWrapper}>
                   <label>Email</label>
                   <div className={styles.inputContainer}>
-                    <input type="email" value="abc" spellCheck={false} />
+                    <input type="email" spellCheck={false} />
                     <span>
                       <FontAwesomeIcon icon={faEnvelope} />
                     </span>
@@ -149,7 +146,7 @@ const Profile = () => {
                 <div className={styles.inputWrapper}>
                   <label>Password</label>
                   <div className={styles.inputContainer}>
-                    <input type="password" value="abc" spellCheck={false} />
+                    <input type="password" spellCheck={false} />
                     <span>
                       <FontAwesomeIcon icon={faLock} />
                     </span>
