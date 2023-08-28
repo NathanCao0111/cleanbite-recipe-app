@@ -8,6 +8,9 @@ const meService = {
         "Content-Type": "multipart/form-data",
       },
     }),
+  deleteAvatar: () => {
+    axiosInstance.delete(MeApi.DELETE_AVATAR);
+  },
 };
 
 export default meService;

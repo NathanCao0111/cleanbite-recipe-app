@@ -77,6 +77,21 @@ class MeController {
       resClientData(res, 400, null, error.message);
     }
   }
+
+  // [PATCH] /api/v1/me/delete-avatar
+  async deleteAvatar(req, res) {
+    try {
+      const { id } = req.user;
+      const updatedUser = await User.findOneAndUpdate(
+        { _id: id },
+        { avatar: "" },
+        { new: true }
+      ).select("-password");
+      resClientData(res, 200, updatedUser);
+    } catch (error) {
+      resClientData(res, 400, null, error.message);
+    }
+  }
 }
 
 module.exports = new MeController();

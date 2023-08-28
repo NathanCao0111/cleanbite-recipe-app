@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "../../../scss/components/Header.module.scss";
 import AuthContext from "../../../contexts/AuthContext/AuthContext";
 import { Button } from "reactstrap";
@@ -19,34 +19,47 @@ function Header() {
     navigate("/login");
   };
 
+  const notAuthenticatedNav = (
+    <>
+      <li>
+        <Link className="nav-link" to="/login">
+          Log in
+        </Link>
+      </li>
+      <li>
+        <Link className="nav-link" to="/register">
+          Register
+        </Link>
+      </li>
+    </>
+  );
+
+  const isAuthenticatedNav = (
+    <>
+      <li>
+        <Link className="nav-link" to="/profile">
+          Profile
+        </Link>
+      </li>
+      <li>
+        <Button className="btn btn-outline-dark" onClick={handleLogoutBtn}>
+          Log out
+        </Button>
+      </li>
+    </>
+  );
+
+  const navComponent = auth.isAuthenticated
+    ? isAuthenticatedNav
+    : notAuthenticatedNav;
+
   return (
-    <header className={styles.container}>
+    <header className={styles.wrapper}>
       <h3>
-        <NavLink to="/">Cleanbite</NavLink>
+        <Link to="/">Cleanbite</Link>
       </h3>
       <nav>
-        <ul>
-          <li>
-            <NavLink to="/profile">Profile</NavLink>
-          </li>
-          {!auth.isAuthenticated && (
-            <li>
-              <NavLink to="/register">Register</NavLink>
-            </li>
-          )}
-          {!auth.isAuthenticated && (
-            <li>
-              <NavLink to="/login">Login</NavLink>
-            </li>
-          )}
-          {auth.isAuthenticated && (
-            <li>
-              <Button color="secondary" onClick={handleLogoutBtn}>
-                Logout
-              </Button>
-            </li>
-          )}
-        </ul>
+        <ul>{navComponent}</ul>
       </nav>
     </header>
   );

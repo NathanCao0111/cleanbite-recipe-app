@@ -18,9 +18,10 @@ import {
 const Profile = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [loadingDelete, setLoadingDelete] = useState(false);
   const [error, setError] = useState(null);
   const {
-    auth: { authInfo },
+    auth: { user },
     fetchCurrentUser,
   } = useContext(AuthContext);
 
@@ -36,7 +37,6 @@ const Profile = () => {
     try {
       setLoading(true);
       const formData = new FormData();
-      console.log(formData);
       formData.append("avatar", selectedFile); //formData.append(name, value)
 
       // call API upload file
@@ -48,7 +48,22 @@ const Profile = () => {
       setError(error.response.data.message);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleDeleteAvatar = async () => {
+    try {
+      setLoadingDelete(true);
+
+      meService.deleteAvatar();
+
       setSelectedFile(null);
+
+      await fetchCurrentUser();
+    } catch (error) {
+      setError(error.response.data.message);
+    } finally {
+      setLoadingDelete(false);
     }
   };
 
@@ -69,7 +84,7 @@ const Profile = () => {
         <div className={styles.avatarImg}>
           <img
             src={
-              authInfo?.avatar ||
+              user?.avatar ||
               "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
             }
             alt="avatar"
@@ -88,7 +103,9 @@ const Profile = () => {
               accept="image/*"
             />
           </Button>
-          <Button color="outline-dark">Delete</Button>
+          <Button color="outline-dark" onClick={handleDeleteAvatar}>
+            {loadingDelete ? "Loading..." : "Delete"}
+          </Button>
         </div>
       </div>
       <div className="row">

@@ -5,7 +5,7 @@ import authService from "../../services/authService";
 const AuthState = ({ children }) => {
   const [auth, setAuth] = useState({
     isAuthenticated: false,
-    authInfo: {},
+    user: {},
   });
 
   // 1. call API /me => userInfo
@@ -18,7 +18,7 @@ const AuthState = ({ children }) => {
       if (response.status === 200) {
         return setAuth({
           isAuthenticated: true,
-          authInfo: user,
+          user: user,
         });
       }
     } catch (error) {
@@ -33,7 +33,7 @@ const AuthState = ({ children }) => {
   const handleLogout = () => {
     setAuth({
       isAuthenticated: false,
-      authInfo: {},
+      user: {},
     });
   };
 
@@ -46,7 +46,9 @@ const AuthState = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ auth, fetchCurrentUser, handleLogin, handleLogout }}>
+    <AuthContext.Provider
+      value={{ auth, fetchCurrentUser, handleLogin, handleLogout }}
+    >
       {children}
     </AuthContext.Provider>
   );
