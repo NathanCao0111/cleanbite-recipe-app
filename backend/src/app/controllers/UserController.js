@@ -10,10 +10,6 @@ class UserController {
     try {
       const { fullname, username, email, password } = req.body;
 
-      if (!(fullname && username && email && password)) {
-        throw new Error("All input is required");
-      }
-
       const existingUser = await User.findOneWithDeleted({ email });
       if (existingUser) {
         throw new Error("User has already existed");
@@ -44,10 +40,6 @@ class UserController {
   async login(req, res) {
     try {
       const { email, password, confirmPassword } = req.body;
-
-      if (!(email && password && confirmPassword)) {
-        throw new Error("All input is required");
-      }
 
       const existingUser = await User.findOne({ email });
       if (!existingUser) {
