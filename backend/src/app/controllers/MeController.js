@@ -10,7 +10,7 @@ class MeController {
   async getId(req, res) {
     try {
       const { id } = req.user;
-      const user = await User.findOne({ _id: id }, { new: true }).select(
+      const user = await User.findOne({ _id: id }).select(
         "-password"
       );
       resClientData(res, 200, user);
