@@ -1,10 +1,7 @@
 const Yup = require("yup");
 
 const registerSchema = Yup.object().shape({
-  fullname: Yup.string()
-    .min(2, "Too short!")
-    .max(70, "Too long!")
-    .required("Required"),
+  fullname: Yup.string().min(2, "Too short!").max(70, "Too long!"),
   username: Yup.string()
     .min(6, "Too short!")
     .max(20, "Too long!")

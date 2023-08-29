@@ -8,12 +8,22 @@ const UserSchema = new Schema(
     fullname: { type: String, trim: true, minLength: 2, maxLength: 70 },
     username: {
       type: String,
-      required: true,
       trim: true,
+      required: true,
+      unique: true,
       minLength: 6,
       maxLength: 20,
     },
-    email: { type: String, trim: true, required: true, unique: true },
+    email: {
+      type: String,
+      trim: true,
+      required: true,
+      unique: true,
+      validate: {
+        validator: (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value),
+        message: "Invalid email",
+      },
+    },
     password: {
       type: String,
       required: true,

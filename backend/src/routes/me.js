@@ -7,6 +7,7 @@ const uploadFile = require("../config/multer");
 router.get("/", meController.getId);
 router.get("/created", meController.createdRecipe);
 router.post("/create", meController.createRecipe);
+router.put("/update/profile", meController.updateProfile);
 router.post(
   "/upload-avatar",
   uploadFile.single("avatar"),

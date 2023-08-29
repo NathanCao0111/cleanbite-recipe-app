@@ -2,7 +2,8 @@ const resClientData = require("../../utils/resClientData");
 const User = require("../models/User");
 const Recipe = require("../models/Recipe");
 const fs = require("fs");
-const cloudinaryFile = require("../../services/cloudinaryFile");
+const cloudinaryFile = require("../../services/cloudinary");
+const bcryptPassword = require("../../utils/bcryptPassword");
 
 class MeController {
   // [GET] /api/v1/me/
@@ -80,13 +81,35 @@ class MeController {
     }
   }
 
-  // [PATCH] /api/v1/me/delete-avatar
+  // [DELETE] /api/v1/me/delete-avatar
   async deleteAvatar(req, res) {
     try {
       const { id } = req.user;
       const updatedUser = await User.findOneAndUpdate(
         { _id: id },
         { avatar: "" },
+        { new: true }
+      ).select("-password");
+      resClientData(res, 200, updatedUser);
+    } catch (error) {
+      resClientData(res, 400, null, error.message);
+    }
+  }
+
+  // [PUT] /api/v1/me/update/profile
+  async updateProfile(req, res) {
+    try {
+      const { id } = req.user;
+      const { fullname, username, email, password } = req.body;
+      const encryptedPassword = bcryptPassword(password);
+      const updatedUser = await User.findOneAndUpdate(
+        { _id: id },
+        {
+          fullname,
+          username,
+          email,
+          password: encryptedPassword,
+        },
         { new: true }
       ).select("-password");
       resClientData(res, 200, updatedUser);
