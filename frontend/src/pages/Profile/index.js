@@ -14,16 +14,68 @@ import {
   faLock,
   faArrowRightFromBracket,
 } from "@fortawesome/free-solid-svg-icons";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
+import { Modal } from "antd";
 
 const Profile = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const [loadingDelete, setLoadingDelete] = useState(false);
+  const [loadingSave, setLoadingSave] = useState(false);
   const [error, setError] = useState(null);
-  const {
-    auth,
-    fetchCurrentUser,
-  } = useContext(AuthContext);
+  const [pwDisabled, setPwDisabled] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { auth, fetchCurrentUser } = useContext(AuthContext);
+
+  const initialValues = {
+    fullname: auth.user.fullname,
+    username: auth.user.username,
+    email: auth.user.email,
+    password: auth.user.password,
+  };
+
+  const ProfileSchema = Yup.object().shape({
+    fullname: Yup.string()
+      .min(2, "Too short!")
+      .max(70, "Too long!")
+      .required("Required"),
+    username: Yup.string()
+      .min(6, "Too short!")
+      .max(20, "Too long!")
+      .required("Required"),
+    email: Yup.string().email("Invalid email").required("Required"),
+    password: Yup.string()
+      .min(8, "Password must be at least 8 characters long")
+      .matches(
+        /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/,
+        "Password requires a number, a lowercase letter, an uppercase letter & a symbol"
+      )
+      .required("Required"),
+  });
+
+  const handleProfileSubmit = async (values) => {
+    try {
+      setLoadingSave(true);
+      setError(null);
+    } catch (error) {
+      setError(error.response.data.message);
+    } finally {
+      setLoadingSave(false);
+    }
+  };
+
+  const handleChangePwBtn = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -106,59 +158,119 @@ const Profile = () => {
         </div>
       </div>
       <div className="row">
-        <div className="col-lg-8">
-          <form className="mt-4">
-            <div className="row mb-2">
-              <div className="col-sm-6">
-                <div className={styles.inputWrapper}>
-                  <label>Full name</label>
-                  <div className={styles.inputContainer}>
-                    <input type="text" spellCheck={false} />
-                    <span>
-                      <FontAwesomeIcon icon={faUser} />
-                    </span>
+        <Formik
+          initialValues={initialValues}
+          validationSchema={ProfileSchema}
+          onSubmit={handleProfileSubmit}
+        >
+          {({ errors, touched }) => {
+            return (
+              <Form>
+                <div className="col-lg-8 mt-4">
+                  <div className="row mb-2">
+                    <div className="col-sm-6">
+                      <div className={styles.inputWrapper}>
+                        <label htmlFor="fullname">Full name</label>
+                        <div className={styles.inputContainer}>
+                          <Field
+                            type="text"
+                            id="fullname"
+                            name="fullname"
+                            spellCheck={false}
+                          />
+                          <span>
+                            <FontAwesomeIcon icon={faUser} />
+                          </span>
+                        </div>
+                        <ErrorMessage name="fullname">
+                          {(msg) => <div className={styles.error}>{msg}</div>}
+                        </ErrorMessage>
+                      </div>
+                    </div>
+                    <div className="col-sm-6">
+                      <div className={styles.inputWrapper}>
+                        <label htmlFor="username">Username</label>
+                        <div className={styles.inputContainer}>
+                          <Field
+                            type="text"
+                            id="username"
+                            name="username"
+                            spellCheck={false}
+                          />
+                          <span>
+                            <FontAwesomeIcon icon={faAt} />
+                          </span>
+                        </div>
+                        <ErrorMessage name="username">
+                          {(msg) => <div className={styles.error}>{msg}</div>}
+                        </ErrorMessage>
+                      </div>
+                    </div>
+                    <div className="col-sm-6">
+                      <div className={styles.inputWrapper}>
+                        <label htmlFor="email">Email</label>
+                        <div className={styles.inputContainer}>
+                          <Field
+                            type="email"
+                            id="email"
+                            name="email"
+                            spellCheck={false}
+                          />
+                          <span>
+                            <FontAwesomeIcon icon={faEnvelope} />
+                          </span>
+                        </div>
+                        <ErrorMessage name="email">
+                          {(msg) => <div className={styles.error}>{msg}</div>}
+                        </ErrorMessage>
+                      </div>
+                    </div>
+                    <div className="col-sm-6">
+                      <div className={styles.inputWrapper}>
+                        <label>Password</label>
+                        <div className={styles.inputContainer}>
+                          <Field
+                            type="password"
+                            name="password"
+                            spellCheck={false}
+                            disabled={pwDisabled}
+                          />
+                          <span>
+                            <FontAwesomeIcon icon={faLock} />
+                          </span>
+                        </div>
+                        <button
+                          className={clsx(styles.changePw, "resetBtn")}
+                          onClick={handleChangePwBtn}
+                        >
+                          Change
+                        </button>
+                        <Modal
+                          title="Password Confirmation"
+                          open={isModalOpen}
+                          onOk={handleOk}
+                          onCancel={handleCancel}
+                        >
+                          <p>Some contents...</p>
+                          <p>Some contents...</p>
+                          <p>Some contents...</p>
+                        </Modal>
+                        <ErrorMessage name="password">
+                          {(msg) => <div className={styles.error}>{msg}</div>}
+                        </ErrorMessage>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="col-3 mb-5">
+                    <AntdButton
+                      description={loadingSave ? "Loading..." : "Save"}
+                    />
                   </div>
                 </div>
-              </div>
-              <div className="col-sm-6">
-                <div className={styles.inputWrapper}>
-                  <label>Username</label>
-                  <div className={styles.inputContainer}>
-                    <input type="text" spellCheck={false} />
-                    <span>
-                      <FontAwesomeIcon icon={faAt} />
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <div className="col-sm-6">
-                <div className={styles.inputWrapper}>
-                  <label>Email</label>
-                  <div className={styles.inputContainer}>
-                    <input type="email" spellCheck={false} />
-                    <span>
-                      <FontAwesomeIcon icon={faEnvelope} />
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <div className="col-sm-6">
-                <div className={styles.inputWrapper}>
-                  <label>Password</label>
-                  <div className={styles.inputContainer}>
-                    <input type="password" spellCheck={false} />
-                    <span>
-                      <FontAwesomeIcon icon={faLock} />
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="col-3 mb-5">
-              <AntdButton description="Save" />
-            </div>
-          </form>
-        </div>
+              </Form>
+            );
+          }}
+        </Formik>
       </div>
       <hr></hr>
       <div className="d-flex align-items-center justify-content-between flex-wrap mb-4 mb-md-5">

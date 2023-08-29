@@ -10,9 +10,7 @@ class MeController {
   async getId(req, res) {
     try {
       const { id } = req.user;
-      const user = await User.findOne({ _id: id }).select(
-        "-password"
-      );
+      const user = await User.findOne({ _id: id });
       resClientData(res, 200, user);
     } catch (error) {
       resClientData(res, 400, null, error.message);

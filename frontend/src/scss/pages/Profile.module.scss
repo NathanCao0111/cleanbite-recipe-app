@@ -99,4 +99,18 @@
 	.deleteAccBtn {
 		color: var(--secondary);
 	}
+
+	.changePw {
+		width: 100%;
+		text-align: end;
+		color: var(--primary);
+		margin-top: 12px;
+		font-size: var(--font-size-input);
+	}
+
+	.error {
+		margin-top: 12px;
+		padding-bottom: 24px;
+		color: var(--primary);
+	}
 }
