@@ -1,4 +1,5 @@
 import { useState, useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "../../scss/pages/Profile.module.scss";
 import clsx from "clsx";
 import meService from "../../services/meService";
@@ -21,7 +22,8 @@ const Profile = () => {
   const [loadingSave, setLoadingSave] = useState(false);
   const [error, setError] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { auth, fetchCurrentUser } = useContext(AuthContext);
+  const { auth, fetchCurrentUser, handleLogout } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const initialValues = {
     fullname: auth.user.fullname,
@@ -66,7 +68,9 @@ const Profile = () => {
 
       await meService.deleteAccount();
 
-      await fetchCurrentUser();
+      localStorage.removeItem("accessToken");
+
+      handleLogout();
 
       setIsModalOpen(false);
     } catch (error) {
@@ -122,6 +126,12 @@ const Profile = () => {
       handleFileUpload();
     }
   }, [selectedFile]);
+
+  useEffect(() => {
+    if (!auth.isAuthenticated) {
+      navigate("/login");
+    }
+  }, [auth]);
 
   return (
     <section className={styles.wrapper}>
