@@ -88,24 +88,8 @@
 		}
 	}
 
-	.logoutBtn {
-		color: var(--secondary);
-
-		svg {
-			margin-right: 12px;
-		}
-	}
-
 	.deleteAccBtn {
 		color: var(--secondary);
-	}
-
-	.changePw {
-		width: 100%;
-		text-align: end;
-		color: var(--primary);
-		margin-top: 12px;
-		font-size: var(--font-size-input);
 	}
 
 	.error {

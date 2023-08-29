@@ -6,6 +6,8 @@ export const MeApi = {
   GET_CREATED_RECIPES: "/me/created",
   UPLOAD_AVATAR: "/me/upload-avatar",
   DELETE_AVATAR: "/me/delete-avatar",
+  UPDATE_PROFILE: "/me/update/profile",
+  DELETE_ACCOUNT: "/me/delete/account",
 };
 
 export const RecipesApi = {

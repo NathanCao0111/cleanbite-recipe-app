@@ -9,11 +9,7 @@ import AntdButton from "../../utils/Button";
 import { Button } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faEnvelope } from "@fortawesome/free-regular-svg-icons";
-import {
-  faAt,
-  faLock,
-  faArrowRightFromBracket,
-} from "@fortawesome/free-solid-svg-icons";
+import { faAt } from "@fortawesome/free-solid-svg-icons";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { Modal } from "antd";
@@ -24,7 +20,6 @@ const Profile = () => {
   const [loadingDelete, setLoadingDelete] = useState(false);
   const [loadingSave, setLoadingSave] = useState(false);
   const [error, setError] = useState(null);
-  const [pwDisabled, setPwDisabled] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { auth, fetchCurrentUser } = useContext(AuthContext);
 
@@ -32,7 +27,6 @@ const Profile = () => {
     fullname: auth.user.fullname,
     username: auth.user.username,
     email: auth.user.email,
-    password: auth.user.password,
   };
 
   const ProfileSchema = Yup.object().shape({
@@ -45,19 +39,16 @@ const Profile = () => {
       .max(20, "Too long!")
       .required("Required"),
     email: Yup.string().email("Invalid email").required("Required"),
-    password: Yup.string()
-      .min(8, "Password must be at least 8 characters long")
-      .matches(
-        /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/,
-        "Password requires a number, a lowercase letter, an uppercase letter & a symbol"
-      )
-      .required("Required"),
   });
 
   const handleProfileSubmit = async (values) => {
     try {
       setLoadingSave(true);
       setError(null);
+
+      await meService.updateProfile(values);
+
+      await fetchCurrentUser();
     } catch (error) {
       setError(error.response.data.message);
     } finally {
@@ -65,12 +56,22 @@ const Profile = () => {
     }
   };
 
-  const handleChangePwBtn = () => {
+  const showModal = () => {
     setIsModalOpen(true);
   };
 
-  const handleOk = () => {
-    setIsModalOpen(false);
+  const handleOk = async () => {
+    try {
+      setError(null);
+
+      await meService.deleteAccount();
+
+      await fetchCurrentUser();
+
+      setIsModalOpen(false);
+    } catch (error) {
+      setError(error.response.data.message);
+    }
   };
 
   const handleCancel = () => {
@@ -225,41 +226,6 @@ const Profile = () => {
                         </ErrorMessage>
                       </div>
                     </div>
-                    <div className="col-sm-6">
-                      <div className={styles.inputWrapper}>
-                        <label>Password</label>
-                        <div className={styles.inputContainer}>
-                          <Field
-                            type="password"
-                            name="password"
-                            spellCheck={false}
-                            disabled={pwDisabled}
-                          />
-                          <span>
-                            <FontAwesomeIcon icon={faLock} />
-                          </span>
-                        </div>
-                        <button
-                          className={clsx(styles.changePw, "resetBtn")}
-                          onClick={handleChangePwBtn}
-                        >
-                          Change
-                        </button>
-                        <Modal
-                          title="Password Confirmation"
-                          open={isModalOpen}
-                          onOk={handleOk}
-                          onCancel={handleCancel}
-                        >
-                          <p>Some contents...</p>
-                          <p>Some contents...</p>
-                          <p>Some contents...</p>
-                        </Modal>
-                        <ErrorMessage name="password">
-                          {(msg) => <div className={styles.error}>{msg}</div>}
-                        </ErrorMessage>
-                      </div>
-                    </div>
                   </div>
                   <div className="col-3 mb-5">
                     <AntdButton
@@ -273,14 +239,29 @@ const Profile = () => {
         </Formik>
       </div>
       <hr></hr>
-      <div className="d-flex align-items-center justify-content-between flex-wrap mb-4 mb-md-5">
-        <button className={clsx(styles.logoutBtn, "resetBtn")}>
-          <FontAwesomeIcon icon={faArrowRightFromBracket} />
-          <span>Log out</span>
-        </button>
-        <button className={clsx(styles.deleteAccBtn, "resetBtn")}>
+      <div className="d-flex align-items-center justify-content-end flex-wrap mb-4 mb-md-5">
+        <button
+          className={clsx(styles.deleteAccBtn, "resetBtn")}
+          onClick={showModal}
+        >
           Delete account
         </button>
+        <Modal
+          title="Delete account confirmation"
+          centered
+          open={isModalOpen}
+          onOk={handleOk}
+          onCancel={handleCancel}
+          okButtonProps={{
+            style: {
+              backgroundColor: "#ff642b",
+              boxShadow: "0 0 0 2px rgba(255, 165, 5, 0.1)",
+            },
+          }}
+          cancelButtonProps={{ type: "text" }}
+        >
+          <p>Are you sure you want to delete this account?</p>
+        </Modal>
       </div>
     </section>
   );

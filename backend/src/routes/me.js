@@ -14,5 +14,6 @@ router.post(
   meController.uploadAvatar
 );
 router.delete("/delete-avatar", meController.deleteAvatar);
+router.delete("/delete/account", meController.deleteAccount);
 
 module.exports = router;

@@ -11,6 +11,12 @@ const meService = {
   deleteAvatar: async () => {
     await axiosInstance.delete(MeApi.DELETE_AVATAR);
   },
+  updateProfile: async (values) => {
+    await axiosInstance.put(MeApi.UPDATE_PROFILE, values);
+  },
+  deleteAccount: async () => {
+    await axiosInstance.delete(MeApi.DELETE_ACCOUNT);
+  },
 };
 
 export default meService;

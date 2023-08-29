@@ -10,7 +10,7 @@ class MeController {
   async getId(req, res) {
     try {
       const { id } = req.user;
-      const user = await User.findOne({ _id: id });
+      const user = await User.findOne({ _id: id }).select("-password");
       resClientData(res, 200, user);
     } catch (error) {
       resClientData(res, 400, null, error.message);
@@ -98,21 +98,30 @@ class MeController {
   async updateProfile(req, res) {
     try {
       const { id } = req.user;
-      const { fullname, username, email, password } = req.body;
-      const encryptedPassword = bcryptPassword(password);
+      const { fullname, username, email } = req.body;
       const updatedUser = await User.findOneAndUpdate(
         { _id: id },
         {
           fullname,
           username,
           email,
-          password: encryptedPassword,
         },
         { new: true }
       ).select("-password");
       resClientData(res, 200, updatedUser);
     } catch (error) {
       resClientData(res, 400, null, error.message);
+    }
+  }
+
+  // [DELETE] /api/v1/me/delete/account
+  async deleteAccount(req, res) {
+    try {
+      const { id } = req.user;
+      const deletedUser = await User.delete({ _id: id });
+      resClientData(res, 200, deletedUser);
+    } catch (error) {
+      resClientData(res, 200, null, error.message);
     }
   }
 }
