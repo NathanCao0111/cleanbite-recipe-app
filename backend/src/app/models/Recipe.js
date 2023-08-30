@@ -29,6 +29,7 @@ const RecipeSchema = new Schema(
     title: { type: String, trim: true, required: true },
     description: { type: String, trim: true, required: true, maxLength: 300 },
     cuisine: { type: String, trim: true },
+    level: { type: String, required: true },
     ingredients: { type: Array, required: true },
     method: { type: Array, required: true },
     time: TimeSchema,

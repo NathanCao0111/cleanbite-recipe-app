@@ -1,44 +1,37 @@
 {
-  "title": "Slow cooker beef bourguignon",
-  "description": "Feed a crowd or freeze a batch of our comforting beef bourguignon. This classic recipe uses slow-cooked beef and red wine for a deliciously rich stew",
-  "cuisine": "French",
+  "title": "Olive oil bread",
+  "description": "Follow this simple step-by-step method for a homemade loaf, or adapt to include your favourite flavours",
+  "cuisine": "",
+  "level": "Easy",
   "ingredients": [
-    "3 tbsp vegetable oil",
-    "1 ½kg stewing or braising steak, cut into small chunks",
-    "2 large onions, chopped",
-    "2 carrots, chopped",
-    "2 celery stalks, chopped",
-    "2 bay leaves",
-    "2 thyme sprigs or rosemary sprigs",
-    "3 tbsp plain flour",
-    "750ml bottle red wine",
-    "1 beef stock cube",
-    "1 tsp caster sugar",
-    "2 tbsp tomato purée",
-    "100g unsmoked bacon lardons",
-    "6 small shallots or baby onions, halved or quartered",
-    "300g closed cup mushrooms, halved or quartered",
-    "mashed potatoes or crusty bread, to serve"
+    "7g sachet easy-blend yeast or 15g fresh yeast",
+    "500g strong white bread flour, plus extra for dusting",
+    "2 tsp salt",
+    "1 tsp sugar",
+    "2 tbsp olive oil"
   ],
   "method": [
-    "Turn the slow cooker to low and heat 2 tbsp of the oil in a large frying pan. Season the meat and fry for 3-4 mins in batches until browned all over, scooping out each batch with a slotted spoon and transferring the browned meat to a plate.",
-    "Tip the onion, carrot and celery into the pan and fry for 5-10 mins until soft. Add the herbs and flour and cook for another 2 mins. Pour a splash of the wine into a bowl, then add the stock cube, sugar and tomato purée and mix to form a paste. Scrape the paste into the onion mix and pour in the remaining wine. Bring the mixture to a bubble, then transfer to the slow cooker. Stir in the browned beef, topping up with a splash of water to cover the meat if needed. Simmer on low for 6-8 hrs until the meat is falling apart but still holding its shape.",
-    "About 35 mins before serving, heat the remaining oil in a pan. Fry the bacon, shallots and mushrooms for 5-8 mins until caramelised and the veg is starting to soften, then tip into the slow cooker. Simmer the stew gently on high for 30 mins. If you want a thicker gravy, use the reduce function or leave the stew uncovered. Serve with mashed potatoes or crusty bread, if you like."
+    "Tip the flour into a mixing bowl. For easy-blend dried yeast, stir this into the flour. For fresh yeast, crumble it and rub into the flour as you would with butter when making pastry. Add the salt and sugar.",
+    "Boil the kettle and measure 100ml into a jug. Top up with cold water to the 300ml mark. Test the temperature with your finger – it should feel perfectly hand-hot. Add the oil.",
+    "Make a well in the centre of the dry ingredients and pour in the liquid all at once. Mix quickly using your hands or a wooden fork to make a soft and slightly sticky dough. Wipe the dough around the bowl to pick up any loose flour.",
+    "Sprinkle the work surface with flour and tip out the dough. Knead by stretching it away from you, then folding it in half towards you and pushing it away with the heel of your hand. Give it a quarter turn and repeat, developing a rhythm.",
+    "When the dough is smooth, put it back into the mixing bowl, cover with a tea towel and leave to rest for 1 hr (no need to find a warm place). The dough is ready when it springs back when you press it with your finger. (At this stage, you can add other flavourings - see 'Goes well with', right).",
+    "Tip dough onto a floured surface, knead to remove air bubbles. Shape into a round, place on an oiled baking sheet and slash top with sharp knife. Cover and rise for 30 mins. Heat oven to 240C/220C fan/gas 8. Bake for 30-35 mins until browned and crisp."
   ],
   "time": {
-    "preparation": "20 mins",
-    "cooking": "6 hrs - 8 hrs"
+    "preparation": "10 mins",
+    "cooking": "35 mins"
   },
-  "serves": "6 - 8",
-  "image": "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/slow-cooker-beef-bourguignon-3aa62ab.jpg?quality=90&webp=true&resize=300,272",
+  "serves": "1 loaf",
+  "image": "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/recipe-image-legacy-id-593451_12-9125df3.jpg?quality=90&webp=true&resize=300,272",
   "nutrition": {
-    "kcal": "497",
-    "fat": "20g",
-    "saturates": "7g",
-    "carbs": "14g",
-    "sugars": "7g",
-    "fibre": "3g",
-    "protein": "47g",
-    "salt": "1g"
+    "kcal": "0",
+    "fat": "0g",
+    "saturates": "0g",
+    "carbs": "0g",
+    "sugars": "0g",
+    "fibre": "0g",
+    "protein": "0g",
+    "salt": "0g"
   }
 }
