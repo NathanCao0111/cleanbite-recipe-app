@@ -57,7 +57,7 @@ class MeController {
         user: id,
         nutrition,
       });
-      resClientData(res, 200, recipe);
+      resClientData(res, 201, recipe);
     } catch (error) {
       resClientData(res, 400, null, error.message);
     }
