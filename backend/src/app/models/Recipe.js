@@ -10,25 +10,32 @@ const TimeSchema = new Schema(
   { _id: false }
 );
 
-// const RatingSchema = new Schema(
-//   {
-//     stars: Number,
-//     ratings: Number,
-//   },
-//   { _id: false }
-// );
+const NutritionSchema = new Schema(
+  {
+    kcal: String,
+    fat: String,
+    saturates: String,
+    carbs: String,
+    sugars: String,
+    fibre: String,
+    protein: String,
+    salt: String,
+  },
+  { _id: false }
+);
 
 const RecipeSchema = new Schema(
   {
     title: { type: String, trim: true, required: true },
+    description: { type: String, trim: true, required: true, maxLength: 300 },
     cuisine: { type: String, trim: true },
     ingredients: { type: Array, required: true },
     method: { type: Array, required: true },
     time: TimeSchema,
     serves: { type: Number, required: true },
-    // rating: RatingSchema,
     image: { type: String, trim: true, required: true },
     userId: { type: Schema.Types.ObjectId, ref: "User" },
+    nutrition: NutritionSchema,
   },
   { timestamps: true }
 );

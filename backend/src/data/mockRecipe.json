@@ -1,24 +1,44 @@
 {
-  "title": "Slow-cooker beef stew",
-  "cuisine": "American",
+  "title": "Slow cooker beef bourguignon",
+  "description": "Feed a crowd or freeze a batch of our comforting beef bourguignon. This classic recipe uses slow-cooked beef and red wine for a deliciously rich stew",
+  "cuisine": "French",
   "ingredients": [
-    "1 onion, chopped",
-    "2 celery sticks, finely chopped",
-    "2 tbsp rapeseed oil",
-    "3 carrots, halved and cut into chunks",
+    "3 tbsp vegetable oil",
+    "1 ½kg stewing or braising steak, cut into small chunks",
+    "2 large onions, chopped",
+    "2 carrots, chopped",
+    "2 celery stalks, chopped",
     "2 bay leaves",
-    "½ pack thyme",
-    "2 tbsp tomato purée"
+    "2 thyme sprigs or rosemary sprigs",
+    "3 tbsp plain flour",
+    "750ml bottle red wine",
+    "1 beef stock cube",
+    "1 tsp caster sugar",
+    "2 tbsp tomato purée",
+    "100g unsmoked bacon lardons",
+    "6 small shallots or baby onions, halved or quartered",
+    "300g closed cup mushrooms, halved or quartered",
+    "mashed potatoes or crusty bread, to serve"
   ],
   "method": [
-    "STEP 1 Fry the onion and celery in 1 tbsp oil over a low heat until they start to soften – about 5 mins. Add the carrots, bay and thyme, fry for 2 mins, stir in the purée and Worcestershire sauce, add 600ml boiling water, stir and tip everything into a slow cooker. Crumble over the stock cubes or add the stock pots and stir, then season with pepper (don’t add salt as the stock may be salty).",
-    "STEP 2 Clean out the frying pan and fry the beef in the remaining oil in batches until it is well browned, then tip each batch into the slow cooker. Cook on low for 8-10 hrs, or on high for 4 hrs.",
-    "STEP 3 If you want to thicken the gravy, mix the cornflour with a splash of cold water to make a paste, then stir in 2 tbsp of the liquid from the slow cooker. Tip back into the slow cooker, stir and cook for a further 30 mins on high. Stir in the parsley and season again to taste. Serve with mash, if you like. Leave to cool before freezing."
+    "Turn the slow cooker to low and heat 2 tbsp of the oil in a large frying pan. Season the meat and fry for 3-4 mins in batches until browned all over, scooping out each batch with a slotted spoon and transferring the browned meat to a plate.",
+    "Tip the onion, carrot and celery into the pan and fry for 5-10 mins until soft. Add the herbs and flour and cook for another 2 mins. Pour a splash of the wine into a bowl, then add the stock cube, sugar and tomato purée and mix to form a paste. Scrape the paste into the onion mix and pour in the remaining wine. Bring the mixture to a bubble, then transfer to the slow cooker. Stir in the browned beef, topping up with a splash of water to cover the meat if needed. Simmer on low for 6-8 hrs until the meat is falling apart but still holding its shape.",
+    "About 35 mins before serving, heat the remaining oil in a pan. Fry the bacon, shallots and mushrooms for 5-8 mins until caramelised and the veg is starting to soften, then tip into the slow cooker. Simmer the stew gently on high for 30 mins. If you want a thicker gravy, use the reduce function or leave the stew uncovered. Serve with mashed potatoes or crusty bread, if you like."
   ],
   "time": {
     "preparation": "20 mins",
-    "cooking": "4 hrs"
+    "cooking": "6 hrs - 8 hrs"
   },
-  "serves": 4,
-  "image": "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/slow-cooker-beef-stew-8ade07f.jpg?quality=90&webp=true&resize=300,272"
+  "serves": "6 - 8",
+  "image": "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/slow-cooker-beef-bourguignon-3aa62ab.jpg?quality=90&webp=true&resize=300,272",
+  "nutrition": {
+    "kcal": "497",
+    "fat": "20g",
+    "saturates": "7g",
+    "carbs": "14g",
+    "sugars": "7g",
+    "fibre": "3g",
+    "protein": "47g",
+    "salt": "1g"
+  }
 }

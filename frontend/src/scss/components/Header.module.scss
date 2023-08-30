@@ -1,35 +1,92 @@
 .wrapper {
-	background-color: #000;
-	padding: 16px 40px;
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	color: #fff;
 	width: 100%;
+	height: var(--default-layout-header-height);
+	background-color: rgba(0, 0, 0, 0.8);
+	color: #fff;
+	display: flex;
+	justify-content: center;
 
-	h3 {
-		a {
-			text-decoration: none;
-			color: #fff;
-		}
-	}
-
-	ul {
-		list-style: none;
-		padding-left: 0;
+	.container {
+		width: 100%;
+		max-width: var(--default-layout-max-width);
+		height: var(--default-layout-header-height);
+		padding: 0 20px;
 		display: flex;
 		align-items: center;
-		gap: 16px;
-		color: #fff;
-		margin: 0;
+		justify-content: space-between;
 
-		a {
-			text-decoration: none;
-			color: #fff;
+		h3 {
+			a {
+				text-decoration: none;
+				color: #fff;
+				font-size: var(--font-size-heading);
+			}
 		}
 
-		button {
-			color: #fff;
+
+		nav {
+			ul {
+				list-style: none;
+				padding-left: 0;
+				display: flex;
+				align-items: center;
+				gap: 25px;
+				color: #fff;
+				margin: 0;
+
+				a {
+					text-decoration: none;
+					color: #fff;
+					font-size: var(--font-size-navLink);
+
+					transition: {
+						property: all;
+						duration: 0.15s;
+						timing-function: ease-in-out;
+						delay: 0s;
+					}
+
+					&:hover {
+						opacity: 0.8;
+					}
+				}
+
+				button {
+					color: #fff;
+				}
+			}
+
+			.hoverMe {
+				display: flex;
+				align-items: center;
+				gap: 12px;
+
+				.imgContainer {
+					img {
+						width: 40px;
+						height: 40px;
+						object-fit: cover;
+						border-radius: 50%;
+					}
+				}
+
+				p {
+					margin-bottom: 0;
+				}
+
+				span {
+					font-size: 14px;
+				}
+			}
+
+			.line {
+				width: 2px;
+				height: 20px;
+				background-color: #fff;
+				margin: 0 -12px;
+				position: relative;
+				top: 2px;
+			}
 		}
 	}
 }
