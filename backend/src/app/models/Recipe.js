@@ -32,7 +32,7 @@ const RecipeSchema = new Schema(
     ingredients: { type: Array, required: true },
     method: { type: Array, required: true },
     time: TimeSchema,
-    serves: { type: Number, required: true },
+    serves: { type: String, required: true },
     image: { type: String, trim: true, required: true },
     userId: { type: Schema.Types.ObjectId, ref: "User" },
     nutrition: NutritionSchema,

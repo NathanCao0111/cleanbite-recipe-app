@@ -32,10 +32,20 @@ class MeController {
   async createRecipe(req, res) {
     try {
       const { id } = req.user;
-      const { title, cuisine, ingredients, method, time, serves, image } =
-        req.body;
+      const {
+        title,
+        description,
+        cuisine,
+        ingredients,
+        method,
+        time,
+        serves,
+        image,
+        nutrition,
+      } = req.body;
       const recipe = await Recipe.create({
         title,
+        description,
         cuisine,
         ingredients,
         method,
@@ -43,6 +53,7 @@ class MeController {
         serves,
         image,
         user: id,
+        nutrition,
       });
       resClientData(res, 200, recipe);
     } catch (error) {
