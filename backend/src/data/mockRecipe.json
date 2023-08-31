@@ -1,45 +1,37 @@
 {
-  "title": "Red onion, gruyère & rosemary fougasse",
-  "description": "This flat, round fougasse loaf is very popular all over France and is a cousin of the Italian focaccia",
-  "cuisine": "French",
+  "title": "Paprika pork",
+  "description": "This healthy one-pot is a midweek miracle. Pork and mushrooms are cooked in a cream sauce that's flavoured with smoked paprika to make a hearty stew. Serve with rice, noodles or potatoes",
+  "cuisine": "",
   "level": "Easy",
   "ingredients": [
-    "1 red onion",
-    "1 tbsp olive oil, plus a little extra",
-    "100g gruyère",
-    "few rosemary sprigs",
-    "coarse sea salt",
-    "7g sachet easy-blend yeast or 15g fresh yeast",
-    "500g strong white bread flour, plus extra for dusting",
-    "2 tsp salt",
-    "1 tsp sugar",
-    "2 tbsp olive oil"
+    "1 tbsp olive oil",
+    "2 onions, finely sliced",
+    "400g pork fillet, trimmed of any fat, cut into thick strips",
+    "250g pack mushroom, sliced",
+    "1 ½ tbsp smoked paprika",
+    "1 tbsp tomato purée",
+    "200ml chicken stock",
+    "100ml soured cream",
+    "egg noodles, tagliatelle or rice, to serve"
   ],
   "method": [
-    "Tip the flour into a mixing bowl. For easy-blend dried yeast, stir this into the flour. For fresh yeast, crumble it and rub into the flour as you would with butter when making pastry. Add the salt and sugar.",
-    "Boil the kettle and measure 100ml into a jug. Top up with cold water to the 300ml mark. Test the temperature with your finger – it should feel perfectly hand-hot. Add the oil.",
-    "Make a well in the centre of the dry ingredients and pour in the liquid all at once. Mix quickly using your hands or a wooden fork to make a soft and slightly sticky dough. Wipe the dough around the bowl to pick up any loose flour.",
-    "Sprinkle the work surface with flour and tip out the dough. Knead by stretching it away from you, then folding it in half towards you and pushing it away with the heel of your hand. Give it a quarter turn and repeat, developing a rhythm.",
-    "When the dough is smooth, put it back into the mixing bowl, cover with a tea towel and leave to rest for 1 hr (no need to find a warm place). The dough is ready when it springs back when you press it with your finger.",
-    "Thinly slice the onion and gently cook in the oil until softened, about 5 mins. Cut the gruyère into small cubes. Chop half the rosemary.",
-    "Tip the dough onto a lightly floured surface and lightly knead in the onion and chopped rosemary.",
-    "Using a sharp knife, cut the dough in half. Roll or press out one piece of dough to a rectangular shape about 20cm x 25cm, then transfer to a baking sheet lined with non-stick paper. Make a large diagonal cut across the centre of the dough almost to the ends. Make three smaller diagonal cuts either side of the large cut to make a leaf shape.",
-    "Repeat with the other piece of dough. Stick gruyère cubes and rosemary sprigs into the dough at intervals, then sprinkle with a little flour and sea salt. Heat oven to 240C/220C fan/gas 8. Leave the loaves to prove for 20 mins then bake for 13-15 mins until golden. Serve warm with soups and starters."
+    "Heat the oil in a large pan, tip in the onions and cook for 10 mins until soft and golden. Add the pork and mushrooms and cook on a high heat for 3-4 mins until browned. Add the paprika and cook for 1 min more.",
+    "Stir in the tomato purée, then pour on the stock and simmer for 5-8 mins until the pork is cooked through. Finally, mix in the soured cream and some seasoning. Serve with egg noodles, tagliatelle or rice, and an extra dollop of soured cream, if you like."
   ],
   "time": {
-    "preparation": "30 mins",
-    "cooking": "20 mins"
+    "preparation": "10 mins",
+    "cooking": "25 mins"
   },
-  "serves": "3-4 (1 loaf)",
-  "image": "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/recipe-image-legacy-id-593456_11-25b5211.jpg?quality=90&webp=true&resize=300,272",
+  "serves": "4",
+  "image": "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/recipe-image-legacy-id-525506_11-cac1001.jpg?quality=90&webp=true&resize=300,272",
   "nutrition": {
-    "kcal": "322",
-    "fat": "11g",
-    "saturates": "4g",
-    "carbs": "49g",
-    "sugars": "2g",
+    "kcal": "257",
+    "fat": "13g",
+    "saturates": "5g",
+    "carbs": "9g",
+    "sugars": "5g",
     "fibre": "2g",
-    "protein": "11g",
-    "salt": "1.96g"
+    "protein": "27g",
+    "salt": "0.35g"
   }
 }

@@ -3,18 +3,13 @@ const User = require("../models/User");
 const Recipe = require("../models/Recipe");
 const fs = require("fs");
 const cloudinaryFile = require("../../services/cloudinary");
-const bcryptPassword = require("../../utils/bcryptPassword");
 
 class MeController {
   // [GET] /api/v1/me/
   async getId(req, res) {
-    try {
-      const { id } = req.user;
-      const user = await User.findOne({ _id: id }).select("-password");
-      resClientData(res, 200, user);
-    } catch (error) {
-      resClientData(res, 400, null, error.message);
-    }
+    const { id } = req.user;
+    const user = await User.findOne({ _id: id }).select("-password");
+    resClientData(res, 200, user);
   }
 
   // [GET] /api/v1/me/created

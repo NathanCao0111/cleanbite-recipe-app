@@ -3,8 +3,9 @@ const router = express.Router();
 
 const meController = require("../app/controllers/MeController");
 const uploadFile = require("../config/multer");
+const asyncHandler = require("express-async-handler");
 
-router.get("/", meController.getId);
+router.get("/", asyncHandler(meController.getId));
 router.get("/created", meController.createdRecipe);
 router.post("/create", meController.createRecipe);
 router.put("/update/profile", meController.updateProfile);
