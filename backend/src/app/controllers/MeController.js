@@ -54,11 +54,9 @@ class MeController {
   async uploadAvatar(req, res) {
     // step 1: add file from client to server
     const file = req.file;
-    console.log(file);
 
     // step 2: upload file to cloudinary => url
     const result = await cloudinaryFile(file);
-    console.log(result);
 
     // step 3: remove temporary image
     fs.unlinkSync(file.path);
