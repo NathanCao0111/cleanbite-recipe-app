@@ -6,15 +6,15 @@ const uploadFile = require("../config/multer");
 const asyncHandler = require("express-async-handler");
 
 router.get("/", asyncHandler(meController.getId));
-router.get("/created", meController.createdRecipe);
-router.post("/create", meController.createRecipe);
-router.put("/update/profile", meController.updateProfile);
+router.get("/created", asyncHandler(meController.createdRecipe));
+router.post("/create", asyncHandler(meController.createRecipe));
+router.put("/update/profile", asyncHandler(meController.updateProfile));
 router.post(
   "/upload-avatar",
   uploadFile.single("avatar"),
-  meController.uploadAvatar
+  asyncHandler(meController.uploadAvatar)
 );
-router.delete("/delete-avatar", meController.deleteAvatar);
-router.delete("/delete/account", meController.deleteAccount);
+router.delete("/delete-avatar", asyncHandler(meController.deleteAvatar));
+router.delete("/delete/account", asyncHandler(meController.deleteAccount));
 
 module.exports = router;

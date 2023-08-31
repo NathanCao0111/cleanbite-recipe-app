@@ -5,12 +5,17 @@ const userController = require("../app/controllers/UserController");
 const validateMdw = require("../middlewares/validateMdw");
 const loginSchema = require("../validations/login");
 const registerSchema = require("../validations/register");
+const asyncHandler = require("express-async-handler");
 
 router.post(
   "/auth/register",
   validateMdw(registerSchema),
-  userController.register
+  asyncHandler(userController.register)
 );
-router.post("/auth/login", validateMdw(loginSchema), userController.login);
+router.post(
+  "/auth/login",
+  validateMdw(loginSchema),
+  asyncHandler(userController.login)
+);
 
 module.exports = router;
