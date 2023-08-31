@@ -1,7 +1,6 @@
 require("dotenv").config();
 require("./src/config/db").connect();
 
-const createError = require("http-errors");
 const express = require("express");
 const app = express();
 const { API_PORT } = process.env;
@@ -16,11 +15,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 route(app);
-
-// catch 404 and forward to error handler
-app.use(function (req, res, next) {
-  next(createError(404));
-});
 
 // error handler
 app.use(errorHandlerMdw);

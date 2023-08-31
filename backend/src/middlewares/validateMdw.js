@@ -1,12 +1,9 @@
-const resClientData = require("../utils/resClientData");
+const asyncHandler = require("express-async-handler");
 
-const validateMdw = (schema) => async (req, res, next) => {
-  try {
+const validateMdw = (schema) =>
+  asyncHandler(async (req, res, next) => {
     await schema.validate(req.body);
     next();
-  } catch (error) {
-    resClientData(res, 400, null, error.errors.join(", "));
-  }
-};
+  });
 
 module.exports = validateMdw;
