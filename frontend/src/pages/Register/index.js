@@ -29,12 +29,17 @@ function Register() {
     fullname: Yup.string()
       .min(2, "Too short!")
       .max(70, "Too long!")
+      .trim("Cannot include leading and trailing spaces")
       .required("Required"),
     username: Yup.string()
       .min(6, "Too short!")
       .max(20, "Too long!")
+      .trim("Cannot include leading and trailing spaces")
       .required("Required"),
-    email: Yup.string().email("Invalid email").required("Required"),
+    email: Yup.string()
+      .trim("Cannot include leading and trailing spaces")
+      .email("Invalid email")
+      .required("Required"),
     password: Yup.string()
       .min(8, "Password must be at least 8 characters long")
       .matches(

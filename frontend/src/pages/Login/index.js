@@ -25,7 +25,10 @@ function Login() {
   };
 
   const LoginSchema = Yup.object().shape({
-    email: Yup.string().email("Invalid email").required("Required"),
+    email: Yup.string()
+      .trim("Cannot include leading and trailing spaces")
+      .email("Invalid email")
+      .required("Required"),
     password: Yup.string()
       .min(8, "Password must be at least 8 characters long")
       .required("Required"),
@@ -120,9 +123,7 @@ function Login() {
                       {(msg) => <div className={styles.error}>{msg}</div>}
                     </ErrorMessage>
                   </div>
-                  <AntdButton
-                    description={loading ? "Loading..." : "Log in"}
-                  />
+                  <AntdButton description={loading ? "Loading..." : "Log in"} />
                   <p className={styles.subDescription}>
                     Don't have an account yet?{" "}
                     <Link to="/register">Register now</Link>

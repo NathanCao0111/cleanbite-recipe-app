@@ -46,14 +46,9 @@ class RecipesController {
       time,
       serves,
       image,
-      user: id,
+      userId: id,
       nutrition,
     });
-
-    if (!recipe) {
-      res.status(400);
-      throw new Error("Invalid recipe");
-    }
 
     resClientData(res, 201, recipe);
   }
