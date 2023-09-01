@@ -5,14 +5,20 @@ const mongooseDelete = require("mongoose-delete");
 const UserSchema = new Schema(
   {
     avatar: { type: String, trim: true },
-    fullname: { type: String, trim: true, minLength: 2, maxLength: 70 },
+    fullname: {
+      type: String,
+      minLength: 2,
+      maxLength: 70,
+      trim: true,
+      required: true,
+    },
     username: {
       type: String,
+      minLength: 6,
+      maxLength: 20,
       trim: true,
       required: true,
       unique: true,
-      minLength: 6,
-      maxLength: 20,
     },
     email: {
       type: String,
@@ -26,8 +32,9 @@ const UserSchema = new Schema(
     },
     password: {
       type: String,
-      required: true,
       minLength: 8,
+      maxLength: 70,
+      required: true,
       validate: {
         validator: (value) =>
           /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/.test(value),

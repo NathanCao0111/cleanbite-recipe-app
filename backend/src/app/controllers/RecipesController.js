@@ -2,8 +2,8 @@ const Recipe = require("../models/Recipe");
 const resClientData = require("../../utils/resClientData");
 
 class RecipesController {
-  // [GET] /api/v1/recipes/
-  async index(req, res) {}
+  // [GET] /api/v1/recipes/all
+  async all(req, res) {}
 
   // [GET] /api/v1/recipes/created
   async createdRecipe(req, res) {
@@ -17,6 +17,9 @@ class RecipesController {
 
     resClientData(res, 200, createdRecipe);
   }
+
+  // [GET] /api/v1/recipes/:id
+  async getId(req, res) {}
 
   // [POST] /api/v1/recipes/create
   async createRecipe(req, res) {
@@ -54,6 +57,12 @@ class RecipesController {
 
     resClientData(res, 201, recipe);
   }
+
+  // [PUT] /api/v1/recipes/update/:id
+  async updateRecipe(req, res) {}
+
+  // [DELETE] /api/v1/recipes/delete
+  async deleteRecipe(req, res) {}
 }
 
 module.exports = new RecipesController();
