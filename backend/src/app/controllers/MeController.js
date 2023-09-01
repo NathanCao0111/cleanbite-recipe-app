@@ -1,6 +1,5 @@
 const resClientData = require("../../utils/resClientData");
 const User = require("../models/User");
-const Recipe = require("../models/Recipe");
 const fs = require("fs");
 const cloudinaryFile = require("../../services/cloudinary");
 
@@ -9,45 +8,13 @@ class MeController {
   async getId(req, res) {
     const { id } = req.user;
     const user = await User.findOne({ _id: id }).select("-password");
+
+    if (!user) {
+      res.status(401);
+      throw new Error("Unauthorized user");
+    }
+
     resClientData(res, 200, user);
-  }
-
-  // [GET] /api/v1/me/created
-  async createdRecipe(req, res) {
-    const { id } = req.user;
-    const createdRecipe = await Recipe.find({ userId: id });
-    resClientData(res, 200, createdRecipe);
-  }
-
-  // [POST] /api/v1/me/create
-  async createRecipe(req, res) {
-    const { id } = req.user;
-    const {
-      title,
-      description,
-      cuisine,
-      level,
-      ingredients,
-      method,
-      time,
-      serves,
-      image,
-      nutrition,
-    } = req.body;
-    const recipe = await Recipe.create({
-      title,
-      description,
-      cuisine,
-      level,
-      ingredients,
-      method,
-      time,
-      serves,
-      image,
-      user: id,
-      nutrition,
-    });
-    resClientData(res, 201, recipe);
   }
 
   // [POST] /api/v1/me/upload-avatar
@@ -81,6 +48,12 @@ class MeController {
       { avatar: "" },
       { new: true }
     ).select("-password");
+
+    if (!updatedUser) {
+      res.status(401);
+      throw new Error("Unauthorized user");
+    }
+
     resClientData(res, 200, updatedUser);
   }
 
@@ -97,6 +70,12 @@ class MeController {
       },
       { new: true }
     ).select("-password");
+
+    if (!updatedUser) {
+      res.status(401);
+      throw new Error("Unauthorized user");
+    }
+
     resClientData(res, 200, updatedUser);
   }
 
@@ -104,6 +83,12 @@ class MeController {
   async deleteAccount(req, res) {
     const { id } = req.user;
     const deletedUser = await User.delete({ _id: id });
+
+    if (!deletedUser) {
+      res.status(401);
+      throw new Error("Unauthorized user");
+    }
+
     resClientData(res, 200, deletedUser);
   }
 }

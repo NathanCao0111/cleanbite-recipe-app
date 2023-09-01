@@ -2,8 +2,6 @@ export const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 export const MeApi = {
   GET_ME: "/me",
-  CREATE_RECIPE: "/me/create",
-  GET_CREATED_RECIPES: "/me/created",
   UPLOAD_AVATAR: "/me/upload-avatar",
   DELETE_AVATAR: "/me/delete-avatar",
   UPDATE_PROFILE: "/me/update/profile",
@@ -11,7 +9,9 @@ export const MeApi = {
 };
 
 export const RecipesApi = {
-  GET_RECIPES: "/recipes",
+  GET_ALL_RECIPES: "/recipes",
+  CREATE_RECIPE: "/recipes/create",
+  GET_CREATED_RECIPES: "/recipes/created",
 };
 
 export const SiteApi = {

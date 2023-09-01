@@ -66,7 +66,7 @@ function Header() {
   const notAuthenticatedNav = (
     <>
       <li>
-        <Link className="nav-link" to="/recipes/all">
+        <Link className="nav-link" to="/login">
           Recipes
         </Link>
       </li>
@@ -92,7 +92,7 @@ function Header() {
   const isAuthenticatedNav = (
     <>
       <li>
-        <Link className="nav-link" to="/recipes/all">
+        <Link className="nav-link" to="/recipes/">
           Recipes
         </Link>
       </li>
