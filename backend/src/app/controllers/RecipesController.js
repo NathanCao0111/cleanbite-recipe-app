@@ -3,7 +3,25 @@ const resClientData = require("../../utils/resClientData");
 
 class RecipesController {
   // [GET] /api/v1/recipes/all
-  async all(req, res) {}
+  async all(req, res) {
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const skip = (page - 1) * limit;
+    const data = await Recipe.find()
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit);
+    const dataCount = await Recipe.countDocuments();
+    resClientData(res, 200, {
+      pagination: {
+        totalDocuments: dataCount,
+        totalPages: Math.ceil(dataCount / limit),
+        pageSize: limit,
+        currentPage: page,
+      },
+      data: data,
+    });
+  }
 
   // [GET] /api/v1/recipes/created
   async createdRecipe(req, res) {
