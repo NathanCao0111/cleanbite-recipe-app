@@ -107,10 +107,41 @@ class RecipesController {
   }
 
   // [PUT] /api/v1/recipes/update/:id
-  async updateRecipe(req, res) {}
+  async updateRecipe(req, res) {
+    const userId = req.user.id;
+    const recipeId = req.params.id;
+
+    const recipe = await Recipe.findOneAndUpdate(
+      {
+        _id: recipeId,
+        userId: userId,
+      },
+      req.body,
+      { new: true }
+    );
+
+    if (!recipe) {
+      res.status(404);
+      throw new Error("Recipe not found");
+    }
+
+    resClientData(res, 200, recipe);
+  }
 
   // [DELETE] /api/v1/recipes/delete
-  async deleteRecipe(req, res) {}
+  async deleteRecipe(req, res) {
+    const userId = req.user.id;
+    const recipeId = req.params.id;
+
+    const recipe = await Recipe.deleteOne({ _id: recipeId, userId: userId });
+
+    if (!recipe) {
+      res.status(404);
+      throw new Error("Recipe not found");
+    }
+
+    resClientData(res, 200, recipe);
+  }
 }
 
 module.exports = new RecipesController();
