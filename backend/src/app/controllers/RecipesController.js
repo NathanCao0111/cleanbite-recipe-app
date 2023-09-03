@@ -11,7 +11,14 @@ class RecipesController {
       .sort({ createdAt: -1 })
       .skip(skip)
       .limit(limit);
+
+    if (!data) {
+      res.status(404);
+      throw new Error("Recipes not found");
+    }
+
     const dataCount = await Recipe.countDocuments();
+
     resClientData(res, 200, {
       pagination: {
         totalDocuments: dataCount,
@@ -26,18 +33,46 @@ class RecipesController {
   // [GET] /api/v1/recipes/created
   async createdRecipe(req, res) {
     const { id } = req.user;
-    const createdRecipe = await Recipe.find({ userId: id });
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const skip = (page - 1) * limit;
+    const data = await Recipe.find({ userId: id })
+      .sort({
+        createdAt: -1,
+      })
+      .skip(skip)
+      .limit(limit);
 
-    if (!createdRecipe) {
+    if (!data) {
+      res.status(404);
+      throw new Error("Recipes not found");
+    }
+
+    const dataCount = await Recipe.countDocuments({ userId: id });
+
+    resClientData(res, 200, {
+      pagination: {
+        totalDocuments: dataCount,
+        totalPages: Math.ceil(dataCount / limit),
+        pageSize: limit,
+        currentPage: page,
+      },
+      data: data,
+    });
+  }
+
+  // [GET] /api/v1/recipes/:id
+  async getId(req, res) {
+    const recipeId = req.params.id;
+    const data = await Recipe.findOne({ _id: recipeId });
+
+    if (!data) {
       res.status(404);
       throw new Error("Recipe not found");
     }
 
-    resClientData(res, 200, createdRecipe);
+    resClientData(res, 200, data);
   }
-
-  // [GET] /api/v1/recipes/:id
-  async getId(req, res) {}
 
   // [POST] /api/v1/recipes/create
   async createRecipe(req, res) {
