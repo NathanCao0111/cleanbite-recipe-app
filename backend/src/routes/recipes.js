@@ -15,6 +15,6 @@ router.post(
   asyncHandler(recipesController.createRecipe)
 );
 router.put("/update/:id", asyncHandler(recipesController.updateRecipe));
-router.delete("/delete", asyncHandler(recipesController.deleteRecipe));
+router.delete("/delete/:id", asyncHandler(recipesController.deleteRecipe));
 
 module.exports = router;

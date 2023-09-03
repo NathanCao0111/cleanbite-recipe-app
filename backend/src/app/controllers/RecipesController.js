@@ -128,7 +128,7 @@ class RecipesController {
     resClientData(res, 200, recipe);
   }
 
-  // [DELETE] /api/v1/recipes/delete
+  // [DELETE] /api/v1/recipes/delete/:id
   async deleteRecipe(req, res) {
     const userId = req.user.id;
     const recipeId = req.params.id;
