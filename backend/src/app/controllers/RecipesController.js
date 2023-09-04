@@ -133,9 +133,39 @@ class RecipesController {
     const userId = req.user.id;
     const recipeId = req.params.id;
 
-    const recipe = await Recipe.deleteOne({ _id: recipeId, userId: userId });
+    const recipe = await Recipe.delete({ _id: recipeId, userId: userId });
 
     if (!recipe) {
+      res.status(404);
+      throw new Error("Recipe not found");
+    }
+
+    resClientData(res, 200, recipe);
+  }
+
+  // [PATCH] /api/v1/recipes/restore/:id
+  async restore(req, res) {
+    const userId = req.user.id;
+    const recipeId = req.params.id;
+
+    const recipe = await Recipe.restore({ _id: recipeId, userId: userId });
+
+    if (!recipe) {
+      res.status(404);
+      throw new Error("Recipe not found");
+    }
+
+    resClientData(res, 200, recipe);
+  }
+
+  // [DELETE] /api/v1/recipes/destroy/:id
+  async destroy(req, res) {
+    const userId = req.user.id;
+    const recipeId = req.params.id;
+
+    const recipe = await Recipe.deleteOne({ _id: recipeId, userId: userId });
+
+    if (recipe.deletedCount === 0) {
       res.status(404);
       throw new Error("Recipe not found");
     }

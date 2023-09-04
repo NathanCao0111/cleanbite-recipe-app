@@ -14,7 +14,13 @@ router.post(
   validateMdw(recipeSchema),
   asyncHandler(recipesController.createRecipe)
 );
-router.put("/update/:id", asyncHandler(recipesController.updateRecipe));
+router.put(
+  "/update/:id",
+  validateMdw(recipeSchema),
+  asyncHandler(recipesController.updateRecipe)
+);
+router.patch("/restore/:id", asyncHandler(recipesController.restore));
 router.delete("/delete/:id", asyncHandler(recipesController.deleteRecipe));
+router.delete("/destroy/:id", asyncHandler(recipesController.destroy));
 
 module.exports = router;
