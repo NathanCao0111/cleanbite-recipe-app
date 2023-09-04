@@ -135,7 +135,7 @@ class RecipesController {
 
     const recipe = await Recipe.delete({ _id: recipeId, userId: userId });
 
-    if (!recipe) {
+    if (recipe.modifiedCount === 0) {
       res.status(404);
       throw new Error("Recipe not found");
     }
@@ -150,7 +150,7 @@ class RecipesController {
 
     const recipe = await Recipe.restore({ _id: recipeId, userId: userId });
 
-    if (!recipe) {
+    if (recipe.modifiedCount === 0) {
       res.status(404);
       throw new Error("Recipe not found");
     }
