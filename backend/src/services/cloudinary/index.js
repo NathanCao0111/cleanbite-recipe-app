@@ -11,7 +11,7 @@ cloudinary.config({
 const cloudinaryFile = async (file) => {
   const result = await cloudinary.uploader.upload(file.path, {
     resource_type: "auto",
-    folder: "cleanbite-recipe-app",
+    folder: "cleanbite-recipe-app/users",
   });
 
   return result;

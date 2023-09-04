@@ -1,37 +1,42 @@
 {
-  "title": "Paprika pork",
-  "description": "This healthy one-pot is a midweek miracle. Pork and mushrooms are cooked in a cream sauce that's flavoured with smoked paprika to make a hearty stew. Serve with rice, noodles or potatoes",
-  "cuisine": "",
+  "title": "Sweet potato & peanut curry",
+  "description": "Cook this tasty, budget-friendly vegan curry for an easy family dinner. With spinach and sweet potato, it boasts two of your five-a-day and it’s under 400 calories",
+  "cuisine": "Fusion",
   "level": "Easy",
   "ingredients": [
-    "1 tbsp olive oil",
-    "2 onions, finely sliced",
-    "400g pork fillet, trimmed of any fat, cut into thick strips",
-    "250g pack mushroom, sliced",
-    "1 ½ tbsp smoked paprika",
-    "1 tbsp tomato purée",
-    "200ml chicken stock",
-    "100ml soured cream",
-    "egg noodles, tagliatelle or rice, to serve"
+    "1 tbsp coconut oil",
+    "1 onion, chopped",
+    "2 garlic cloves, grated",
+    "thumb-sized piece ginger, grated",
+    "3 tbsp Thai red curry paste (check the label to make sure it’s vegetarian/ vegan)",
+    "1 tbsp smooth peanut butter",
+    "500g sweet potato, peeled and cut into chunks",
+    "400ml can coconut milk",
+    "200g bag spinach",
+    "1 lime, juiced",
+    "cooked rice, to serve (optional)",
+    "dry roasted peanuts, to serve (optional)"
   ],
   "method": [
-    "Heat the oil in a large pan, tip in the onions and cook for 10 mins until soft and golden. Add the pork and mushrooms and cook on a high heat for 3-4 mins until browned. Add the paprika and cook for 1 min more.",
-    "Stir in the tomato purée, then pour on the stock and simmer for 5-8 mins until the pork is cooked through. Finally, mix in the soured cream and some seasoning. Serve with egg noodles, tagliatelle or rice, and an extra dollop of soured cream, if you like."
+    "Melt 1 tbsp coconut oil in a saucepan over a medium heat and soften 1 chopped onion for 5 mins. Add 2 grated garlic cloves and a grated thumb-sized piece of ginger, and cook for 1 min until fragrant.",
+    "Stir in 3 tbsp Thai red curry paste, 1 tbsp smooth peanut butter and 500g sweet potato, peeled and cut into chunks, then add 400ml coconut milk and 200ml water.",
+    "Bring to the boil, turn down the heat and simmer, uncovered, for 25-30 mins or until the sweet potato is soft.",
+    "Stir through 200g spinach and the juice of 1 lime, and season well. Serve with cooked rice, and if you want some crunch, sprinkle over a few dry roasted peanuts."
   ],
   "time": {
-    "preparation": "10 mins",
-    "cooking": "25 mins"
+    "preparation": "15 mins",
+    "cooking": "45 mins"
   },
   "serves": "4",
-  "image": "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/recipe-image-legacy-id-525506_11-cac1001.jpg?quality=90&webp=true&resize=300,272",
+  "image": "https://res.cloudinary.com/dihsjevvi/image/upload/v1693805667/cleanbite-recipe-app/recipes/satay-sweet-potato-curry-17cc62d_mfxihq.webp",
   "nutrition": {
-    "kcal": "257",
-    "fat": "13g",
-    "saturates": "5g",
-    "carbs": "9g",
-    "sugars": "5g",
-    "fibre": "2g",
-    "protein": "27g",
-    "salt": "0.35g"
+    "kcal": "387",
+    "fat": "25g",
+    "saturates": "18g",
+    "carbs": "32g",
+    "sugars": "15g",
+    "fibre": "7g",
+    "protein": "6g",
+    "salt": "0.6g"
   }
 }
