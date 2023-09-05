@@ -3,6 +3,11 @@ import Home from "../../pages/Home";
 import Register from "../../pages/Register";
 import Login from "../../pages/Login";
 import Profile from "../../pages/Profile";
+import Recipes from "../../pages/Recipes";
+import CreatedRecipe from "../../pages/CreatedRecipe";
+import SingleRecipe from "../../pages/SingleRecipe";
+import CreateRecipe from "../../pages/CreateRecipe";
+import Archived from "../../pages/Archived";
 
 const routes = [
   {
@@ -18,6 +23,31 @@ const routes = [
   {
     path: PathRoute.Profile,
     component: Profile,
+    isPrivate: true,
+  },
+  {
+    path: PathRoute.Recipes,
+    component: Recipes,
+    isPrivate: true,
+  },
+  {
+    path: PathRoute.CreatedRecipe,
+    component: CreatedRecipe,
+    isPrivate: true,
+  },
+  {
+    path: PathRoute.SingleRecipe,
+    component: SingleRecipe,
+    isPrivate: true,
+  },
+  {
+    path: PathRoute.CreateRecipe,
+    component: CreateRecipe,
+    isPrivate: true,
+  },
+  {
+    path: PathRoute.Archived,
+    component: Archived,
     isPrivate: true,
   },
   {

@@ -32,15 +32,21 @@ function Header() {
     },
     {
       label: (
-        <Link to="/favorites" style={{ textDecoration: "none", fontSize: 16 }}>
-          Favorites
+        <Link
+          to="/recipes/created"
+          style={{ textDecoration: "none", fontSize: 16 }}
+        >
+          Created Recipes
         </Link>
       ),
       key: "1",
     },
     {
       label: (
-        <Link to="/archived" style={{ textDecoration: "none", fontSize: 16 }}>
+        <Link
+          to="/recipes/archived"
+          style={{ textDecoration: "none", fontSize: 16 }}
+        >
           Archived
         </Link>
       ),
@@ -92,7 +98,7 @@ function Header() {
   const isAuthenticatedNav = (
     <>
       <li>
-        <Link className="nav-link" to="/recipes/">
+        <Link className="nav-link" to="/recipes/all">
           Recipes
         </Link>
       </li>

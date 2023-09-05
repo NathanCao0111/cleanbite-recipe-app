@@ -1,8 +1,8 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import styles from "../../scss/pages/Login.module.scss";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import authService from "../../services/authService";
 import AuthContext from "../../contexts/AuthContext/AuthContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -56,9 +56,11 @@ function Login() {
     }
   };
 
-  if (auth.isAuthenticated) {
-    return <Navigate to="/" />;
-  }
+  useEffect(() => {
+    if (auth.isAuthenticated) {
+      navigate(-1);
+    }
+  }, [auth]);
 
   return (
     <section className={styles.wrapper}>
