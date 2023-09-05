@@ -31,7 +31,7 @@ class RecipesController {
   }
 
   // [GET] /api/v1/recipes/created
-  async createdRecipe(req, res) {
+  async created(req, res) {
     const { id } = req.user;
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 10;
@@ -62,9 +62,36 @@ class RecipesController {
   }
 
   // [GET] /api/v1/recipes/:id
-  async getId(req, res) {
+  async single(req, res) {
     const recipeId = req.params.id;
     const data = await Recipe.findOne({ _id: recipeId });
+
+    if (!data) {
+      res.status(404);
+      throw new Error("Recipe not found");
+    }
+
+    resClientData(res, 200, data);
+  }
+
+  // [GET] /api/v1/recipes/archived
+  async archived(req, res) {
+    const data = await Recipe.findDeleted();
+
+    if (!data) {
+      res.status(404);
+      throw new Error("Recipes not found");
+    }
+
+    resClientData(res, 200, data);
+  }
+
+  // [GET] /api/v1/recipes/archived/:id
+  async archivedSingle(req, res) {
+    const userId = req.user.id;
+    const recipeId = req.params.id;
+
+    const data = await Recipe.findOneDeleted({ _id: recipeId, userId: userId });
 
     if (!data) {
       res.status(404);

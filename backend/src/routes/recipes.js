@@ -7,8 +7,10 @@ const validateMdw = require("../middlewares/validateMdw");
 const recipeSchema = require("../validations/recipe");
 
 router.get("/all", asyncHandler(recipesController.all));
-router.get("/created", asyncHandler(recipesController.createdRecipe));
-router.get("/:id", asyncHandler(recipesController.getId));
+router.get("/created", asyncHandler(recipesController.created));
+router.get("/:id", asyncHandler(recipesController.single));
+router.get("/archived", asyncHandler(recipesController.archived));
+router.get("/archived/:id", asyncHandler(recipesController.archivedSingle));
 router.post(
   "/create",
   validateMdw(recipeSchema),
