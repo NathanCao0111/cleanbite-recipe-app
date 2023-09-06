@@ -1,5 +1,11 @@
+import { useContext } from "react";
+import RecipesContext from "../../contexts/RecipesContext/RecipesContext";
+import Feature from "../../components/pages/Home/Feature";
+
 function Home() {
-  return <div>Home</div>;
+  const { recipes, recipe } = useContext(RecipesContext);
+
+  return <Feature recipes={recipes} recipe={recipe} />;
 }
 
 export default Home;

@@ -4,7 +4,7 @@ import { RecipesApi } from "../constants/apis";
 const recipesService = {
   all: async () => await axiosInstance.get(RecipesApi.GET_ALL_RECIPES),
   created: async () => await axiosInstance.get(RecipesApi.GET_CREATED_RECIPES),
-  single: async () => await axiosInstance.get(RecipesApi.GET_SINGLE_RECIPE),
+  single: async (values) => await axiosInstance.get(`/recipes/${values}`),
   create: async (values) => {
     await axiosInstance.post(RecipesApi.CREATE_RECIPE, values);
   },

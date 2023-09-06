@@ -1,3 +1,4 @@
+import { message } from "antd";
 import { useState, useEffect } from "react";
 import AuthContext from "./AuthContext";
 import authService from "../../services/authService";
@@ -20,7 +21,7 @@ const AuthState = ({ children }) => {
         user: user,
       });
     } catch (error) {
-      console.log(error);
+      message.error(error?.response?.data?.message || "Error");
     }
   };
 
