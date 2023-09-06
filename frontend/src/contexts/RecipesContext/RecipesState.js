@@ -1,9 +1,11 @@
 import { message } from "antd";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import AuthContext from "../AuthContext/AuthContext";
 import RecipesContext from "./RecipesContext";
 import recipesService from "../../services/recipesService";
 
 const RecipesState = ({ children }) => {
+  const { auth } = useContext(AuthContext);
   const [recipes, setRecipes] = useState({
     pagination: {},
     data: [],
@@ -34,15 +36,10 @@ const RecipesState = ({ children }) => {
   };
 
   useEffect(() => {
-    fetchAllRecipes();
-  }, []);
-
-  useEffect(() => {
-    if (recipes.data.length !== 0) {
-      const randomRecipe = recipes?.data[Math.floor(Math.random() * 10)];
-      fetchSingleRecipe(randomRecipe._id);
+    if (auth.isAuthenticated) {
+      fetchAllRecipes();
     }
-  }, [recipes]);
+  }, [auth]);
 
   return (
     <RecipesContext.Provider

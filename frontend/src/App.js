@@ -6,39 +6,42 @@ import PrivateRoute from "./components/PrivateRoute";
 import GlobalStyles from "./components/GlobalStyles";
 import DefaultLayout from "./components/DefaultLayout";
 import RecipesState from "./contexts/RecipesContext/RecipesState";
+import SiteState from "./contexts/SiteContext/SiteState";
 
 function App() {
   return (
     <GlobalStyles>
       <Router>
-        <RecipesState>
+        <SiteState>
           <AuthState>
-            <div className="app">
-              <Routes>
-                {routes.map((route, index) => {
-                  const { path, component: Component, isPrivate } = route;
-                  return (
-                    <Route
-                      key={index}
-                      path={path}
-                      element={
-                        isPrivate ? (
-                          <DefaultLayout>
-                            <PrivateRoute component={Component} />
-                          </DefaultLayout>
-                        ) : (
-                          <DefaultLayout>
-                            <Component />
-                          </DefaultLayout>
-                        )
-                      }
-                    />
-                  );
-                })}
-              </Routes>
-            </div>
+            <RecipesState>
+              <div className="app">
+                <Routes>
+                  {routes.map((route, index) => {
+                    const { path, component: Component, isPrivate } = route;
+                    return (
+                      <Route
+                        key={index}
+                        path={path}
+                        element={
+                          isPrivate ? (
+                            <DefaultLayout>
+                              <PrivateRoute component={Component} />
+                            </DefaultLayout>
+                          ) : (
+                            <DefaultLayout>
+                              <Component />
+                            </DefaultLayout>
+                          )
+                        }
+                      />
+                    );
+                  })}
+                </Routes>
+              </div>
+            </RecipesState>
           </AuthState>
-        </RecipesState>
+        </SiteState>
       </Router>
     </GlobalStyles>
   );

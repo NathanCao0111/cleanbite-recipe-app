@@ -19,7 +19,7 @@ export const RecipesApi = {
 };
 
 export const SiteApi = {
-  GET_HOMEPAGE: "/",
+  GET_ALL_RECIPES: "/all",
 };
 
 export const UserApi = {

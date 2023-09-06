@@ -1,11 +1,11 @@
 import { useContext } from "react";
-import RecipesContext from "../../contexts/RecipesContext/RecipesContext";
+import SiteContext from "../../contexts/SiteContext/SiteContext";
 import Feature from "../../components/pages/Home/Feature";
 
 function Home() {
-  const { recipes, recipe } = useContext(RecipesContext);
+  const { siteRecipes, siteRecipe } = useContext(SiteContext);
 
-  return <Feature recipes={recipes} recipe={recipe} />;
+  return <Feature recipes={siteRecipes} recipe={siteRecipe} />;
 }
 
 export default Home;
