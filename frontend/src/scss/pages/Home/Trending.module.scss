@@ -1,0 +1,41 @@
+.wrapper {
+	padding-top: 40px;
+
+	.title {
+		font-size: 36px;
+	}
+
+	.figure {
+		position: relative;
+
+		.figLink {
+			display: block;
+			overflow: hidden;
+			border-radius: 6px;
+
+			img {
+				width: 100%;
+				height: auto;
+				object-fit: cover;
+				max-height: 300px;
+			}
+		}
+
+		strong {
+			svg {
+				color: var(--primary);
+			}
+
+			span {
+				font-weight: 500 !important;
+				margin-left: 8px;
+			}
+		}
+
+		.figTitle {
+			font-size: 20px;
+			font-weight: 400 !important;
+			text-decoration: none;
+		}
+	}
+}

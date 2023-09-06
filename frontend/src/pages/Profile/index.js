@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import styles from "../../scss/pages/Profile.module.scss";
+import styles from "../../scss/pages/Profile/Profile.module.scss";
 import clsx from "clsx";
 import meService from "../../services/meService";
 import AuthContext from "../../contexts/AuthContext/AuthContext";

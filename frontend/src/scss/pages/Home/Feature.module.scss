@@ -1,0 +1,51 @@
+.wrapper {
+	background-color: #e4f1ff !important;
+	border-radius: 16px !important;
+
+	.featureImg {
+		width: 100%;
+		height: auto;
+		max-height: 600px;
+		object-fit: cover;
+	}
+
+	strong {
+		svg {
+			color: var(--primary);
+		}
+
+		.recommend {
+			font-weight: 500 !important;
+			margin-left: 8px;
+		}
+	}
+
+	.title {
+		font-size: 45px;
+		margin: 16px 0;
+	}
+
+	.description {
+		font-size: 18px;
+	}
+
+	.arrowContainer {
+		position: absolute;
+		bottom: 35px;
+		right: 35px;
+		display: flex;
+		justify-content: center;
+		flex-direction: column;
+		align-items: center;
+		background-color: #fff;
+		color: var(--primary);
+	}
+
+	.circle {
+		width: 40px;
+		height: 40px;
+		border-radius: 50%;
+		overflow: hidden;
+		vertical-align: middle;
+	}
+}

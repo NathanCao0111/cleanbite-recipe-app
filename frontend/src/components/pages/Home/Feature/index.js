@@ -1,17 +1,61 @@
+import styles from "../../../../scss/pages/Home/Feature.module.scss";
+import clsx from "clsx";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faArrowUpRightFromSquare,
+  faArrowRight,
+} from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+
 const Feature = (props) => {
-  const { recipes, recipe } = props;
+  const { recipe } = props;
+  const [randomNum, setRandomNum] = useState(0);
+
+  useEffect(() => {
+    setRandomNum(Math.floor(Math.random() * 10) + 80);
+  }, []);
 
   return (
-    <section className="card overflow-hidden border-0 mt-0 mt-md-4">
+    <section
+      className={clsx(
+        styles.wrapper,
+        "card rounded-16 overflow-hidden border-0 mt-0 mt-md-4"
+      )}
+    >
       <div className="row g-0">
         <div className="col-lg-6">
           <img
             src={recipe.image}
             alt={recipe.title}
-            style={{ width: "100%", height: "auto", objectFit: "cover" }}
+            className={styles.featureImg}
           />
         </div>
-        <div className="col-lg-6"></div>
+        <div className="col-lg-6">
+          <div className="p-4 p-md-5 d-flex flex-column justify-content-center h-100 position-relative">
+            <strong>
+              <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
+              <span className={styles.recommend}>
+                {randomNum}% would make this again
+              </span>
+            </strong>
+            <h3 className={styles.title}>{recipe.title}</h3>
+            <p
+              className={clsx(
+                styles.description,
+                "pr-0 pr-md-5 pb-3 pb-sm-5 pb-lg-0"
+              )}
+            >
+              {recipe.description}
+            </p>
+            <Link
+              to={`/recipes/${recipe._id}`}
+              className={clsx(styles.arrowContainer, styles.circle)}
+            >
+              <FontAwesomeIcon icon={faArrowRight} />
+            </Link>
+          </div>
+        </div>
       </div>
     </section>
   );

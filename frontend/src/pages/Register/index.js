@@ -1,7 +1,7 @@
 import { useState, useContext } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import styles from "../../scss/pages/Register.module.scss";
+import styles from "../../scss/pages/Register/Register.module.scss";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import authService from "../../services/authService";
 import AuthContext from "../../contexts/AuthContext/AuthContext";
