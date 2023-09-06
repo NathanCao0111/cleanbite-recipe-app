@@ -16,7 +16,7 @@ const Trending = (props) => {
           ?.slice(0, 3)
           ?.map((element) => {
             return (
-              <div className="col-md-4">
+              <div className="col-md-4" key={element._id}>
                 <figure className={clsx(styles.figure, "my-3")}>
                   <Link
                     to={`/recipes/${element._id}`}
@@ -37,7 +37,7 @@ const Trending = (props) => {
                       to={`/recipes/${element._id}`}
                       className={clsx(
                         styles.figTitle,
-                        "f-size-20 text-black d-block mt-1 font-weight-semibold"
+                        "f-size-20 d-block mt-1 font-weight-semibold"
                       )}
                     >
                       {element.title}

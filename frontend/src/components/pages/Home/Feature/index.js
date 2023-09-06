@@ -6,15 +6,9 @@ import {
   faArrowRight,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
 
 const Feature = (props) => {
   const { recipe } = props;
-  const [randomNum, setRandomNum] = useState(0);
-
-  useEffect(() => {
-    setRandomNum(Math.floor(Math.random() * 10) + 80);
-  }, []);
 
   return (
     <section
@@ -36,7 +30,7 @@ const Feature = (props) => {
             <strong>
               <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
               <span className={styles.recommend}>
-                {randomNum}% would make this again
+                {recipe.likes} chefs would make this again
               </span>
             </strong>
             <h3 className={styles.title}>{recipe.title}</h3>
