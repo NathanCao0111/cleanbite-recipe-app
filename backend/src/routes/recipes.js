@@ -8,14 +8,14 @@ const recipeSchema = require("../validations/recipe");
 
 router.get("/all", asyncHandler(recipesController.all));
 router.get("/created", asyncHandler(recipesController.created));
-router.get("/:id", asyncHandler(recipesController.single));
 router.get("/archived", asyncHandler(recipesController.archived));
-router.get("/archived/:id", asyncHandler(recipesController.archivedSingle));
 router.post(
   "/create",
   validateMdw(recipeSchema),
   asyncHandler(recipesController.createRecipe)
 );
+router.get("/:id", asyncHandler(recipesController.single));
+router.get("/archived/:id", asyncHandler(recipesController.archivedSingle));
 router.put(
   "/update/:id",
   validateMdw(recipeSchema),
