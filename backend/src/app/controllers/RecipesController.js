@@ -61,6 +61,38 @@ class RecipesController {
     });
   }
 
+  // [GET] /api/v1/recipes/categories
+  async categories(req, res) {
+    const types = "" || req.query.types;
+    const arrTypes = types.split(",");
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const skip = (page - 1) * limit;
+    const data = await Recipe.find({ categories: { $in: arrTypes } })
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit);
+
+    if (!data) {
+      res.status(404);
+      throw new Error("Recipes not found");
+    }
+
+    const dataCount = await Recipe.countDocuments({
+      categories: { $in: arrTypes },
+    });
+
+    resClientData(res, 200, {
+      pagination: {
+        totalDocuments: dataCount,
+        totalPages: Math.ceil(dataCount / limit),
+        pageSize: limit,
+        currentPage: page,
+      },
+      data: data,
+    });
+  }
+
   // [GET] /api/v1/recipes/:id
   async single(req, res) {
     const recipeId = req.params.id;
