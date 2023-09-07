@@ -8,4 +8,6 @@ export const PathRoute = {
   SingleRecipe: "/recipes/:id",
   CreateRecipe: "/recipes/create",
   Archived: "/recipes/archived",
+  Categories: "/recipes/categories",
+  Category: "/recipes/categories/:id",
 };

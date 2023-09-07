@@ -5,7 +5,7 @@ const meController = require("../app/controllers/MeController");
 const uploadFile = require("../config/multer");
 const asyncHandler = require("express-async-handler");
 
-router.get("/", asyncHandler(meController.getId));
+router.get("/info", asyncHandler(meController.getId));
 router.post(
   "/upload-avatar",
   uploadFile.single("avatar"),

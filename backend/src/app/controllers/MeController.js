@@ -4,7 +4,7 @@ const fs = require("fs");
 const cloudinaryFile = require("../../services/cloudinary");
 
 class MeController {
-  // [GET] /api/v1/me/
+  // [GET] /api/v1/me/info
   async getId(req, res) {
     const { id } = req.user;
     const user = await User.findOne({ _id: id }).select("-password");

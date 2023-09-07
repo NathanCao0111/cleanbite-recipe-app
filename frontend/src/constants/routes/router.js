@@ -8,6 +8,8 @@ import CreatedRecipe from "../../pages/CreatedRecipe";
 import SingleRecipe from "../../pages/SingleRecipe";
 import CreateRecipe from "../../pages/CreateRecipe";
 import Archived from "../../pages/Archived";
+import Categories from "../../pages/Categories";
+import Category from "../../pages/Category";
 
 const routes = [
   {
@@ -48,6 +50,16 @@ const routes = [
   {
     path: PathRoute.Archived,
     component: Archived,
+    isPrivate: true,
+  },
+  {
+    path: PathRoute.Categories,
+    component: Categories,
+    isPrivate: true,
+  },
+  {
+    path: PathRoute.Category,
+    component: Category,
     isPrivate: true,
   },
   {

@@ -4,33 +4,35 @@ import { Link } from "react-router-dom";
 import { categories } from "../../../../constants/Categories";
 
 const Categories = (props) => {
+  const { siteCategoriesCount } = props;
+  const topSixCategories = siteCategoriesCount.slice(0, 6);
+
+  const sixRenderCategories = categories?.filter((element) => {
+    for (let i = 0; i < topSixCategories.length; i++) {
+      if (element.type === topSixCategories[i].categories) return element;
+    }
+  });
+
   return (
     <section className={clsx(styles.wrapper, "my-4 my-md-5")}>
       <h4 className={clsx(styles.title, "py-3 mb-0")}>Popular Categories</h4>
       <div className="row">
-        {categories?.map((element, index) => {
+        {sixRenderCategories?.map((element) => {
           return (
-            <div className="col-lg-2 col-md-4 col-4" key={index}>
-              <figure className={clsx(styles.figure, "my-3 my-md-4")}>
+            <div className="col-lg-2 col-md-4 col-4" key={element.id}>
+              <figure className={clsx(styles.figure, "my-3 text-center")}>
                 <Link
-                  to={`/recipes/${element._id}`}
-                  className={clsx(styles.figLink, "rounded-6")}
+                  to={`/recipes/categories/${element.id}`}
+                  className={clsx(styles.figLink, "rounded-circle")}
                 >
-                  <img src={element.img} alt={element.title} />
+                  <img src={element.img} alt={element.type} />
                 </Link>
                 <figcaption className="mt-2">
-                  <div className="w-100 float-left">
-                    <div className="float-left">
-                      <strong className={styles.likeContainer}>
-                        <span>{element.likes}</span>
-                      </strong>
-                    </div>
-                  </div>
                   <Link
-                    to={`/recipes/${element._id}`}
+                    to={`/recipes/categories/${element.id}`}
                     className={clsx(
                       styles.figTitle,
-                      "f-size-20 d-block mt-1 font-weight-semibold"
+                      "f-size-20 d-block font-weight-semibold"
                     )}
                   >
                     {element.type}

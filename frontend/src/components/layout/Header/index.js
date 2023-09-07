@@ -78,6 +78,11 @@ function Header() {
       </li>
       <li>
         <Link className="nav-link" to="/login">
+          Categories
+        </Link>
+      </li>
+      <li>
+        <Link className="nav-link" to="/login">
           Create a Recipe
         </Link>
       </li>
@@ -99,6 +104,11 @@ function Header() {
     <>
       <li>
         <Link className="nav-link" to="/recipes/all">
+          Recipes
+        </Link>
+      </li>
+      <li>
+        <Link className="nav-link" to="/recipes/categories">
           Recipes
         </Link>
       </li>

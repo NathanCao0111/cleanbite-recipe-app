@@ -82,7 +82,7 @@ class SiteController {
         },
       },
       {
-        $sort: { count: 1 },
+        $sort: { count: -1 },
       },
       {
         $project: { _id: 0, categories: "$_id", count: "$count" },
