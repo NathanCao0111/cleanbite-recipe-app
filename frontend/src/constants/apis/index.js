@@ -19,7 +19,7 @@ export const RecipesApi = {
 };
 
 export const SiteApi = {
-  GET_ALL_RECIPES: "/all",
+  GET_MOST_LIKES_RECIPES: "/likes",
 };
 
 export const UserApi = {
