@@ -9,10 +9,11 @@ const SiteState = ({ children }) => {
     data: [],
   });
   const [siteRecipe, setSiteRecipe] = useState({});
+  const [siteMostLikesRecipes, setSiteMostLikesRecipes] = useState([]);
 
-  const fetchSiteAllRecipes = async () => {
+  const fetchSiteAllRecipes = async (values) => {
     try {
-      const result = await siteService.all();
+      const result = await siteService.all(values);
       const data = result?.data?.data;
       setSiteRecipes({
         pagination: data?.pagination,
@@ -33,8 +34,18 @@ const SiteState = ({ children }) => {
     }
   };
 
+  const fetchSiteMostLikesRecipes = async () => {
+    try {
+      const result = await siteService.likes();
+      const data = result?.data?.data?.data;
+      setSiteMostLikesRecipes(data);
+    } catch (error) {
+      message.error(error?.response?.data?.message || "Error");
+    }
+  };
+
   useEffect(() => {
-    fetchSiteAllRecipes();
+    fetchSiteAllRecipes(12);
   }, []);
 
   useEffect(() => {
@@ -44,13 +55,19 @@ const SiteState = ({ children }) => {
     }
   }, [siteRecipes.data.length]);
 
+  useEffect(() => {
+    fetchSiteMostLikesRecipes();
+  }, []);
+
   return (
     <SiteContext.Provider
       value={{
         siteRecipes,
         siteRecipe,
+        siteMostLikesRecipes,
         fetchSiteAllRecipes,
         fetchSiteSingleRecipe,
+        setSiteMostLikesRecipes,
       }}
     >
       {children}

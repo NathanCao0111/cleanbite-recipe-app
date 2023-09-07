@@ -5,13 +5,13 @@ import Trending from "../../components/pages/Home/Trending";
 import LatestRecipes from "../../components/pages/Home/LatestRecipes";
 
 function Home() {
-  const { siteRecipes, siteRecipe } = useContext(SiteContext);
+  const { siteRecipes, siteRecipe, siteMostLikesRecipes } = useContext(SiteContext);
 
   return (
     <main>
-      <Feature recipes={siteRecipes} recipe={siteRecipe} />
-      <Trending recipes={siteRecipes} recipe={siteRecipe} />
-      <LatestRecipes recipes={siteRecipes} recipe={siteRecipe} />
+      <Feature recipe={siteRecipe} />
+      <Trending siteMostLikesRecipes={siteMostLikesRecipes} />
+      <LatestRecipes recipes={siteRecipes} />
     </main>
   );
 }
