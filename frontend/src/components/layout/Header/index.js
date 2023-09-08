@@ -109,7 +109,7 @@ function Header() {
       </li>
       <li>
         <Link className="nav-link" to="/recipes/categories">
-          Recipes
+          Categories
         </Link>
       </li>
       <li>
