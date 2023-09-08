@@ -1,0 +1,38 @@
+.wrapper {
+	background-color: #f9f9f9 !important;
+	width: 100%;
+
+	a {
+		text-decoration: none;
+		color: #000;
+	}
+
+	.quote {
+		padding-right: 30px;
+		color: #7F7F7F;
+	}
+
+	ul {
+		padding-left: 0;
+		list-style: none;
+
+		li {
+			margin-bottom: 8px;
+
+			a {
+				color: #7F7F7F;
+				font-size: 14px;
+			}
+		}
+	}
+
+	.copyright {
+		color: #7F7F7F;
+		font-size: 14px;
+
+		a {
+			color: #7F7F7F;
+			font-size: 14px;
+		}
+	}
+}

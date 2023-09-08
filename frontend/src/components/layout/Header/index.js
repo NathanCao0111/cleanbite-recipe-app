@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import styles from "../../../scss/components/Header.module.scss";
+import styles from "../../../scss/components/layout/Header.module.scss";
 import AuthContext from "../../../contexts/AuthContext/AuthContext";
 import { Dropdown, Space } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
