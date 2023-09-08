@@ -1,5 +1,6 @@
 const Recipe = require("../models/Recipe");
 const resClientData = require("../../utils/resClientData");
+const nodemailer = require("nodemailer");
 
 class SiteController {
   // [GET] /api/v1/all
@@ -95,6 +96,36 @@ class SiteController {
     }
 
     resClientData(res, 200, data);
+  }
+
+  // [POST] /api/v1/send/email
+  async sendEmail(req, res) {
+    const { recipientEmail } = req.body;
+
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.EMAIL,
+        pass: process.env.WORD,
+      },
+    });
+
+    const mailOptions = {
+      from: process.env.EMAIL,
+      to: recipientEmail,
+      subject: "Cleanbite Recipe App",
+      text: "Hi, thank you for subscribing Cleanbite Recipe App",
+    };
+
+    transporter.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        console.log("Error: " + error.message);
+        resClientData(res, 500, null, error.message);
+      } else {
+        console.log("Email sent: " + info.response);
+        resClientData(res, 200, "Email sent successfully");
+      }
+    });
   }
 }
 
