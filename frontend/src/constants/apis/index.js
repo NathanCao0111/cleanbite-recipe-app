@@ -21,6 +21,7 @@ export const RecipesApi = {
 export const SiteApi = {
   GET_MOST_LIKES_RECIPES: "/likes",
   GET_CATEGORIES_COUNT: "/categories/count",
+  SEND_SUBSCRIBE_MAIL: "/send/email",
 };
 
 export const UserApi = {

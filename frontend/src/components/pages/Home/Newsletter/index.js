@@ -4,21 +4,24 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { useState } from "react";
 import { message } from "antd";
+import siteService from "../../../../services/siteService";
 
 const Newsletter = () => {
   const [loading, setLoading] = useState(false);
 
   const initialValues = {
-    email: "",
+    recipientEmail: "",
   };
 
   const validationSchema = Yup.object().shape({
-    email: Yup.string().email("Invalid email"),
+    recipientEmail: Yup.string().email("Invalid email"),
   });
 
   const handleNewsletterSubmit = async (values) => {
     try {
       setLoading(true);
+      const result = await siteService.sendSubscribeMail(values);
+      message.success(result?.data?.data || "Email sent successfully");
     } catch (error) {
       message.error(error?.response?.data?.message || "Error sending email");
     } finally {
@@ -52,8 +55,8 @@ const Newsletter = () => {
                   return (
                     <Form>
                       <Field
-                        id="email"
-                        name="email"
+                        id="recipientEmail"
+                        name="recipientEmail"
                         type="email"
                         placeholder="Email Address"
                         spellCheck={false}
@@ -63,7 +66,7 @@ const Newsletter = () => {
                           {loading ? "JOINING..." : "JOIN"}
                         </button>
                       </div>
-                      <ErrorMessage name="email">
+                      <ErrorMessage name="recipientEmail">
                         {(msg) => <div className={styles.error}>{msg}</div>}
                       </ErrorMessage>
                     </Form>
