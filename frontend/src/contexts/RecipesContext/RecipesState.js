@@ -11,6 +11,10 @@ const RecipesState = ({ children }) => {
     data: [],
   });
   const [recipe, setRecipe] = useState({});
+  const [searchRecipes, setSearchRecipes] = useState({
+    pagination: {},
+    data: [],
+  });
 
   const fetchAllRecipes = async () => {
     try {
@@ -21,7 +25,9 @@ const RecipesState = ({ children }) => {
         data: data?.data,
       });
     } catch (error) {
-      message.error(error?.response?.data?.message || "Error");
+      message.error(
+        error?.response?.data?.message || "Error getting all recipes"
+      );
     }
   };
 
@@ -31,7 +37,25 @@ const RecipesState = ({ children }) => {
       const data = result?.data?.data;
       setRecipe(data);
     } catch (error) {
-      message.error(error?.response?.data?.message || "Error");
+      message.error(
+        error?.response?.data?.message || "Error getting the recipe"
+      );
+    }
+  };
+
+  const fetchSearchRecipes = async (values) => {
+    try {
+      const result = await recipesService.search(values);
+      const data = result?.data?.data;
+      setSearchRecipes({
+        pagination: data?.pagination,
+        data: data?.data,
+      });
+    } catch (error) {
+      setSearchRecipes({
+        pagination: {},
+        data: [],
+      });
     }
   };
 
@@ -41,9 +65,22 @@ const RecipesState = ({ children }) => {
     }
   }, [auth]);
 
+  useEffect(() => {
+    if (recipes.data.length) {
+      setSearchRecipes(recipes);
+    }
+  }, [recipes]);
+
   return (
     <RecipesContext.Provider
-      value={{ recipes, recipe, fetchAllRecipes, fetchSingleRecipe }}
+      value={{
+        recipes,
+        recipe,
+        searchRecipes,
+        fetchAllRecipes,
+        fetchSingleRecipe,
+        fetchSearchRecipes,
+      }}
     >
       {children}
     </RecipesContext.Provider>
