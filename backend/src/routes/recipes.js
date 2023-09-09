@@ -10,6 +10,7 @@ router.get("/all", asyncHandler(recipesController.all));
 router.get("/created", asyncHandler(recipesController.created));
 router.get("/archived", asyncHandler(recipesController.archived));
 router.get("/categories", asyncHandler(recipesController.categories));
+router.get("/search", asyncHandler(recipesController.search));
 router.post(
   "/create",
   validateMdw(recipeSchema),

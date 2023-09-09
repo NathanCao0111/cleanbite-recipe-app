@@ -1,0 +1,107 @@
+.wrapper {
+
+	h5 {
+		font-size: 36px;
+	}
+
+	.inputContainer {
+		border-bottom: 1px solid #000;
+		padding: 8px 0;
+		margin-bottom: 10px;
+
+		input {
+			border: none;
+			outline: none;
+			border-radius: 0;
+			font-size: 18px;
+			color: #000;
+			padding-left: 0;
+
+			&:focus {
+				box-shadow: none;
+			}
+		}
+
+		span {
+			margin-right: 4px;
+		}
+
+		button {
+			background-color: transparent;
+			border: none;
+			outline: none;
+			z-index: 5;
+			font-size: 24px;
+			padding: 0 6px;
+		}
+	}
+
+	.figure {
+		position: relative;
+
+		.figLink {
+			display: block;
+			overflow: hidden;
+			border-radius: 6px;
+
+			img {
+				width: 100%;
+				height: auto;
+				object-fit: cover;
+				// max-height: 300px;
+				aspect-ratio: 1/1;
+				transform: scale(1);
+
+				transition: {
+					property: all;
+					timing-function: ease;
+					duration: 0.8s;
+				}
+			}
+
+			&:hover img {
+				transform: scale(1.1);
+			}
+		}
+
+		strong {
+			svg {
+				color: var(--primary);
+			}
+
+			span {
+				font-weight: 500 !important;
+				margin-left: 8px;
+
+				transition: {
+					property: all;
+					timing-function: ease;
+					duration: 0.3s;
+				}
+			}
+		}
+
+		.figTitle {
+			font-size: 20px;
+			font-weight: 400 !important;
+			text-decoration: none;
+			color: #000;
+
+			transition: {
+				property: all;
+				timing-function: ease;
+				duration: 0.3s;
+			}
+		}
+
+		&:hover {
+			color: var(--primary) !important;
+			text-decoration: none;
+		}
+
+		&:hover .figTitle {
+			color: var(--primary) !important;
+			text-decoration: none;
+		}
+	}
+}

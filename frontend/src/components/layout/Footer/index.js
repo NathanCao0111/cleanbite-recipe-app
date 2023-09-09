@@ -91,6 +91,7 @@ const Footer = () => {
               <a
                 href="https://fabrx.co/preview/tastebite/index.html"
                 target="_blank"
+                rel="noreferrer"
               >
                 Tastebite
               </a>

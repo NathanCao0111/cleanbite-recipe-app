@@ -17,14 +17,14 @@ const LatestRecipes = (props) => {
               <figure className={clsx(styles.figure, "my-3 my-md-4")}>
                 <Link
                   to={`/recipes/${element._id}`}
-                  className={clsx(styles.figLink, "rounded-6")}
+                  className={clsx(styles.figLink, "stretched-link rounded-6")}
                 >
                   <img src={element.image} alt={element.title} />
                 </Link>
                 <figcaption className="mt-2">
                   <div className="w-100 float-left">
                     <div className="float-left">
-                      <strong className={styles.likeContainer}>
+                      <strong>
                         <FontAwesomeIcon icon={faHeart} />
                         <span>{element.likes}</span>
                       </strong>
