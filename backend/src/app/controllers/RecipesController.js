@@ -111,9 +111,9 @@ class RecipesController {
     const limit = parseInt(req.query.limit) || 12;
     const skip = (page - 1) * limit;
 
-    const username = req.user.username;
+    const userId = req.user.id;
     const likedRecipes = await Recipe.find({
-      likesBy: { $in: [username] },
+      likesBy: { $in: [userId] },
     })
       .sort({ createdAt: -1 })
       .skip(skip)
@@ -125,7 +125,7 @@ class RecipesController {
     }
 
     const likedRecipesCount = await Recipe.countDocuments({
-      likesBy: { $in: [username] },
+      likesBy: { $in: [userId] },
     });
 
     resClientData(res, 200, {
@@ -139,24 +139,49 @@ class RecipesController {
     });
   }
 
-  // [PUT] /api/v1/recipes/like
+  // [PUT] /api/v1/recipes/like/:id
   async like(req, res) {
     const recipeId = req.params.id;
+    const userId = req.user.id;
 
-    const recipe = await Recipe.findOneAndUpdate(
-      {
-        _id: recipeId,
-      },
-      req.body,
-      { new: true }
-    );
+    const findRecipe = await Recipe.findOne({
+      _id: recipeId,
+    });
 
-    if (!recipe.length) {
+    console.log(findRecipe);
+
+    if (!findRecipe) {
       res.status(404);
       throw new Error("Recipe not found");
     }
 
-    resClientData(res, 200, recipe);
+    let updatedRecipe;
+
+    if (findRecipe.likesBy.includes(userId)) {
+      updatedRecipe = await Recipe.findOneAndUpdate(
+        { _id: recipeId },
+        {
+          $pull: { likesBy: userId },
+        },
+        { new: true }
+      );
+
+      updatedRecipe.likes -= 1;
+      await updatedRecipe.save();
+    } else {
+      updatedRecipe = await Recipe.findOneAndUpdate(
+        { _id: recipeId },
+        {
+          $push: { likesBy: userId },
+        },
+        { new: true }
+      );
+
+      updatedRecipe.likes += 1;
+      await updatedRecipe.save();
+    }
+
+    resClientData(res, 200, updatedRecipe);
   }
 
   // [GET] /api/v1/recipes/search

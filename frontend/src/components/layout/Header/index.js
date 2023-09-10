@@ -44,13 +44,24 @@ function Header() {
     {
       label: (
         <Link
+          to="/recipes/likes"
+          style={{ textDecoration: "none", fontSize: 16 }}
+        >
+          Favorites
+        </Link>
+      ),
+      key: "2",
+    },
+    {
+      label: (
+        <Link
           to="/recipes/archived"
           style={{ textDecoration: "none", fontSize: 16 }}
         >
           Archived
         </Link>
       ),
-      key: "2",
+      key: "3",
     },
     {
       type: "divider",
@@ -65,7 +76,7 @@ function Header() {
           Log out
         </button>
       ),
-      key: "3",
+      key: "4",
     },
   ];
 

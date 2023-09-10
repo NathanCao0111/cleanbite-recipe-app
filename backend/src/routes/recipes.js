@@ -11,7 +11,7 @@ router.get("/created", asyncHandler(recipesController.created));
 router.get("/archived", asyncHandler(recipesController.archived));
 router.get("/categories", asyncHandler(recipesController.categories));
 router.get("/likes", asyncHandler(recipesController.likes));
-router.put("/like", asyncHandler(recipesController.like));
+router.put("/like/:id", asyncHandler(recipesController.like));
 router.get("/search", asyncHandler(recipesController.search));
 router.post(
   "/create",
