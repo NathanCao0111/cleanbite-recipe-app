@@ -15,9 +15,11 @@ const RecipesState = ({ children }) => {
     pagination: {},
     data: [],
   });
+  const [recipesLoading, setRecipesLoading] = useState(false);
 
   const fetchAllRecipes = async () => {
     try {
+      setRecipesLoading(true);
       const result = await recipesService.all();
       const data = result?.data?.data;
       setRecipes({
@@ -28,11 +30,14 @@ const RecipesState = ({ children }) => {
       message.error(
         error?.response?.data?.message || "Error getting all recipes"
       );
+    } finally {
+      setRecipesLoading(false);
     }
   };
 
   const fetchSingleRecipe = async (values) => {
     try {
+      setRecipesLoading(true);
       const result = await recipesService.single(values);
       const data = result?.data?.data;
       setRecipe(data);
@@ -40,11 +45,14 @@ const RecipesState = ({ children }) => {
       message.error(
         error?.response?.data?.message || "Error getting the recipe"
       );
+    } finally {
+      setRecipesLoading(false);
     }
   };
 
   const fetchSearchRecipes = async (values) => {
     try {
+      setRecipesLoading(true);
       const result = await recipesService.search(values);
       const data = result?.data?.data;
       setSearchRecipes({
@@ -56,6 +64,8 @@ const RecipesState = ({ children }) => {
         pagination: {},
         data: [],
       });
+    } finally {
+      setRecipesLoading(false);
     }
   };
 
@@ -77,6 +87,8 @@ const RecipesState = ({ children }) => {
         recipes,
         recipe,
         searchRecipes,
+        recipesLoading,
+        setRecipesLoading,
         fetchAllRecipes,
         fetchSingleRecipe,
         fetchSearchRecipes,

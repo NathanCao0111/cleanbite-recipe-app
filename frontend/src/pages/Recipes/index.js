@@ -4,13 +4,18 @@ import clsx from "clsx";
 import styles from "../../scss/pages/Recipes/Recipes.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark, faHeart } from "@fortawesome/free-solid-svg-icons";
-import { Result, Spin } from "antd";
+import { Result, Spin, Pagination } from "antd";
 import RecipesContext from "../../contexts/RecipesContext/RecipesContext";
 import debounce from "lodash.debounce";
 
 function Recipes() {
-  const { searchRecipes, fetchSearchRecipes } = useContext(RecipesContext);
-  const [loading, setLoading] = useState(false);
+  const {
+    searchRecipes,
+    fetchSearchRecipes,
+    recipesLoading,
+    setRecipesLoading,
+  } = useContext(RecipesContext);
+  const [current, setCurrent] = useState(1);
   const [searchValue, setSearchValue] = useState("");
 
   const handleSearchChange = (e) => {
@@ -20,22 +25,26 @@ function Recipes() {
 
   const handleClearSearch = async () => {
     try {
-      setLoading(true);
+      setRecipesLoading(true);
       setSearchValue("");
       await fetchSearchRecipes("");
     } catch (error) {
     } finally {
-      setLoading(false);
+      setRecipesLoading(false);
     }
+  };
+
+  const handlePaginationChange = async (page) => {
+    setCurrent(page);
   };
 
   const handleDebounceFn = async (values) => {
     try {
-      setLoading(true);
+      setRecipesLoading(true);
       await fetchSearchRecipes(values);
     } catch (error) {
     } finally {
-      setLoading(false);
+      setRecipesLoading(false);
     }
   };
 
@@ -63,7 +72,7 @@ function Recipes() {
         </button>
       </div>
       {searchRecipes?.data.length ? (
-        loading ? (
+        recipesLoading ? (
           <div className={styles.spinContainer}>
             <Spin size="large" />
           </div>
@@ -108,13 +117,15 @@ function Recipes() {
               })}
             </div>
             <div className="text-center py-5">
-              <button className="btn btn-outline-dark px-4 px-md-5 py-1 py-md-2 big font-weight-medium">
-                Load More
-              </button>
+              <Pagination
+                current={current}
+                onChange={handlePaginationChange}
+                total={50}
+              />
             </div>
           </>
         )
-      ) : loading ? (
+      ) : recipesLoading ? (
         <div className={styles.spinContainer}>
           <Spin size="large" />
         </div>

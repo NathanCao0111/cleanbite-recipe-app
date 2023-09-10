@@ -11,9 +11,11 @@ const SiteState = ({ children }) => {
   const [siteRecipe, setSiteRecipe] = useState({});
   const [siteMostLikesRecipes, setSiteMostLikesRecipes] = useState([]);
   const [siteCategoriesCount, setSiteCategoriesCount] = useState([]);
+  const [siteLoading, setSiteLoading] = useState(false);
 
   const fetchSiteAllRecipes = async (values) => {
     try {
+      setSiteLoading(true);
       const result = await siteService.all(values);
       const data = result?.data?.data;
       setSiteRecipes({
@@ -22,36 +24,47 @@ const SiteState = ({ children }) => {
       });
     } catch (error) {
       message.error(error?.response?.data?.message || "Error");
+    } finally {
+      setSiteLoading(false);
     }
   };
 
   const fetchSiteSingleRecipe = async (values) => {
     try {
+      setSiteLoading(true);
       const result = await siteService.single(values);
       const data = result?.data?.data;
       setSiteRecipe(data);
     } catch (error) {
       message.error(error?.response?.data?.message || "Error");
+    } finally {
+      setSiteLoading(false);
     }
   };
 
   const fetchSiteMostLikesRecipes = async () => {
     try {
+      setSiteLoading(true);
       const result = await siteService.likes();
       const data = result?.data?.data?.data;
       setSiteMostLikesRecipes(data);
     } catch (error) {
       message.error(error?.response?.data?.message || "Error");
+    } finally {
+      setSiteLoading(false);
     }
   };
 
   const fetchSiteCategoriesCount = async () => {
     try {
+      setSiteLoading(true);
       const result = await siteService.categoriesCount();
       const data = result?.data?.data;
       setSiteCategoriesCount(data);
     } catch (error) {
       message.error(error?.response?.data?.message || "Error");
+    } finally {
+      setSiteLoading(false);
     }
   };
 
@@ -81,6 +94,7 @@ const SiteState = ({ children }) => {
         siteRecipe,
         siteMostLikesRecipes,
         siteCategoriesCount,
+        siteLoading,
         fetchSiteAllRecipes,
         fetchSiteSingleRecipe,
         setSiteMostLikesRecipes,

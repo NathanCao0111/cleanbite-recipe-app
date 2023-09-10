@@ -5,14 +5,14 @@ class RecipesController {
   // [GET] /api/v1/recipes/all
   async all(req, res) {
     const page = parseInt(req.query.page) || 1;
-    const limit = parseInt(req.query.limit) || 10;
+    const limit = parseInt(req.query.limit) || 12;
     const skip = (page - 1) * limit;
     const data = await Recipe.find()
       .sort({ createdAt: -1 })
       .skip(skip)
       .limit(limit);
 
-    if (!data) {
+    if (!data.length) {
       res.status(404);
       throw new Error("Recipes not found");
     }
