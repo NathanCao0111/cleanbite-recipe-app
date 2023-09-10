@@ -10,6 +10,7 @@ import CreateRecipe from "../../pages/CreateRecipe";
 import Archived from "../../pages/Archived";
 import Categories from "../../pages/Categories";
 import Category from "../../pages/Category";
+import Favorites from "../../pages/Favorites";
 
 const routes = [
   {
@@ -60,6 +61,11 @@ const routes = [
   {
     path: PathRoute.Category,
     component: Category,
+    isPrivate: true,
+  },
+  {
+    path: PathRoute.Favorites,
+    component: Favorites,
     isPrivate: true,
   },
   {

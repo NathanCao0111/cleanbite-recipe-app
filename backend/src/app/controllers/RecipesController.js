@@ -105,6 +105,60 @@ class RecipesController {
     });
   }
 
+  // [GET] /api/v1/recipes/likes
+  async likes(req, res) {
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 12;
+    const skip = (page - 1) * limit;
+
+    const username = req.user.username;
+    const likedRecipes = await Recipe.find({
+      likesBy: { $in: [username] },
+    })
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit);
+
+    if (!likedRecipes.length) {
+      res.status(404);
+      throw new Error("Recipes not found");
+    }
+
+    const likedRecipesCount = await Recipe.countDocuments({
+      likesBy: { $in: [username] },
+    });
+
+    resClientData(res, 200, {
+      pagination: {
+        totalDocuments: likedRecipesCount,
+        totalPages: Math.ceil(likedRecipesCount / limit),
+        pageSize: limit,
+        currentPage: page,
+      },
+      data: likedRecipes,
+    });
+  }
+
+  // [PUT] /api/v1/recipes/like
+  async like(req, res) {
+    const recipeId = req.params.id;
+
+    const recipe = await Recipe.findOneAndUpdate(
+      {
+        _id: recipeId,
+      },
+      req.body,
+      { new: true }
+    );
+
+    if (!recipe.length) {
+      res.status(404);
+      throw new Error("Recipe not found");
+    }
+
+    resClientData(res, 200, recipe);
+  }
+
   // [GET] /api/v1/recipes/search
   async search(req, res) {
     const page = parseInt(req.query.page) || 1;
@@ -235,7 +289,7 @@ class RecipesController {
       { new: true }
     );
 
-    if (!recipe) {
+    if (!recipe.length) {
       res.status(404);
       throw new Error("Recipe not found");
     }

@@ -74,6 +74,7 @@ const RecipeSchema = new Schema(
     userId: { type: Schema.Types.ObjectId, ref: "User", required: true },
     nutrition: NutritionSchema,
     likes: Number,
+    likesBy: Array,
     categories: { type: Array, required: true },
     date: { type: Date, default: new Date() },
   },

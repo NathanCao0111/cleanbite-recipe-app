@@ -10,4 +10,5 @@ export const PathRoute = {
   Archived: "/recipes/archived",
   Categories: "/recipes/categories",
   Category: "/recipes/categories/:id",
+  Favorites: "/recipes/likes",
 };

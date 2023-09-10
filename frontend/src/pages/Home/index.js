@@ -27,7 +27,7 @@ function Home() {
         <>
           <Feature recipe={siteRecipe} />
           <Trending siteMostLikesRecipes={siteMostLikesRecipes} />
-          <Categories siteCategoriesCount={siteCategoriesCount} />
+          {/* <Categories siteCategoriesCount={siteCategoriesCount} /> */}
           <Newsletter />
           <LatestRecipes recipes={siteRecipes} />
         </>
