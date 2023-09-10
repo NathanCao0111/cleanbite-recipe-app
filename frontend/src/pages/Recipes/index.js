@@ -35,7 +35,14 @@ function Recipes() {
   };
 
   const handlePaginationChange = async (page) => {
-    setCurrent(page);
+    try {
+      setCurrent(page);
+      setRecipesLoading(true);
+      await fetchSearchRecipes(searchValue, page);
+    } catch (error) {
+    } finally {
+      setRecipesLoading(false);
+    }
   };
 
   const handleDebounceFn = async (values) => {
@@ -120,7 +127,8 @@ function Recipes() {
               <Pagination
                 current={current}
                 onChange={handlePaginationChange}
-                total={50}
+                defaultPageSize={12}
+                total={searchRecipes?.pagination.totalDocuments}
               />
             </div>
           </>

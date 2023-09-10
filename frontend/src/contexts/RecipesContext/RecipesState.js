@@ -50,10 +50,10 @@ const RecipesState = ({ children }) => {
     }
   };
 
-  const fetchSearchRecipes = async (values) => {
+  const fetchSearchRecipes = async (title, page) => {
     try {
       setRecipesLoading(true);
-      const result = await recipesService.search(values);
+      const result = await recipesService.search(title, page);
       const data = result?.data?.data;
       setSearchRecipes({
         pagination: data?.pagination,
