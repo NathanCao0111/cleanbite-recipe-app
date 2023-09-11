@@ -7,12 +7,14 @@ const AuthState = ({ children }) => {
     isAuthenticated: false,
     user: {},
   });
+  const [authLoading, setAuthLoading] = useState(false);
 
   // 1. call API /me => userInfo
   // 2. Update auth state
 
   const fetchCurrentUser = async () => {
     try {
+      setAuthLoading(true);
       const response = await authService.getMe();
       const user = response.data.data;
       setAuth({
@@ -21,6 +23,8 @@ const AuthState = ({ children }) => {
       });
     } catch (error) {
       // message.error(error?.response?.data?.message || "Error");
+    } finally {
+      setAuthLoading(false);
     }
   };
 
@@ -45,7 +49,7 @@ const AuthState = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ auth, fetchCurrentUser, handleLogin, handleLogout }}
+      value={{ auth, authLoading, fetchCurrentUser, handleLogin, handleLogout }}
     >
       {children}
     </AuthContext.Provider>

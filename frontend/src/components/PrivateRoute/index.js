@@ -5,8 +5,9 @@ import { Navigate } from "react-router-dom";
 function PrivateRoute({ component: Component }) {
   const { auth } = useContext(AuthContext);
   const { isAuthenticated } = auth;
+  const accessToken = localStorage.getItem("accessToken");
 
-  if (!isAuthenticated) {
+  if (!isAuthenticated && !accessToken) {
     return <Navigate to="/login" />;
   }
 

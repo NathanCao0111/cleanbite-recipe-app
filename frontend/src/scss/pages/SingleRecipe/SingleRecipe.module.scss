@@ -1,0 +1,70 @@
+.wrapper {
+	.spinContainer {
+		display: flex;
+		justify-content: center;
+		padding-top: 80px;
+	}
+
+	.title {
+		strong {
+			svg {
+				color: var(--primary);
+			}
+
+			span {
+				font-weight: 500 !important;
+				margin-left: 8px;
+			}
+		}
+
+		h5 {
+			font-size: 60px;
+		}
+
+		button {
+			svg {
+				font-size: 32px;
+			}
+
+			&:hover {
+				color: var(--primary);
+			}
+		}
+	}
+
+	.description {
+		.author {
+			img {
+				width: 40px;
+				height: 40px;
+				object-fit: cover;
+			}
+		}
+
+		svg {
+			color: var(--primary);
+		}
+
+		small {
+			padding-left: 8px;
+			font-size: 16px;
+		}
+	}
+
+	.content {
+		hr {
+			margin: 20px 0;
+		}
+
+		p {
+			font-size: 20px;
+			line-height: 37px;
+		}
+
+		img {
+			border-radius: 12px;
+			max-height: 800px;
+			object-fit: cover;
+		}
+	}
+}

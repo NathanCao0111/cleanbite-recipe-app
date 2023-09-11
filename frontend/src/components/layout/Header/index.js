@@ -2,12 +2,12 @@ import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "../../../scss/components/layout/Header.module.scss";
 import AuthContext from "../../../contexts/AuthContext/AuthContext";
-import { Dropdown, Space } from "antd";
+import { Dropdown, Space, Spin } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 
 function Header() {
-  const { auth, handleLogout } = useContext(AuthContext);
+  const { auth, authLoading, handleLogout } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleLogoutBtn = () => {
@@ -92,17 +92,25 @@ function Header() {
           Create a Recipe
         </Link>
       </li>
-      <li>
-        <Link className="nav-link" to="/login">
-          Log in
-        </Link>
-      </li>
-      <div className={styles.line}></div>
-      <li>
-        <Link className="nav-link" to="/register">
-          Register
-        </Link>
-      </li>
+      {authLoading ? (
+        <div className={styles.spinContainer}>
+          <Spin size="large" />
+        </div>
+      ) : (
+        <>
+          <li>
+            <Link className="nav-link" to="/login">
+              Log in
+            </Link>
+          </li>
+          <div className={styles.line}></div>
+          <li>
+            <Link className="nav-link" to="/register">
+              Register
+            </Link>
+          </li>
+        </>
+      )}
     </>
   );
 

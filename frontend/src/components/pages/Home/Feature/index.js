@@ -29,7 +29,7 @@ const Feature = (props) => {
           <div className="p-4 p-md-5 d-flex flex-column justify-content-center h-100 position-relative">
             <strong>
               <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
-              <span className={styles.recommend}>
+              <span>
                 {recipe.likes} chefs would make this again
               </span>
             </strong>
