@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import AuthContext from "./AuthContext";
 import authService from "../../services/authService";
+import { useNavigate } from "react-router-dom";
+import { message } from "antd";
 
 const AuthState = ({ children }) => {
   const [auth, setAuth] = useState({
@@ -8,6 +10,7 @@ const AuthState = ({ children }) => {
     user: {},
   });
   const [authLoading, setAuthLoading] = useState(false);
+  const navigate = useNavigate();
 
   // 1. call API /me => userInfo
   // 2. Update auth state
@@ -22,7 +25,8 @@ const AuthState = ({ children }) => {
         user: user,
       });
     } catch (error) {
-      // message.error(error?.response?.data?.message || "Error");
+      message.error(error?.response?.data?.message || "Error");
+      navigate("/login");
     } finally {
       setAuthLoading(false);
     }

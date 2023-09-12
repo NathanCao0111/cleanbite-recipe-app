@@ -69,6 +69,21 @@ const RecipesState = ({ children }) => {
     }
   };
 
+  const fetchUpdateFavoritesRecipe = async (values) => {
+    try {
+      setRecipesLoading(true);
+      const result = await recipesService.updateFavorites(values);
+      const data = result?.data?.data;
+      setRecipe(data);
+    } catch (error) {
+      message.error(
+        error?.response?.data?.message || "Error updating recipe like"
+      );
+    } finally {
+      setRecipesLoading(false);
+    }
+  };
+
   useEffect(() => {
     if (auth.isAuthenticated) {
       fetchAllRecipes();
@@ -92,6 +107,7 @@ const RecipesState = ({ children }) => {
         fetchAllRecipes,
         fetchSingleRecipe,
         fetchSearchRecipes,
+        fetchUpdateFavoritesRecipe,
       }}
     >
       {children}

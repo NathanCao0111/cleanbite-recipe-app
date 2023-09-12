@@ -6,12 +6,16 @@ const recipesService = {
   created: async () => await axiosInstance.get(RecipesApi.GET_CREATED_RECIPES),
   search: async (title, page) =>
     await axiosInstance.get(`/recipes/search?title=${title}&page=${page}`),
+  favorites: async () => await axiosInstance.get(RecipesApi.GET_LIKES_RECIPES),
   single: async (values) => await axiosInstance.get(`/recipes/${values}`),
   create: async (values) => {
     await axiosInstance.post(RecipesApi.CREATE_RECIPE, values);
   },
   update: async (values) => {
     await axiosInstance.put(RecipesApi.UPDATE_RECIPE, values);
+  },
+  updateFavorites: async (values) => {
+    return await axiosInstance.put(`/recipes/like/${values}`);
   },
   restore: async (values) => {
     await axiosInstance.patch(RecipesApi.RESTORE_RECIPE, values);
