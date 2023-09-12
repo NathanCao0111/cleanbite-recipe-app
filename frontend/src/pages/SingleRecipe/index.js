@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import clsx from "clsx";
 import styles from "../../scss/pages/SingleRecipe/SingleRecipe.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

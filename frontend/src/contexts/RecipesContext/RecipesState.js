@@ -84,6 +84,19 @@ const RecipesState = ({ children }) => {
     }
   };
 
+  const fetchCreateRecipe = async (values) => {
+    try {
+      setRecipesLoading(true);
+      await recipesService.create(values);
+    } catch (error) {
+      message.error(
+        error?.response?.data?.message || "Error create the recipe"
+      );
+    } finally {
+      setRecipesLoading(false);
+    }
+  };
+
   useEffect(() => {
     if (auth.isAuthenticated) {
       fetchAllRecipes();
@@ -108,6 +121,7 @@ const RecipesState = ({ children }) => {
         fetchSingleRecipe,
         fetchSearchRecipes,
         fetchUpdateFavoritesRecipe,
+        fetchCreateRecipe,
       }}
     >
       {children}

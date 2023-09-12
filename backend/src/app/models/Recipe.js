@@ -73,9 +73,9 @@ const RecipeSchema = new Schema(
     image: { type: String, trim: true, required: true },
     userId: { type: Schema.Types.ObjectId, ref: "User", required: true },
     nutrition: NutritionSchema,
-    likes: Number,
-    likesBy: Array,
-    categories: { type: Array, required: true },
+    likes: { type: Number, required: true },
+    likesBy: { type: Array, required: true },
+    categories: Array,
     date: { type: Date, default: new Date() },
   },
   { timestamps: true }
