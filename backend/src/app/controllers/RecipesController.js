@@ -282,6 +282,7 @@ class RecipesController {
       serves,
       image,
       nutrition,
+      categories,
     } = req.body;
     const recipe = await Recipe.create({
       title,
@@ -295,6 +296,9 @@ class RecipesController {
       image,
       userId: id,
       nutrition,
+      categories,
+      likes: 0,
+      likesBy: [],
     });
 
     resClientData(res, 201, recipe);

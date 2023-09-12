@@ -22,7 +22,7 @@ const CreateRecipe = () => {
       .min(1, "Too short!")
       .max(100, "Too long!")
       .trim("Cannot include leading and trailing spaces")
-      .required(),
+      .optional(),
     ingredients: Yup.array().required(),
     method: Yup.array().required(),
     time: Yup.object().shape({
@@ -56,6 +56,9 @@ const CreateRecipe = () => {
       protein: Yup.string().optional(),
       salt: Yup.string().optional(),
     }),
+    categories: Yup.array(),
+    likes: Yup.number().required().positive().integer(),
+    likesBy: Yup.array().required(),
   });
 
   const SubmitButton = ({ form }) => {

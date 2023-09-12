@@ -58,7 +58,6 @@ const RecipeSchema = new Schema(
       minLength: 1,
       maxLength: 100,
       trim: true,
-      required: true,
     },
     ingredients: { type: Array, required: true },
     method: { type: Array, required: true },
