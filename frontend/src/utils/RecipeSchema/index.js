@@ -1,6 +1,6 @@
-const Yup = require("yup");
+import * as Yup from "yup";
 
-const recipeSchema = Yup.object().shape({
+export const recipeSchema = Yup.object().shape({
   title: Yup.string()
     .min(1, "Too short!")
     .max(100, "Too long!")
@@ -63,8 +63,4 @@ const recipeSchema = Yup.object().shape({
     salt: Yup.string().optional(),
   }),
   categories: Yup.array(),
-  likes: Yup.number().required().positive().integer(),
-  likesBy: Yup.array().required(),
 });
-
-module.exports = recipeSchema;

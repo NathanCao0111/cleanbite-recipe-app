@@ -93,7 +93,7 @@ const Footer = () => {
                 target="_blank"
                 rel="noreferrer"
               >
-                Tastebite
+                Tastebite & Nathan Cao
               </a>
             </p>
           </div>

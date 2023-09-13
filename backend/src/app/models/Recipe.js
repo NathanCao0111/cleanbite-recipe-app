@@ -69,7 +69,7 @@ const RecipeSchema = new Schema(
       trim: true,
       required: true,
     },
-    image: { type: String, trim: true, required: true },
+    image: { type: String, required: true },
     userId: { type: Schema.Types.ObjectId, ref: "User", required: true },
     nutrition: NutritionSchema,
     likes: { type: Number, required: true },
