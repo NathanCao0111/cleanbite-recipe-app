@@ -55,8 +55,6 @@ const RecipeSchema = new Schema(
     cuisine: { type: String, trim: true },
     level: {
       type: String,
-      minLength: 1,
-      maxLength: 100,
       trim: true,
     },
     ingredients: { type: Array, required: true },

@@ -391,6 +391,7 @@ const CreateRecipe = () => {
                       type="primary"
                       htmlType="submit"
                       className="form-button"
+                      disabled={!returnedFile}
                     >
                       Create Recipe
                     </Button>
