@@ -63,8 +63,6 @@ const recipeSchema = Yup.object().shape({
     salt: Yup.string().optional(),
   }),
   categories: Yup.array(),
-  likes: Yup.number().required().positive().integer(),
-  likesBy: Yup.array().required(),
 });
 
 module.exports = recipeSchema;

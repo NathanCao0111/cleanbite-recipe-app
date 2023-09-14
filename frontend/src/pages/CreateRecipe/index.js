@@ -1,13 +1,19 @@
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import { Button, Form, Input, Space, Spin, Card, Radio, Select } from "antd";
 import { Formik } from "formik";
 import "../../scss/components/Button.scss";
 import styles from "../../scss/pages/CreateRecipe/CreateRecipe.module.scss";
 import RecipesContext from "../../contexts/RecipesContext/RecipesContext";
 import { recipeSchema } from "../../utils/RecipeSchema";
-import UploadDragger from "../../utils/UploadDragger";
+import { nutritionFieldConfigs } from "../../utils/NutritionFieldConfigs";
+import recipesService from "../../services/recipesService";
 
 const CreateRecipe = () => {
+  const [loading, setLoading] = useState(false);
+  const [loadingDelete, setLoadingDelete] = useState(false);
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [error, setError] = useState(null);
+
   const initialValues = {
     title: "",
     description: "",
@@ -34,49 +40,6 @@ const CreateRecipe = () => {
     categories: [],
   };
 
-  const nutritionFieldConfigs = [
-    {
-      name: "kcal",
-      label: "Kcal",
-      placeholder: "Enter kcal",
-    },
-    {
-      name: "fat",
-      label: "Fat",
-      placeholder: "Enter fat",
-    },
-    {
-      name: "saturates",
-      label: "Saturates",
-      placeholder: "Enter saturates",
-    },
-    {
-      name: "carbs",
-      label: "Carbs",
-      placeholder: "Enter carbs",
-    },
-    {
-      name: "sugars",
-      label: "Sugars",
-      placeholder: "Enter sugars",
-    },
-    {
-      name: "fibre",
-      label: "Fibre",
-      placeholder: "Enter fibre",
-    },
-    {
-      name: "protein",
-      label: "Protein",
-      placeholder: "Enter protein",
-    },
-    {
-      name: "salt",
-      label: "Salt",
-      placeholder: "Enter salt",
-    },
-  ];
-
   const { TextArea } = Input;
   const { Option } = Select;
   const { recipesLoading, fetchCreateRecipe } = useContext(RecipesContext);
@@ -85,6 +48,36 @@ const CreateRecipe = () => {
     console.log(values);
     await fetchCreateRecipe(values);
   };
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    setSelectedFile(file);
+  };
+
+  const handleFileUpload = async () => {
+    if (!selectedFile) return;
+
+    try {
+      setLoading(true);
+      const formData = new FormData();
+      formData.append("image", selectedFile); //formData.append(name, value)
+
+      // call API upload file to cloudinary
+      const recipeImgData = await recipesService.uploadRecipeImg(formData);
+
+      console.log(recipeImgData);
+    } catch (error) {
+      setError(error.response.data.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (selectedFile) {
+      handleFileUpload();
+    }
+  }, [selectedFile]);
 
   return (
     <section className={styles.wrapper}>
@@ -326,9 +319,7 @@ const CreateRecipe = () => {
                     </Select>
                   </Form.Item>
 
-                  <h6 style={{ marginTop: 40, fontSize: 24 }}>
-                    Nutrition Facts
-                  </h6>
+                  <h6>Nutrition Facts</h6>
                   {nutritionFieldConfigs?.map((field) => (
                     <Form.Item
                       key={field.name}
@@ -346,10 +337,32 @@ const CreateRecipe = () => {
                     </Form.Item>
                   ))}
 
-                  <h6 style={{ marginTop: 40, marginBottom: 20, fontSize: 24 }}>
-                    Image
-                  </h6>
-                  <UploadDragger label="Upload Recipe Image" name="image" />
+                  <h6>Image</h6>
+                  <div className="d-flex flex-wrap pt-3 pt-md-5 pb-4 mb-2 align-items-center justify-content-center">
+                    <div className={styles.recipeImg}>
+                      <img
+                        src={
+                          // auth.user.avatar ||
+                          "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
+                        }
+                        alt="recipe"
+                      />
+                    </div>
+                    <div className={styles.recipeBtns}>
+                      <Button color="outline-dark">
+                        <label htmlFor="image">
+                          {loading ? "Loading..." : "Upload Recipe Image"}
+                        </label>
+                        <input
+                          type="file"
+                          id="image"
+                          hidden
+                          onChange={handleFileChange}
+                          accept="image/*"
+                        />
+                      </Button>
+                    </div>
+                  </div>
 
                   <Form.Item
                     style={{

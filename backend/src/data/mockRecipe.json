@@ -1,42 +1,42 @@
 {
-  "title": "Sweet potato & peanut curry",
-  "description": "Cook this tasty, budget-friendly vegan curry for an easy family dinner. With spinach and sweet potato, it boasts two of your five-a-day and it’s under 400 calories",
-  "cuisine": "Fusion",
+  "title": "Paneer korma",
+  "description": "Cook this recipe inspired by saag paneer in just 30 minutes. It's a flavourful veggie curry that's heady with fresh ginger and cardamom. Serve with rice or naan breads",
+  "cuisine": "Indian",
   "level": "Easy",
   "ingredients": [
-    "1 tbsp coconut oil",
-    "1 onion, chopped",
-    "2 garlic cloves, grated",
-    "thumb-sized piece ginger, grated",
-    "3 tbsp Thai red curry paste (check the label to make sure it’s vegetarian/ vegan)",
-    "1 tbsp smooth peanut butter",
-    "500g sweet potato, peeled and cut into chunks",
-    "400ml can coconut milk",
-    "200g bag spinach",
-    "1 lime, juiced",
-    "cooked rice, to serve (optional)",
-    "dry roasted peanuts, to serve (optional)"
+    "3 tbsp vegetable oil",
+    "225g block of paneer, cut into 2cm cubes",
+    "1 large onion, roughly chopped",
+    "thumb-sized piece of ginger, peeled",
+    "2 large garlic cloves",
+    "5 tbsp korma paste",
+    "3 cardamom pods, crushed",
+    "70g ground almonds",
+    "500ml vegetable stock",
+    "150g spinach",
+    "100g Greek yogurt",
+    "rice or naan breads, to serve (optional)"
   ],
   "method": [
-    "Melt 1 tbsp coconut oil in a saucepan over a medium heat and soften 1 chopped onion for 5 mins. Add 2 grated garlic cloves and a grated thumb-sized piece of ginger, and cook for 1 min until fragrant.",
-    "Stir in 3 tbsp Thai red curry paste, 1 tbsp smooth peanut butter and 500g sweet potato, peeled and cut into chunks, then add 400ml coconut milk and 200ml water.",
-    "Bring to the boil, turn down the heat and simmer, uncovered, for 25-30 mins or until the sweet potato is soft.",
-    "Stir through 200g spinach and the juice of 1 lime, and season well. Serve with cooked rice, and if you want some crunch, sprinkle over a few dry roasted peanuts."
+    "Heat 1 tbsp of the oil in a deep frying pan over a medium-high heat. Add the paneer cubes and fry for 5 mins, turning regularly, so each side is golden brown. Remove with tongs and put on a plate lined with kitchen paper.",
+    "Put the onion, ginger and garlic in a food processor with a splash of water and blitz until completely smooth. Heat the remaining oil in the frying pan over a medium-low heat. Add the onion mixture and a pinch of salt, and fry for 10 mins or until lightly golden. Add the korma paste and cardamom, and fry for 1 min. Stir in the ground almonds and fry for 1 min to make a thick paste.",
+    "Add the stock, bring to a simmer and cook for 5-10 mins, uncovered, or until reduced a little. Add the spinach to the sauce and cook for 5 mins. Stir through the yogurt and paneer, and season generously. Serve with rice or warm naan breads."
   ],
   "time": {
-    "preparation": "15 mins",
-    "cooking": "45 mins"
+    "preparation": "5 mins",
+    "cooking": "25 mins"
   },
   "serves": "4",
-  "image": "https://res.cloudinary.com/dihsjevvi/image/upload/v1693805667/cleanbite-recipe-app/recipes/satay-sweet-potato-curry-17cc62d_mfxihq.webp",
+  "categories": ["Less than 30 min"],
+  "image": "https://res.cloudinary.com/dihsjevvi/image/upload/v1694669511/cleanbite-recipe-app/recipes/Paneer-Korma_jleniw.jpg",
   "nutrition": {
-    "kcal": "387",
-    "fat": "25g",
-    "saturates": "18g",
-    "carbs": "32g",
-    "sugars": "15g",
-    "fibre": "7g",
-    "protein": "6g",
-    "salt": "0.6g"
+    "kcal": "509",
+    "fat": "29g",
+    "saturates": "12g",
+    "carbs": "21g",
+    "sugars": "12g",
+    "fibre": "16g",
+    "protein": "33g",
+    "salt": "0.7g"
   }
 }

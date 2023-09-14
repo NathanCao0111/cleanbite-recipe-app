@@ -1,5 +1,7 @@
 const Recipe = require("../models/Recipe");
 const resClientData = require("../../utils/resClientData");
+const cloudinaryFile = require("../../services/cloudinary/cloudinaryForRecipe");
+const fs = require("fs");
 
 class RecipesController {
   // [GET] /api/v1/recipes/all
@@ -302,6 +304,23 @@ class RecipesController {
     });
 
     resClientData(res, 201, recipe);
+  }
+
+  // [POST] /api/v1/recipes/upload-single-image
+  async uploadRecipeImage(req, res) {
+    // step 1: add file from client to server
+    const file = req.file;
+
+    // step 2: upload file to cloudinary => url
+    const result = await cloudinaryFile(file);
+
+    // step 3: remove temporary image
+    fs.unlinkSync(file.path);
+
+    // step 4: response secure url to FE
+    const recipeImgUrl = result && result.secure_url;
+
+    resClientData(res, 200, recipeImgUrl);
   }
 
   // [PUT] /api/v1/recipes/update/:id

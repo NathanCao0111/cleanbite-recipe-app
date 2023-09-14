@@ -1,7 +1,7 @@
 const resClientData = require("../../utils/resClientData");
 const User = require("../models/User");
 const fs = require("fs");
-const cloudinaryFile = require("../../services/cloudinary");
+const cloudinaryFile = require("../../services/cloudinary/cloudinaryForUser");
 
 class MeController {
   // [GET] /api/v1/me/info

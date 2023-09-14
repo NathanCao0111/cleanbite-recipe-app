@@ -5,6 +5,7 @@ const recipesController = require("../app/controllers/RecipesController");
 const asyncHandler = require("express-async-handler");
 const validateMdw = require("../middlewares/validateMdw");
 const recipeSchema = require("../validations/recipe");
+const uploadFile = require("../config/multer");
 
 router.get("/all", asyncHandler(recipesController.all));
 router.get("/created", asyncHandler(recipesController.created));
@@ -17,6 +18,11 @@ router.post(
   "/create",
   validateMdw(recipeSchema),
   asyncHandler(recipesController.createRecipe)
+);
+router.post(
+  "/upload-recipe-image",
+  uploadFile.single("image"),
+  asyncHandler(recipesController.uploadRecipeImage)
 );
 router.get("/:id", asyncHandler(recipesController.single));
 router.get("/archived/:id", asyncHandler(recipesController.archivedSingle));
