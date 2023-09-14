@@ -1,5 +1,15 @@
 import { useContext, useState, useEffect } from "react";
-import { Button, Form, Input, Space, Spin, Card, Radio, Select } from "antd";
+import {
+  Button,
+  Form,
+  Input,
+  Space,
+  Spin,
+  Card,
+  Radio,
+  Select,
+  message,
+} from "antd";
 import { Formik } from "formik";
 import "../../scss/components/Button.scss";
 import styles from "../../scss/pages/CreateRecipe/CreateRecipe.module.scss";
@@ -10,9 +20,7 @@ import recipesService from "../../services/recipesService";
 
 const CreateRecipe = () => {
   const [loading, setLoading] = useState(false);
-  const [loadingDelete, setLoadingDelete] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
-  const [error, setError] = useState(null);
   const [returnedFile, setReturnedFile] = useState(null);
 
   const initialValues = {
@@ -46,11 +54,15 @@ const CreateRecipe = () => {
   const { recipesLoading, fetchCreateRecipe } = useContext(RecipesContext);
 
   const handleCreateRecipe = async (values) => {
-    console.log(values);
-    await fetchCreateRecipe({
-      ...values,
-      image: returnedFile,
-    });
+    try {
+      console.log(values);
+      await fetchCreateRecipe({
+        ...values,
+        image: returnedFile,
+      });
+    } catch (error) {
+      message.error(error.response.data.message || "Error creating recipe");
+    }
   };
 
   const handleFileChange = (e) => {
@@ -71,7 +83,7 @@ const CreateRecipe = () => {
 
       setReturnedFile(returnedObj?.data?.data);
     } catch (error) {
-      setError(error.response.data.message);
+      message.error(error.response.data.message || "Error uploading image");
     } finally {
       setLoading(false);
     }
