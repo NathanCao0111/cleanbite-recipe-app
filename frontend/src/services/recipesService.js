@@ -12,7 +12,7 @@ const recipesService = {
     await axiosInstance.post(RecipesApi.CREATE_RECIPE, values);
   },
   uploadRecipeImg: async (values) => {
-    await axiosInstance.post(RecipesApi.CREATE_RECIPE_IMAGE, values);
+    return await axiosInstance.post(RecipesApi.CREATE_RECIPE_IMAGE, values);
   },
   update: async (values) => {
     await axiosInstance.put(RecipesApi.UPDATE_RECIPE, values);

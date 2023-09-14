@@ -36,22 +36,7 @@ export const recipeSchema = Yup.object().shape({
     .max(100, "Too long!")
     .trim("Cannot include leading and trailing spaces")
     .required(),
-  image: Yup.mixed()
-    .required("Please upload a recipe image")
-    .test(
-      "fileSize",
-      "File size too large",
-      (value) => value && value.size <= 10000000
-    )
-    .test(
-      "fileType",
-      "Unsupported file format",
-      (value) =>
-        value &&
-        ["image/jpeg", "image/png", "image/jpg", "application/pdf"].includes(
-          value.type
-        )
-    ),
+  image: Yup.string().url().required(),
   nutrition: Yup.object().shape({
     kcal: Yup.string().optional(),
     fat: Yup.string().optional(),

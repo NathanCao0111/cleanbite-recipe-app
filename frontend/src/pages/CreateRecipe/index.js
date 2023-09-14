@@ -13,6 +13,7 @@ const CreateRecipe = () => {
   const [loadingDelete, setLoadingDelete] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
   const [error, setError] = useState(null);
+  const [returnedFile, setReturnedFile] = useState(null);
 
   const initialValues = {
     title: "",
@@ -46,7 +47,10 @@ const CreateRecipe = () => {
 
   const handleCreateRecipe = async (values) => {
     console.log(values);
-    await fetchCreateRecipe(values);
+    await fetchCreateRecipe({
+      ...values,
+      image: returnedFile,
+    });
   };
 
   const handleFileChange = (e) => {
@@ -63,9 +67,9 @@ const CreateRecipe = () => {
       formData.append("image", selectedFile); //formData.append(name, value)
 
       // call API upload file to cloudinary
-      const recipeImgData = await recipesService.uploadRecipeImg(formData);
+      const returnedObj = await recipesService.uploadRecipeImg(formData);
 
-      console.log(recipeImgData);
+      setReturnedFile(returnedObj?.data?.data);
     } catch (error) {
       setError(error.response.data.message);
     } finally {
@@ -342,7 +346,7 @@ const CreateRecipe = () => {
                     <div className={styles.recipeImg}>
                       <img
                         src={
-                          // auth.user.avatar ||
+                          returnedFile ||
                           "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
                         }
                         alt="recipe"
