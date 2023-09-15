@@ -19,6 +19,10 @@ const RecipesState = ({ children }) => {
     pagination: {},
     data: [],
   });
+  const [favoriteRecipes, setFavoriteRecipes] = useState({
+    pagination: {},
+    data: [],
+  });
   const [recipesLoading, setRecipesLoading] = useState(false);
 
   const fetchAllRecipes = async () => {
@@ -91,6 +95,24 @@ const RecipesState = ({ children }) => {
     }
   };
 
+  const fetchFavoriteRecipes = async (mostLiked, page) => {
+    try {
+      setRecipesLoading(true);
+      const result = await recipesService.favorites(mostLiked, page);
+      const data = result?.data?.data;
+      setFavoriteRecipes({
+        pagination: data?.pagination,
+        data: data?.data,
+      });
+    } catch (error) {
+      message.error(
+        error?.response?.data?.message || "Error getting favorite recipes"
+      );
+    } finally {
+      setRecipesLoading(false);
+    }
+  };
+
   const fetchUpdateFavoritesRecipe = async (values) => {
     try {
       setRecipesLoading(true);
@@ -132,6 +154,12 @@ const RecipesState = ({ children }) => {
   }, [auth]);
 
   useEffect(() => {
+    if (auth.isAuthenticated) {
+      fetchFavoriteRecipes();
+    }
+  }, [auth]);
+
+  useEffect(() => {
     if (recipes.data.length) {
       setSearchRecipes(recipes);
     }
@@ -144,12 +172,14 @@ const RecipesState = ({ children }) => {
         recipe,
         searchRecipes,
         createdRecipes,
+        favoriteRecipes,
         recipesLoading,
         setRecipesLoading,
         fetchAllRecipes,
         fetchSingleRecipe,
         fetchCreatedRecipes,
         fetchSearchRecipes,
+        fetchFavoriteRecipes,
         fetchUpdateFavoritesRecipe,
         fetchCreateRecipe,
       }}

@@ -129,12 +129,26 @@ class RecipesController {
     const skip = (page - 1) * limit;
 
     const userId = req.user.id;
-    const likedRecipes = await Recipe.find({
-      likesBy: { $in: [userId] },
-    })
-      .sort({ createdAt: -1 })
-      .skip(skip)
-      .limit(limit);
+    const mostLiked = req.query.mostLiked || "desc";
+    let likedRecipes;
+
+    if (mostLiked === "desc" || !!mostLiked) {
+      likedRecipes = await Recipe.find({
+        likesBy: { $in: [userId] },
+      })
+        .sort({ likes: -1 })
+        .skip(skip)
+        .limit(limit);
+    }
+
+    if (mostLiked === "asc") {
+      likedRecipes = await Recipe.find({
+        likesBy: { $in: [userId] },
+      })
+        .sort({ likes: 1 })
+        .skip(skip)
+        .limit(limit);
+    }
 
     if (!likedRecipes.length) {
       res.status(404);

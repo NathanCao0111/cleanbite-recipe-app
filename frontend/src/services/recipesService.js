@@ -7,7 +7,10 @@ const recipesService = {
     await axiosInstance.get(`/recipes/created?date=${date}&page=${page}`),
   search: async (title, page) =>
     await axiosInstance.get(`/recipes/search?title=${title}&page=${page}`),
-  favorites: async () => await axiosInstance.get(RecipesApi.GET_LIKES_RECIPES),
+  favorites: async (mostLiked, page) =>
+    await axiosInstance.get(
+      `/recipes/likes?mostLiked=${mostLiked}&page=${page}`
+    ),
   single: async (values) => await axiosInstance.get(`/recipes/${values}`),
   create: async (values) => {
     await axiosInstance.post(RecipesApi.CREATE_RECIPE, values);

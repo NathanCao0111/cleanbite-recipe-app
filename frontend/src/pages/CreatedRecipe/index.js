@@ -59,8 +59,8 @@ function CreatedRecipe() {
             </sup>
           </h5>
           <p>
-            One thing I learned living in the Canarsie section of Brooklyn, NY
-            was how to cook a good Italian meal!
+            "One thing I learned living in the Canarsie section of Brooklyn, NY
+            was how to cook a good Italian meal!" - Tricia Albert
           </p>
         </div>
         <div className={clsx(styles.sort, "col-lg-3 col-md-4")}>
@@ -79,6 +79,7 @@ function CreatedRecipe() {
           </div>
         </div>
       </div>
+      <hr></hr>
       {createdRecipes?.data.length ? (
         recipesLoading ? (
           <div className={styles.spinContainer}>
