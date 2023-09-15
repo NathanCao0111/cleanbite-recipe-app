@@ -72,7 +72,8 @@ function Recipes() {
           onChange={handleSearchChange}
         />
         <span className="mt-2 mr-1">
-          ({searchRecipes?.pagination.totalDocuments || 0} Recipes)
+          ({searchRecipes?.pagination.totalDocuments || 0}{" "}
+          {searchRecipes?.pagination.totalDocuments > 1 ? "Recipes" : "Recipe"})
         </span>
         <button type="button" onClick={handleClearSearch}>
           <FontAwesomeIcon icon={faXmark} />

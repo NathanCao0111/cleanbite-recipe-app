@@ -1,42 +1,39 @@
 {
-  "title": "Paneer korma",
-  "description": "Cook this recipe inspired by saag paneer in just 30 minutes. It's a flavourful veggie curry that's heady with fresh ginger and cardamom. Serve with rice or naan breads",
-  "cuisine": "Indian",
-  "level": "Easy",
+  "title": "Deep-filled Bramley apple pie",
+  "description": "Warm apple pie is a seasonal delight. This hearty version will happily feed a crowd",
+  "cuisine": "American",
+  "level": "Medium",
   "ingredients": [
-    "3 tbsp vegetable oil",
-    "225g block of paneer, cut into 2cm cubes",
-    "1 large onion, roughly chopped",
-    "thumb-sized piece of ginger, peeled",
-    "2 large garlic cloves",
-    "5 tbsp korma paste",
-    "3 cardamom pods, crushed",
-    "70g ground almonds",
-    "500ml vegetable stock",
-    "150g spinach",
-    "100g Greek yogurt",
-    "rice or naan breads, to serve (optional)"
+    "200g sultana",
+    "5 tbsp brandy",
+    "plain flour for dusting",
+    "750g (2 x 375g packs) of all-butter shortcrust pastry",
+    "5 medium Bramley apples, peeled, cored and finely sliced",
+    "140g golden caster sugar",
+    "¼ tsp each ground cinnamon, nutmeg and allspice",
+    "1 egg beaten with a splash of milk",
+    "vanilla ice cream or clotted cream, to serve"
   ],
   "method": [
-    "Heat 1 tbsp of the oil in a deep frying pan over a medium-high heat. Add the paneer cubes and fry for 5 mins, turning regularly, so each side is golden brown. Remove with tongs and put on a plate lined with kitchen paper.",
-    "Put the onion, ginger and garlic in a food processor with a splash of water and blitz until completely smooth. Heat the remaining oil in the frying pan over a medium-low heat. Add the onion mixture and a pinch of salt, and fry for 10 mins or until lightly golden. Add the korma paste and cardamom, and fry for 1 min. Stir in the ground almonds and fry for 1 min to make a thick paste.",
-    "Add the stock, bring to a simmer and cook for 5-10 mins, uncovered, or until reduced a little. Add the spinach to the sauce and cook for 5 mins. Stir through the yogurt and paneer, and season generously. Serve with rice or warm naan breads."
+    "Heat oven to 200C/fan 180C/gas 6. Tip the sultanas into a bowl with the brandy, microwave on high until warm and plump, then set aside. If the pastry is in two blocks, squish it together, then cut off a third and set aside. Roll out the rest of the pastry into a large circle, about the thickness of a £1 coin. Use it to line a 23cm shallow springform cake tin, making sure that it overhangs the rim all the way round. place in the fridge.",
+    "Tip the apples into the bowl with the sultanas, all but 2 tbsp of the sugar and the spices. Toss everything well to coat the apple. Roll out the rest of the pastry, then cut into a circle, using the base of the tin as a guide. Using your fingers, arrange the apple slices in the cake tin. Cover the apples with the circle of pastry and tuck down the sides. Brush the lid with egg, then fold back and pinch the overhang to seal. Brush the top generously with egg, then pierce 2 slits in the top and scatter on the remaining sugar.",
+    "Bake for 30-35 mins until golden. Leave to cool in its tin for a good hour, until the bottom is cool enough to touch. Run a knife around the pie’s edge, then open the side of the tin and remove the pie. Serve sliced with ice cream or clotted cream."
   ],
   "time": {
-    "preparation": "5 mins",
-    "cooking": "25 mins"
+    "preparation": "30 mins",
+    "cooking": "40 mins"
   },
   "serves": "4",
-  "categories": ["Less than 30 min"],
+  "categories": ["desserts", "breakfast"],
   "image": "https://res.cloudinary.com/dihsjevvi/image/upload/v1694669511/cleanbite-recipe-app/recipes/Paneer-Korma_jleniw.jpg",
   "nutrition": {
-    "kcal": "509",
-    "fat": "29g",
-    "saturates": "12g",
-    "carbs": "21g",
-    "sugars": "12g",
-    "fibre": "16g",
-    "protein": "33g",
-    "salt": "0.7g"
+    "kcal": "646",
+    "fat": "27g",
+    "saturates": "11g",
+    "carbs": "93g",
+    "sugars": "48g",
+    "fibre": "4g",
+    "protein": "8g",
+    "salt": "1g"
   }
 }

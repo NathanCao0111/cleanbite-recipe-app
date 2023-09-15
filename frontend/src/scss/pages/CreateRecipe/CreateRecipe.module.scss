@@ -16,6 +16,12 @@
 		padding-top: 80px;
 	}
 
+	.alignBtn {
+		display: flex;
+		flex-direction: column;
+		align-items: end;
+	}
+
 	.recipeImg {
 		margin-bottom: 20px;
 

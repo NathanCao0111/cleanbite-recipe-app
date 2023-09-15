@@ -55,11 +55,12 @@ const CreateRecipe = () => {
 
   const handleCreateRecipe = async (values) => {
     try {
-      console.log(values);
       await fetchCreateRecipe({
         ...values,
         image: returnedFile,
       });
+      setReturnedFile(null);
+      message.success("Create recipe successfully");
     } catch (error) {
       message.error(error.response.data.message || "Error creating recipe");
     }
@@ -186,7 +187,7 @@ const CreateRecipe = () => {
 
                   <p>Ingredients</p>
                   {values.ingredients.map((ingredient, index) => (
-                    <div key={index}>
+                    <div key={index} className={styles.alignBtn}>
                       <Input
                         placeholder="E.g. 3 tbsp olive oil"
                         spellCheck={false}
@@ -205,7 +206,7 @@ const CreateRecipe = () => {
                             updatedIngredients.splice(index, 1);
                             setFieldValue("ingredients", updatedIngredients);
                           }}
-                          style={{ marginBottom: 40 }}
+                          style={{ marginBottom: 30 }}
                         >
                           Remove
                         </Button>
@@ -223,7 +224,7 @@ const CreateRecipe = () => {
 
                   <p style={{ marginTop: 40 }}>Methods</p>
                   {values.method.map((element, index) => (
-                    <div key={index}>
+                    <div key={index} className={styles.alignBtn}>
                       <TextArea
                         placeholder="E.g. Turn the slow cooker to low and heat 2 tbsp of the oil in a large frying pan. Season the meat and fry for 3-4 mins in batches until browned all over, scooping out each batch with a slotted spoon and transferring the browned meat to a plate."
                         spellCheck={false}
@@ -241,7 +242,7 @@ const CreateRecipe = () => {
                             updatedMethods.splice(index, 1);
                             setFieldValue("method", updatedMethods);
                           }}
-                          style={{ marginBottom: 40 }}
+                          style={{ marginBottom: 30 }}
                         >
                           Remove
                         </Button>
@@ -391,7 +392,6 @@ const CreateRecipe = () => {
                       type="primary"
                       htmlType="submit"
                       className="form-button"
-                      disabled={!returnedFile}
                     >
                       Create Recipe
                     </Button>

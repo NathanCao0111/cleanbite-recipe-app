@@ -38,8 +38,6 @@ function SingleRecipe() {
     }
   }, [recipe]);
 
-  console.log(recipe);
-
   return (
     <section className={styles.wrapper}>
       {recipesLoading ? (

@@ -38,14 +38,29 @@ class RecipesController {
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 10;
     const skip = (page - 1) * limit;
-    const data = await Recipe.find({ userId: id })
-      .sort({
-        createdAt: -1,
-      })
-      .skip(skip)
-      .limit(limit);
 
-    if (!data) {
+    const date = req.query.date || "desc";
+    let data;
+
+    if (date === "desc") {
+      data = await Recipe.find({ userId: id })
+        .sort({
+          createdAt: -1,
+        })
+        .skip(skip)
+        .limit(limit);
+    }
+
+    if (date === "asc") {
+      data = await Recipe.find({ userId: id })
+        .sort({
+          createdAt: 1,
+        })
+        .skip(skip)
+        .limit(limit);
+    }
+
+    if (!data.length) {
       res.status(404);
       throw new Error("Recipes not found");
     }
