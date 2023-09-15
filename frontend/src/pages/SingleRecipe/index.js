@@ -17,15 +17,20 @@ function SingleRecipe() {
   const {
     recipe,
     recipesLoading,
+    fetchAllRecipes,
     fetchSingleRecipe,
+    fetchFavoriteRecipes,
     fetchUpdateFavoritesRecipe,
   } = useContext(RecipesContext);
-  const { siteMostLikesRecipes } = useContext(SiteContext);
+  const { siteMostLikesRecipes, fetchSiteAllRecipes } = useContext(SiteContext);
   const { auth } = useContext(AuthContext);
   const [nutritionKeysArr, setNutritionKeysArr] = useState([]);
 
   const handleLikeBtn = async () => {
     await fetchUpdateFavoritesRecipe(recipeId.id);
+    await fetchFavoriteRecipes();
+    await fetchAllRecipes();
+    await fetchSiteAllRecipes();
   };
 
   useEffect(() => {

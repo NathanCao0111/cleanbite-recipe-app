@@ -4,16 +4,20 @@ import clsx from "clsx";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
-import { Result, Spin, Pagination } from "antd";
+import { Result, Spin, Pagination, message } from "antd";
 import RecipesContext from "../../contexts/RecipesContext/RecipesContext";
+import SiteContext from "../../contexts/SiteContext/SiteContext";
 
 const Favorites = () => {
   const {
     favoriteRecipes,
+    fetchAllRecipes,
     fetchFavoriteRecipes,
+    fetchUpdateFavoritesRecipe,
     recipesLoading,
     setRecipesLoading,
   } = useContext(RecipesContext);
+  const { fetchSiteAllRecipes } = useContext(SiteContext);
   const [current, setCurrent] = useState(1);
   const [mostLiked, setMostLiked] = useState("");
 
@@ -29,6 +33,19 @@ const Favorites = () => {
     } catch (error) {
     } finally {
       setRecipesLoading(false);
+    }
+  };
+
+  const handleDislikeItem = async (element) => {
+    try {
+      await fetchUpdateFavoritesRecipe(element._id);
+      await fetchFavoriteRecipes(mostLiked);
+      await fetchAllRecipes();
+      await fetchSiteAllRecipes();
+    } catch (error) {
+      message.error(
+        error?.response?.data?.message || "Error updating recipe like"
+      );
     }
   };
 
@@ -49,7 +66,7 @@ const Favorites = () => {
       >
         <div className={clsx(styles.title, "col-lg-9 col-md-8")}>
           <h5 className="py-3 mb-0">
-            Favorite Recipes&nbsp;
+            Your Favorite Recipes&nbsp;
             <sup>
               ({favoriteRecipes?.pagination.totalDocuments || 0}{" "}
               {favoriteRecipes?.pagination.totalDocuments > 1
@@ -80,6 +97,9 @@ const Favorites = () => {
         </div>
       </div>
       <hr></hr>
+      <p className={styles.description}>
+        <span>* </span>Click on item to dislike
+      </p>
       {favoriteRecipes?.data.length ? (
         recipesLoading ? (
           <div className={styles.spinContainer}>
@@ -91,9 +111,12 @@ const Favorites = () => {
               {favoriteRecipes?.data?.map((element) => {
                 return (
                   <div className="col-lg-3 col-md-4 col-6" key={element._id}>
-                    <figure className={clsx(styles.figure, "my-3 my-md-4")}>
+                    <figure
+                      className={clsx(styles.figure, "my-3 my-md-4")}
+                      onClick={() => handleDislikeItem(element)}
+                    >
                       <Link
-                        to={`/recipes/${element._id}`}
+                        to=""
                         className={clsx(
                           styles.figLink,
                           "stretched-link rounded-6"
@@ -111,7 +134,7 @@ const Favorites = () => {
                           </div>
                         </div>
                         <Link
-                          to={`/recipes/${element._id}`}
+                          to=""
                           className={clsx(
                             styles.figTitle,
                             "text-black d-block mt-1 font-weight-semibold big"
