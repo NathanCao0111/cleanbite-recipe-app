@@ -42,7 +42,7 @@ class RecipesController {
     const date = req.query.date || "desc";
     let data;
 
-    if (date === "desc") {
+    if (date === "desc" || !date) {
       data = await Recipe.find({ userId: id })
         .sort({
           createdAt: -1,
