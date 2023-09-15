@@ -60,7 +60,7 @@ class RecipesController {
         .limit(limit);
     }
 
-    if (!data.length) {
+    if (!data) {
       res.status(404);
       throw new Error("Recipes not found");
     }
