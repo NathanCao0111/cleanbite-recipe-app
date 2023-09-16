@@ -13,6 +13,8 @@ export const RecipesApi = {
   GET_CREATED_RECIPES: "/recipes/created",
   GET_SEARCH_RECIPES: "/recipes/search",
   GET_LIKES_RECIPES: "/recipes/likes",
+  GET_ARCHIVED_RECIPES: "/recipes/archived",
+  GET_ARCHIVED_RECIPE: "/recipes/archived/:id",
   CREATE_RECIPE: "/recipes/create",
   CREATE_RECIPE_IMAGE: "/recipes/upload-recipe-image",
   UPDATE_RECIPE: "/recipes/update/:id",

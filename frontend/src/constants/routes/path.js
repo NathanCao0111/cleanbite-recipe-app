@@ -11,4 +11,5 @@ export const PathRoute = {
   Categories: "/recipes/categories",
   Category: "/recipes/categories/:id",
   Favorites: "/recipes/likes",
+  UpdateRecipe: "/recipes/update/:id",
 };

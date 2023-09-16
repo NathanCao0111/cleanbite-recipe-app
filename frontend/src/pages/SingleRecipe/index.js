@@ -1,12 +1,15 @@
 import { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import clsx from "clsx";
 import styles from "../../scss/pages/SingleRecipe/SingleRecipe.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowUpRightFromSquare,
+  faEllipsisVertical,
+} from "@fortawesome/free-solid-svg-icons";
 import { faHeart, faCalendar } from "@fortawesome/free-regular-svg-icons";
 import RecipesContext from "../../contexts/RecipesContext/RecipesContext";
-import { Spin } from "antd";
+import { Spin, Dropdown, Space } from "antd";
 import AuthContext from "../../contexts/AuthContext/AuthContext";
 import dayjs from "dayjs";
 import Trending from "../../components/pages/Home/Trending";
@@ -21,10 +24,42 @@ function SingleRecipe() {
     fetchSingleRecipe,
     fetchFavoriteRecipes,
     fetchUpdateFavoritesRecipe,
+    fetchDeleteRecipe,
   } = useContext(RecipesContext);
   const { siteMostLikesRecipes, fetchSiteAllRecipes } = useContext(SiteContext);
   const { auth } = useContext(AuthContext);
   const [nutritionKeysArr, setNutritionKeysArr] = useState([]);
+
+  const handleDeleteItem = async () => {
+    await fetchDeleteRecipe(recipeId.id);
+    await fetchSingleRecipe(recipeId.id);
+  };
+
+  const items = [
+    {
+      label: (
+        <Link
+          to={`/recipes/update/${recipeId.id}`}
+          style={{ textDecoration: "none", fontSize: 16 }}
+        >
+          Update
+        </Link>
+      ),
+      key: "0",
+    },
+    {
+      label: (
+        <button
+          className="resetBtn"
+          style={{ fontSize: 16 }}
+          onClick={handleDeleteItem}
+        >
+          Archive
+        </button>
+      ),
+      key: "1",
+    },
+  ];
 
   const handleLikeBtn = async () => {
     await fetchUpdateFavoritesRecipe(recipeId.id);
@@ -67,9 +102,27 @@ function SingleRecipe() {
             </div>
             <div className="order-sm-2 ml-auto">
               <div className="d-flex pt-0 align-items-center">
-                <button className="resetBtn" onClick={handleLikeBtn}>
+                <button
+                  className={clsx(styles.likeBtn, "resetBtn")}
+                  onClick={handleLikeBtn}
+                >
                   <FontAwesomeIcon icon={faHeart} />
                 </button>
+                <Dropdown
+                  menu={{
+                    items,
+                  }}
+                  placement="bottom"
+                  arrow={{ pointAtCenter: true }}
+                >
+                  <Link onClick={(e) => e.preventDefault()}>
+                    <Space>
+                      <button className={clsx(styles.hoverMe, "resetBtn")}>
+                        <FontAwesomeIcon icon={faEllipsisVertical} />
+                      </button>
+                    </Space>
+                  </Link>
+                </Dropdown>
               </div>
             </div>
           </div>

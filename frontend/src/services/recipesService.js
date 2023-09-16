@@ -12,6 +12,10 @@ const recipesService = {
       `/recipes/likes?mostLiked=${mostLiked}&page=${page}`
     ),
   single: async (values) => await axiosInstance.get(`/recipes/${values}`),
+  archived: async () =>
+    await axiosInstance.get(RecipesApi.GET_ARCHIVED_RECIPES),
+  archivedSingle: async (values) =>
+    await axiosInstance.get(`/recipes/archived/${values}`),
   create: async (values) => {
     await axiosInstance.post(RecipesApi.CREATE_RECIPE, values);
   },
@@ -27,8 +31,10 @@ const recipesService = {
   restore: async (values) => {
     await axiosInstance.patch(RecipesApi.RESTORE_RECIPE, values);
   },
-  delete: async () => await axiosInstance.delete(RecipesApi.DELETE_RECIPE),
-  destroy: async () => await axiosInstance.delete(RecipesApi.DESTROY_RECIPE),
+  delete: async (values) =>
+    await axiosInstance.delete(`/recipes/delete/${values}`),
+  destroy: async (values) =>
+    await axiosInstance.delete(`/recipes/destroy/${values}`),
 };
 
 export default recipesService;

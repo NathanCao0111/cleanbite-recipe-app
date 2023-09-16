@@ -4,7 +4,7 @@ import clsx from "clsx";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
-import { Result, Spin, Pagination, message } from "antd";
+import { Result, Spin, Pagination } from "antd";
 import RecipesContext from "../../contexts/RecipesContext/RecipesContext";
 import SiteContext from "../../contexts/SiteContext/SiteContext";
 
@@ -37,16 +37,10 @@ const Favorites = () => {
   };
 
   const handleDislikeItem = async (element) => {
-    try {
-      await fetchUpdateFavoritesRecipe(element._id);
-      await fetchFavoriteRecipes(mostLiked);
-      await fetchAllRecipes();
-      await fetchSiteAllRecipes();
-    } catch (error) {
-      message.error(
-        error?.response?.data?.message || "Error updating recipe like"
-      );
-    }
+    await fetchUpdateFavoritesRecipe(element._id);
+    await fetchFavoriteRecipes(mostLiked);
+    await fetchAllRecipes();
+    await fetchSiteAllRecipes();
   };
 
   useEffect(() => {

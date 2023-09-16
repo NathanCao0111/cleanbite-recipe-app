@@ -23,6 +23,11 @@ const RecipesState = ({ children }) => {
     pagination: {},
     data: [],
   });
+  const [archivedRecipes, setArchivedRecipes] = useState({
+    pagination: {},
+    data: [],
+  });
+  const [archivedRecipe, setArchivedRecipe] = useState({});
   const [recipesLoading, setRecipesLoading] = useState(false);
 
   const fetchAllRecipes = async () => {
@@ -141,6 +146,79 @@ const RecipesState = ({ children }) => {
     }
   };
 
+  const fetchArchivedRecipes = async () => {
+    try {
+      setRecipesLoading(true);
+      const result = await recipesService.archived();
+      const data = result?.data?.data;
+      setArchivedRecipes({
+        pagination: data?.pagination,
+        data: data?.data,
+      });
+    } catch (error) {
+      message.error(
+        error?.response?.data?.message || "Error getting archived recipes"
+      );
+    } finally {
+      setRecipesLoading(false);
+    }
+  };
+
+  const fetchArchivedRecipe = async (values) => {
+    try {
+      setRecipesLoading(true);
+      const result = await recipesService.archivedSingle(values);
+      const data = result?.data?.data;
+      setArchivedRecipe(data);
+    } catch (error) {
+      message.error(
+        error?.response?.data?.message || "Error getting the archived recipe"
+      );
+    } finally {
+      setRecipesLoading(false);
+    }
+  };
+
+  const fetchDeleteRecipe = async (values) => {
+    try {
+      setRecipesLoading(true);
+      await recipesService.delete(values);
+    } catch (error) {
+      message.error(
+        error?.response?.data?.message || "Error archiving the recipe"
+      );
+    } finally {
+      setRecipesLoading(false);
+    }
+  };
+
+  const fetchRestoreRecipe = async (values) => {
+    try {
+      setRecipesLoading(true);
+      await recipesService.restore(values);
+    } catch (error) {
+      message.error(
+        error?.response?.data?.message || "Error restoring the recipe"
+      );
+    } finally {
+      setRecipesLoading(false);
+    }
+  };
+
+  const fetchDestroyRecipe = async (values) => {
+    try {
+      setRecipesLoading(true);
+      await recipesService.destroy(values);
+    } catch (error) {
+      message.error(
+        error?.response?.data?.message ||
+          "Error deleting the recipe permanently"
+      );
+    } finally {
+      setRecipesLoading(false);
+    }
+  };
+
   useEffect(() => {
     if (auth.isAuthenticated) {
       fetchAllRecipes();
@@ -173,6 +251,8 @@ const RecipesState = ({ children }) => {
         searchRecipes,
         createdRecipes,
         favoriteRecipes,
+        archivedRecipes,
+        archivedRecipe,
         recipesLoading,
         setRecipesLoading,
         fetchAllRecipes,
@@ -182,6 +262,11 @@ const RecipesState = ({ children }) => {
         fetchFavoriteRecipes,
         fetchUpdateFavoritesRecipe,
         fetchCreateRecipe,
+        fetchArchivedRecipes,
+        fetchArchivedRecipe,
+        fetchDeleteRecipe,
+        fetchRestoreRecipe,
+        fetchDestroyRecipe,
       }}
     >
       {children}

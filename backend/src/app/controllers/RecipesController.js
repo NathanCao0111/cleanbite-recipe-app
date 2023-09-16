@@ -106,7 +106,7 @@ class RecipesController {
       });
     }
 
-    if (!data.length) {
+    if (!data) {
       res.status(404);
       throw new Error("Recipes not found");
     }
@@ -150,7 +150,7 @@ class RecipesController {
         .limit(limit);
     }
 
-    if (!likedRecipes.length) {
+    if (!likedRecipes) {
       res.status(404);
       throw new Error("Recipes not found");
     }
@@ -274,14 +274,31 @@ class RecipesController {
 
   // [GET] /api/v1/recipes/archived
   async archived(req, res) {
-    const data = await Recipe.findDeleted();
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 12;
+    const skip = (page - 1) * limit;
+
+    const data = await Recipe.findDeleted()
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit);
 
     if (!data) {
       res.status(404);
       throw new Error("Recipes not found");
     }
 
-    resClientData(res, 200, data);
+    const dataCount = await Recipe.countDocumentsDeleted();
+
+    resClientData(res, 200, {
+      pagination: {
+        totalDocuments: dataCount,
+        totalPages: Math.ceil(dataCount / limit),
+        pageSize: limit,
+        currentPage: page,
+      },
+      data: data,
+    });
   }
 
   // [GET] /api/v1/recipes/archived/:id
@@ -366,7 +383,7 @@ class RecipesController {
       { new: true }
     );
 
-    if (!recipe.length) {
+    if (!recipe) {
       res.status(404);
       throw new Error("Recipe not found");
     }
@@ -382,8 +399,8 @@ class RecipesController {
     const recipe = await Recipe.delete({ _id: recipeId, userId: userId });
 
     if (recipe.modifiedCount === 0) {
-      res.status(404);
-      throw new Error("Recipe not found");
+      res.status(403);
+      throw new Error("Unauthorized archive action");
     }
 
     resClientData(res, 200, recipe);
@@ -397,8 +414,8 @@ class RecipesController {
     const recipe = await Recipe.restore({ _id: recipeId, userId: userId });
 
     if (recipe.modifiedCount === 0) {
-      res.status(404);
-      throw new Error("Recipe not found");
+      res.status(403);
+      throw new Error("Unauthorized restore action");
     }
 
     resClientData(res, 200, recipe);
@@ -412,8 +429,8 @@ class RecipesController {
     const recipe = await Recipe.deleteOne({ _id: recipeId, userId: userId });
 
     if (recipe.deletedCount === 0) {
-      res.status(404);
-      throw new Error("Recipe not found");
+      res.status(403);
+      throw new Error("Unauthorized delete action");
     }
 
     resClientData(res, 200, recipe);
