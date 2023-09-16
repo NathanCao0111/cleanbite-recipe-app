@@ -30,7 +30,9 @@ const Feature = (props) => {
             <strong>
               <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
               <span>
-                {recipe.likes} chefs would make this again
+                {recipe?.likes
+                  ? `${recipe?.likes} chefs would make this again`
+                  : "Be the first chef to like this recipe!"}
               </span>
             </strong>
             <h3 className={styles.title}>{recipe.title}</h3>

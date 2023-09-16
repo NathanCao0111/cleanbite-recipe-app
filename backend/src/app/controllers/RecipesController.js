@@ -278,10 +278,22 @@ class RecipesController {
     const limit = parseInt(req.query.limit) || 12;
     const skip = (page - 1) * limit;
 
-    const data = await Recipe.findDeleted()
-      .sort({ createdAt: -1 })
-      .skip(skip)
-      .limit(limit);
+    const deletedAt = req.query.deletedAt || "desc";
+    let data;
+
+    if (deletedAt === "desc" || !!deletedAt) {
+      data = await Recipe.findDeleted()
+        .sort({ deletedAt: -1 })
+        .skip(skip)
+        .limit(limit);
+    }
+
+    if (deletedAt === "asc") {
+      data = await Recipe.findDeleted()
+        .sort({ deletedAt: 1 })
+        .skip(skip)
+        .limit(limit);
+    }
 
     if (!data) {
       res.status(404);

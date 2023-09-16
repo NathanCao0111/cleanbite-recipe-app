@@ -254,6 +254,7 @@ const RecipesState = ({ children }) => {
         archivedRecipes,
         archivedRecipe,
         recipesLoading,
+        setRecipe,
         setRecipesLoading,
         fetchAllRecipes,
         fetchSingleRecipe,

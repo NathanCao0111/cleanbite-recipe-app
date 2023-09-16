@@ -1,0 +1,122 @@
+.wrapper {
+
+	.title {
+
+		h5 {
+			font-size: 36px;
+		}
+
+		sup {
+			font-size: 16px;
+			font-weight: 400;
+		}
+	}
+
+	.filter {
+		float: right;
+		padding-bottom: 40px;
+
+		select {
+			width: 200px;
+			background-image: url(../../../assets/img/down-arrow2.svg);
+			background-repeat: no-repeat;
+			background-position: right 10px center;
+			-webkit-appearance: none;
+			-ms-appearance: none;
+			-o-appearance: none;
+			-moz-appearance: none;
+			appearance: none;
+			height: 40px;
+			min-height: 40px;
+			border-color: #000;
+			border-radius: 4px;
+			min-width: 144px;
+			line-height: 20px;
+			color: #000;
+			padding-left: 8px;
+			padding-right: 30px;
+			cursor: pointer;
+		}
+	}
+
+	.figure {
+		position: relative;
+
+		.figLink {
+			display: block;
+			overflow: hidden;
+			border-radius: 6px;
+
+			img {
+				width: 100%;
+				height: auto;
+				object-fit: cover;
+				// max-height: 300px;
+				aspect-ratio: 1/1;
+				transform: scale(1);
+
+				transition: {
+					property: all;
+					timing-function: ease;
+					duration: 0.8s;
+				}
+			}
+
+			&:hover img {
+				transform: scale(1.1);
+			}
+		}
+
+		strong {
+			svg {
+				color: var(--primary);
+			}
+
+			span {
+				font-weight: 500 !important;
+				margin-left: 8px;
+
+				transition: {
+					property: all;
+					timing-function: ease;
+					duration: 0.3s;
+				}
+			}
+		}
+
+		.figTitle {
+			font-size: 20px;
+			font-weight: 400 !important;
+			text-decoration: none;
+			color: #000;
+
+			transition: {
+				property: all;
+				timing-function: ease;
+				duration: 0.3s;
+			}
+		}
+
+		&:hover {
+			color: var(--primary) !important;
+			text-decoration: none;
+		}
+
+		&:hover .figTitle {
+			color: var(--primary) !important;
+			text-decoration: none;
+		}
+	}
+
+	.description {
+		span {
+			color: var(--primary);
+		}
+	}
+
+	.spinContainer {
+		display: flex;
+		justify-content: center;
+		padding-top: 80px;
+	}
+}
