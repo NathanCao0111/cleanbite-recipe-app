@@ -12,8 +12,10 @@ const recipesService = {
       `/recipes/likes?mostLiked=${mostLiked}&page=${page}`
     ),
   single: async (values) => await axiosInstance.get(`/recipes/${values}`),
-  archived: async () =>
-    await axiosInstance.get(RecipesApi.GET_ARCHIVED_RECIPES),
+  archived: async (deletedAt, page) =>
+    await axiosInstance.get(
+      `/recipes/archived?deletedAt=${deletedAt}&page=${page}`
+    ),
   archivedSingle: async (values) =>
     await axiosInstance.get(`/recipes/archived/${values}`),
   create: async (values) => {

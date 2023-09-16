@@ -12,24 +12,23 @@ const Archived = () => {
   const {
     archivedRecipes,
     fetchAllRecipes,
-    fetchFavoriteRecipes,
-    fetchUpdateFavoritesRecipe,
+    fetchArchivedRecipes,
     recipesLoading,
     setRecipesLoading,
   } = useContext(RecipesContext);
   const { fetchSiteAllRecipes } = useContext(SiteContext);
   const [current, setCurrent] = useState(1);
-  const [mostLiked, setMostLiked] = useState("");
+  const [deletedAt, setDeletedAt] = useState("");
 
   const handleSelectChange = (e) => {
-    setMostLiked(e.target.value);
+    setDeletedAt(e.target.value);
   };
 
   const handlePaginationChange = async (page) => {
     try {
       setCurrent(page);
       setRecipesLoading(true);
-      await fetchFavoriteRecipes(mostLiked, page);
+      await fetchArchivedRecipes(deletedAt, page);
     } catch (error) {
     } finally {
       setRecipesLoading(false);
@@ -37,21 +36,17 @@ const Archived = () => {
   };
 
   const handleDislikeItem = async (element) => {
-    await fetchUpdateFavoritesRecipe(element._id);
-    await fetchFavoriteRecipes(mostLiked);
-    await fetchAllRecipes();
-    await fetchSiteAllRecipes();
   };
 
   useEffect(() => {
-    if (mostLiked === "asc") {
-      fetchFavoriteRecipes("asc");
+    if (deletedAt === "asc") {
+      fetchArchivedRecipes("asc");
     }
 
-    if (mostLiked === "desc") {
-      fetchFavoriteRecipes("desc");
+    if (deletedAt === "desc") {
+      fetchArchivedRecipes("desc");
     }
-  }, [mostLiked]);
+  }, [deletedAt]);
 
   return (
     <section className={clsx(styles.wrapper, "mb-4 mb-md-5")}>
@@ -78,7 +73,7 @@ const Archived = () => {
           <div className={styles.filter}>
             <select
               className="form-control"
-              value={mostLiked}
+              value={deletedAt}
               onChange={handleSelectChange}
             >
               <option value="" disabled hidden>
@@ -92,7 +87,7 @@ const Archived = () => {
       </div>
       <hr></hr>
       <p className={styles.description}>
-        <span>* </span>Click on item to dislike
+        <span>* </span>Click on item to restore / delete permanently
       </p>
       {archivedRecipes?.data.length ? (
         recipesLoading ? (

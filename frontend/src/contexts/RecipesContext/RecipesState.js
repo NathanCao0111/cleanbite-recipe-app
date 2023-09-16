@@ -146,10 +146,10 @@ const RecipesState = ({ children }) => {
     }
   };
 
-  const fetchArchivedRecipes = async () => {
+  const fetchArchivedRecipes = async (deletedAt, page) => {
     try {
       setRecipesLoading(true);
-      const result = await recipesService.archived();
+      const result = await recipesService.archived(deletedAt, page);
       const data = result?.data?.data;
       setArchivedRecipes({
         pagination: data?.pagination,
@@ -234,6 +234,12 @@ const RecipesState = ({ children }) => {
   useEffect(() => {
     if (auth.isAuthenticated) {
       fetchFavoriteRecipes();
+    }
+  }, [auth]);
+
+  useEffect(() => {
+    if (auth.isAuthenticated) {
+      fetchArchivedRecipes();
     }
   }, [auth]);
 
