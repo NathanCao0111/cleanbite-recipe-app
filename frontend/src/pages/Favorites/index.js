@@ -4,9 +4,11 @@ import clsx from "clsx";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import { faCircleQuestion } from "@fortawesome/free-regular-svg-icons";
 import { Result, Spin, Pagination } from "antd";
 import RecipesContext from "../../contexts/RecipesContext/RecipesContext";
 import SiteContext from "../../contexts/SiteContext/SiteContext";
+import Faqs from "../../utils/FAQs";
 
 const Favorites = () => {
   const {
@@ -91,9 +93,13 @@ const Favorites = () => {
         </div>
       </div>
       <hr></hr>
-      <p className={styles.description}>
-        <span>* </span>Click on item to dislike
-      </p>
+      <div className={styles.description}>
+        <FontAwesomeIcon
+          icon={faCircleQuestion}
+          className={styles.hoverMe}
+          onClick={() => Faqs("Click on each item to dislike")}
+        />
+      </div>
       {favoriteRecipes?.data.length ? (
         recipesLoading ? (
           <div className={styles.spinContainer}>

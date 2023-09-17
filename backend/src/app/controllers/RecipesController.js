@@ -274,7 +274,7 @@ class RecipesController {
 
   // [GET] /api/v1/recipes/archived
   async archived(req, res) {
-    const { userId } = req.user.id;
+    const userId = req.user.id;
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 12;
     const skip = (page - 1) * limit;
@@ -283,14 +283,14 @@ class RecipesController {
     let data;
 
     if (deletedAt === "desc" || !!deletedAt) {
-      data = await Recipe.findDeleted({ userId: userId })
+      data = await Recipe.findWithDeleted({ deleted: true, userId: userId })
         .sort({ deletedAt: -1 })
         .skip(skip)
         .limit(limit);
     }
 
     if (deletedAt === "asc") {
-      data = await Recipe.findDeleted({ userId: userId })
+      data = await Recipe.findWithDeleted({ deleted: true, userId: userId })
         .sort({ deletedAt: 1 })
         .skip(skip)
         .limit(limit);
@@ -301,7 +301,10 @@ class RecipesController {
       throw new Error("Recipes not found");
     }
 
-    const dataCount = await Recipe.countDocumentsDeleted({ userId: userId });
+    const dataCount = await Recipe.countDocumentsWithDeleted({
+      deleted: true,
+      userId: userId,
+    });
 
     resClientData(res, 200, {
       pagination: {

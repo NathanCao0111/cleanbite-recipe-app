@@ -31,7 +31,7 @@ const recipesService = {
     return await axiosInstance.put(`/recipes/like/${values}`);
   },
   restore: async (values) => {
-    await axiosInstance.patch(RecipesApi.RESTORE_RECIPE, values);
+    await axiosInstance.patch(`/recipes/restore/${values}`);
   },
   delete: async (values) =>
     await axiosInstance.delete(`/recipes/delete/${values}`),

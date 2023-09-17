@@ -1,24 +1,96 @@
 import { useState, useContext, useEffect } from "react";
 import styles from "../../scss/pages/Archived/Archived.module.scss";
+import "../../scss/components/Button.scss";
 import clsx from "clsx";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart } from "@fortawesome/free-solid-svg-icons";
-import { Result, Spin, Pagination } from "antd";
+import { faEllipsisVertical, faHeart } from "@fortawesome/free-solid-svg-icons";
+import { faCircleQuestion } from "@fortawesome/free-regular-svg-icons";
+import {
+  Result,
+  Spin,
+  Pagination,
+  Dropdown,
+  Space,
+  Modal,
+  message,
+} from "antd";
 import RecipesContext from "../../contexts/RecipesContext/RecipesContext";
 import SiteContext from "../../contexts/SiteContext/SiteContext";
+import Faqs from "../../utils/FAQs";
 
 const Archived = () => {
+  const navigate = useNavigate();
   const {
     archivedRecipes,
     fetchAllRecipes,
+    fetchCreatedRecipes,
     fetchArchivedRecipes,
+    fetchRestoreRecipe,
+    fetchDestroyRecipe,
     recipesLoading,
     setRecipesLoading,
   } = useContext(RecipesContext);
   const { fetchSiteAllRecipes } = useContext(SiteContext);
   const [current, setCurrent] = useState(1);
   const [deletedAt, setDeletedAt] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalLoading, setModalLoading] = useState(false);
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleOk = async (element) => {
+    try {
+      setModalLoading(true);
+
+      await fetchDestroyRecipe(element._id);
+      await fetchArchivedRecipes();
+      await fetchAllRecipes();
+      await fetchSiteAllRecipes();
+
+      setIsModalOpen(false);
+      message.success("Delete recipe successfully");
+    } catch (error) {
+      message.error(error?.response?.data?.message || "Error delete recipe");
+    } finally {
+      setModalLoading(false);
+    }
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleRestoreBtn = async (element) => {
+    await fetchRestoreRecipe(element._id);
+    await fetchArchivedRecipes();
+    await fetchCreatedRecipes();
+    await fetchAllRecipes();
+    await fetchSiteAllRecipes();
+
+    navigate("/recipes/created");
+  };
+
+  const items = [
+    {
+      label: (
+        <button className="resetBtn" style={{ fontSize: 16 }}>
+          Restore
+        </button>
+      ),
+      key: "0",
+    },
+    {
+      label: (
+        <button className="resetBtn" style={{ fontSize: 16 }}>
+          Delete
+        </button>
+      ),
+      key: "1",
+    },
+  ];
 
   const handleSelectChange = (e) => {
     setDeletedAt(e.target.value);
@@ -33,9 +105,6 @@ const Archived = () => {
     } finally {
       setRecipesLoading(false);
     }
-  };
-
-  const handleDislikeItem = async (element) => {
   };
 
   useEffect(() => {
@@ -86,9 +155,17 @@ const Archived = () => {
         </div>
       </div>
       <hr></hr>
-      <p className={styles.description}>
-        <span>* </span>Click on item to restore / delete permanently
-      </p>
+      <div className={styles.description}>
+        <FontAwesomeIcon
+          icon={faCircleQuestion}
+          className={styles.hoverMe}
+          onClick={() =>
+            Faqs(
+              "Hover the Ellipsis on each item to restore / delete permanently"
+            )
+          }
+        />
+      </div>
       {archivedRecipes?.data.length ? (
         recipesLoading ? (
           <div className={styles.spinContainer}>
@@ -100,26 +177,37 @@ const Archived = () => {
               {archivedRecipes?.data?.map((element) => {
                 return (
                   <div className="col-lg-3 col-md-4 col-6" key={element._id}>
-                    <figure
-                      className={clsx(styles.figure, "my-3 my-md-4")}
-                      onClick={() => handleDislikeItem(element)}
-                    >
-                      <Link
-                        to=""
-                        className={clsx(
-                          styles.figLink,
-                          "stretched-link rounded-6"
-                        )}
-                      >
+                    <figure className={clsx(styles.figure, "my-3 my-md-4")}>
+                      <Link to="" className={clsx(styles.figLink, "rounded-6")}>
                         <img src={element.image} alt={element.title} />
                       </Link>
                       <figcaption className="mt-2">
                         <div className="w-100 float-left">
-                          <div className="float-left">
+                          <div className="d-flex justify-content-between">
                             <strong>
                               <FontAwesomeIcon icon={faHeart} />
                               <span>{element.likes}</span>
                             </strong>
+                            <Dropdown
+                              menu={{
+                                items,
+                                onClick: ({ key }) => {
+                                  if (key === "0") handleRestoreBtn(element);
+                                  if (key === "1") showModal();
+                                },
+                              }}
+                              placement="bottomRight"
+                              arrow
+                            >
+                              <Link onClick={(e) => e.preventDefault()}>
+                                <Space>
+                                  <FontAwesomeIcon
+                                    icon={faEllipsisVertical}
+                                    className={styles.hoverMe}
+                                  />
+                                </Space>
+                              </Link>
+                            </Dropdown>
                           </div>
                         </div>
                         <Link
@@ -133,6 +221,23 @@ const Archived = () => {
                         </Link>
                       </figcaption>
                     </figure>
+                    <Modal
+                      title="Delete recipe confirmation"
+                      centered
+                      open={isModalOpen}
+                      onOk={() => handleOk(element)}
+                      onCancel={handleCancel}
+                      okButtonProps={{
+                        style: {
+                          backgroundColor: "#ff642b",
+                          boxShadow: "0 0 0 2px rgba(255, 165, 5, 0.1)",
+                        },
+                      }}
+                      cancelButtonProps={{ type: "text" }}
+                      okText={modalLoading ? "Loading..." : "Delete"}
+                    >
+                      <p>Are you sure you want to delete this recipe?</p>
+                    </Modal>
                   </div>
                 );
               })}
@@ -156,7 +261,7 @@ const Archived = () => {
           <Result
             status="404"
             title="404"
-            subTitle="You haven't liked any recipe yet."
+            subTitle="You haven't archived any recipe yet."
           />
         </>
       )}
