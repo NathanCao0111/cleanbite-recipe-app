@@ -25,7 +25,9 @@ const AuthState = ({ children }) => {
         user: user,
       });
     } catch (error) {
-      message.error(error?.response?.data?.message || "Error");
+      message.error(
+        error?.response?.data?.message || "Error getting logged in information"
+      );
       navigate("/login");
     } finally {
       setAuthLoading(false);

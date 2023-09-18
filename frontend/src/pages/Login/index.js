@@ -11,7 +11,6 @@ import { faLock } from "@fortawesome/free-solid-svg-icons";
 import AntdButton from "../../utils/Button";
 import Notification from "../../utils/Notification";
 import { NotificationType } from "../../constants/NotificationType";
-import { message } from "antd";
 
 function Login() {
   const [loading, setLoading] = useState(false);
@@ -52,7 +51,6 @@ function Login() {
       navigate("/");
     } catch (error) {
       setError(error.response.data.message);
-      message.error("Something was wrong. Please try again!");
     } finally {
       setLoading(false);
     }

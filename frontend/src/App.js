@@ -2,7 +2,7 @@ import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import AuthState from "./contexts/AuthContext/AuthState";
 import routes from "./constants/routes/router";
-import PrivateRoute from "./components/PrivateRoute";
+import PrivateRoute from "./HOCs/PrivateRoute";
 import GlobalStyles from "./components/GlobalStyles";
 import DefaultLayout from "./components/DefaultLayout";
 import RecipesState from "./contexts/RecipesContext/RecipesState";
