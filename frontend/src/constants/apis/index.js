@@ -10,6 +10,7 @@ export const MeApi = {
 
 export const RecipesApi = {
   GET_ALL_RECIPES: "/recipes/all",
+  GET_SINGLE_RECIPE: "/recipes/single/:id",
   GET_CREATED_RECIPES: "/recipes/created",
   GET_SEARCH_RECIPES: "/recipes/search",
   GET_LIKES_RECIPES: "/recipes/likes",

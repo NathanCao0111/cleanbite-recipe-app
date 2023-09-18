@@ -11,7 +11,8 @@ const recipesService = {
     await axiosInstance.get(
       `/recipes/likes?mostLiked=${mostLiked}&page=${page}`
     ),
-  single: async (values) => await axiosInstance.get(`/recipes/${values}`),
+  single: async (values) =>
+    await axiosInstance.get(`/recipes/single/${values}`),
   archived: async (deletedAt, page) =>
     await axiosInstance.get(
       `/recipes/archived?deletedAt=${deletedAt}&page=${page}`

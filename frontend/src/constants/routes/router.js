@@ -12,6 +12,7 @@ import Categories from "../../pages/Categories";
 import Category from "../../pages/Category";
 import Favorites from "../../pages/Favorites";
 import UpdateRecipe from "../../pages/UpdateRecipe";
+import NotFound from "../../pages/404NotFound";
 
 const routes = [
   {
@@ -77,6 +78,11 @@ const routes = [
   {
     path: PathRoute.Home,
     component: Home,
+    isPrivate: false,
+  },
+  {
+    path: PathRoute.NotFound,
+    component: NotFound,
     isPrivate: false,
   },
 ];

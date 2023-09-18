@@ -259,7 +259,7 @@ class RecipesController {
     });
   }
 
-  // [GET] /api/v1/recipes/:id
+  // [GET] /api/v1/recipes/single/:id
   async single(req, res) {
     const recipeId = req.params.id;
     const data = await Recipe.findOne({ _id: recipeId });

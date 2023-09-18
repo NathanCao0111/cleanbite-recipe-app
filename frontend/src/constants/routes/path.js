@@ -12,4 +12,5 @@ export const PathRoute = {
   Category: "/recipes/categories/:id",
   Favorites: "/recipes/likes",
   UpdateRecipe: "/recipes/update/:id",
+  NotFound: "*",
 };
