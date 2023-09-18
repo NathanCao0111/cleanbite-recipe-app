@@ -1,0 +1,62 @@
+.wrapper {
+
+	h5 {
+		font-size: 36px;
+	}
+
+	h6 {
+		font-size: 30px;
+		margin-top: 40px;
+		margin-bottom: 20px;
+	}
+
+	.spinContainer {
+		display: flex;
+		justify-content: center;
+		padding-top: 80px;
+	}
+
+	.alignBtn {
+		display: flex;
+		flex-direction: column;
+		align-items: end;
+	}
+
+	.recipeImg {
+		margin-bottom: 20px;
+
+		img {
+			width: 300px;
+			height: 300px;
+			object-fit: cover;
+			border-radius: 16px;
+		}
+	}
+
+	.recipeBtns {
+		button {
+			height: var(--height-btn);
+			margin-left: 25px;
+
+			transition: {
+				property: all;
+				timing-function: ease;
+				duration: 0.15s
+			}
+
+			label {
+				cursor: pointer;
+				padding: 0 45px;
+				line-height: 40px;
+			}
+
+			&:hover {
+				background-color: #000 !important;
+				color: #fff !important;
+				opacity: 0.8;
+				border: none !important;
+				outline: none !important;
+			}
+		}
+	}
+}

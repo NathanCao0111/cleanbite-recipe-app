@@ -24,6 +24,7 @@ function SingleRecipe() {
     setRecipe,
     fetchAllRecipes,
     fetchSingleRecipe,
+    fetchCreatedRecipes,
     fetchFavoriteRecipes,
     fetchUpdateFavoritesRecipe,
     fetchArchivedRecipes,
@@ -36,6 +37,7 @@ function SingleRecipe() {
   const handleDeleteItem = async () => {
     await fetchDeleteRecipe(recipeId.id);
     await fetchArchivedRecipes();
+    await fetchCreatedRecipes();
     await fetchAllRecipes();
 
     setRecipe({});
@@ -119,21 +121,23 @@ function SingleRecipe() {
                   >
                     <FontAwesomeIcon icon={faHeart} />
                   </button>
-                  <Dropdown
-                    menu={{
-                      items,
-                    }}
-                    placement="bottom"
-                    arrow={{ pointAtCenter: true }}
-                  >
-                    <Link onClick={(e) => e.preventDefault()}>
-                      <Space>
-                        <button className={clsx(styles.hoverMe, "resetBtn")}>
-                          <FontAwesomeIcon icon={faEllipsisVertical} />
-                        </button>
-                      </Space>
-                    </Link>
-                  </Dropdown>
+                  {auth.user._id === recipe.userId && (
+                    <Dropdown
+                      menu={{
+                        items,
+                      }}
+                      placement="bottomRight"
+                      arrow
+                    >
+                      <Link onClick={(e) => e.preventDefault()}>
+                        <Space>
+                          <button className={clsx(styles.hoverMe, "resetBtn")}>
+                            <FontAwesomeIcon icon={faEllipsisVertical} />
+                          </button>
+                        </Space>
+                      </Link>
+                    </Dropdown>
+                  )}
                 </div>
               </div>
             </div>

@@ -47,6 +47,7 @@ const Archived = () => {
 
       await fetchDestroyRecipe(element._id);
       await fetchArchivedRecipes();
+      await fetchCreatedRecipes();
       await fetchAllRecipes();
       await fetchSiteAllRecipes();
 
