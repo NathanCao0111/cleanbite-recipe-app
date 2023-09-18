@@ -16,7 +16,7 @@ const Trending = (props) => {
             <div className="col-md-4" key={element._id}>
               <figure className={clsx(styles.figure, "my-3")}>
                 <Link
-                  to={`/recipes/${element._id}`}
+                  to={`/recipes/single/${element._id}`}
                   className={clsx(styles.figLink, "rounded-6")}
                 >
                   <img src={element.image} alt={element.title} />
@@ -31,7 +31,7 @@ const Trending = (props) => {
                     </div>
                   </div>
                   <Link
-                    to={`/recipes/${element._id}`}
+                    to={`/recipes/single/${element._id}`}
                     className={clsx(
                       styles.figTitle,
                       "f-size-20 d-block mt-1 font-weight-semibold"

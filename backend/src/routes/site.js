@@ -14,6 +14,6 @@ router.post(
   validateMdw(emailSchema),
   asyncHandler(siteController.sendEmail)
 );
-router.get("/:id", asyncHandler(siteController.single));
+router.get("/single/:id", asyncHandler(siteController.single));
 
 module.exports = router;

@@ -5,7 +5,7 @@ export const PathRoute = {
   Profile: "/profile",
   Recipes: "/recipes/all",
   CreatedRecipe: "/recipes/created",
-  SingleRecipe: "/recipes/:id",
+  SingleRecipe: "/recipes/single/:id",
   CreateRecipe: "/recipes/create",
   Archived: "/recipes/archived",
   Categories: "/recipes/categories",

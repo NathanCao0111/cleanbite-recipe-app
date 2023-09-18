@@ -24,7 +24,7 @@ router.post(
   uploadFile.single("image"),
   asyncHandler(recipesController.uploadRecipeImage)
 );
-router.get("single/:id", asyncHandler(recipesController.single));
+router.get("/single/:id", asyncHandler(recipesController.single));
 router.get("/archived/:id", asyncHandler(recipesController.archivedSingle));
 router.put(
   "/update/:id",

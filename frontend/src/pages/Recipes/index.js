@@ -92,7 +92,7 @@ function Recipes() {
                   <div className="col-lg-3 col-md-4 col-6" key={element._id}>
                     <figure className={clsx(styles.figure, "my-3 my-md-4")}>
                       <Link
-                        to={`/recipes/${element._id}`}
+                        to={`/recipes/single/${element._id}`}
                         className={clsx(
                           styles.figLink,
                           "stretched-link rounded-6"
@@ -110,7 +110,7 @@ function Recipes() {
                           </div>
                         </div>
                         <Link
-                          to={`/recipes/${element._id}`}
+                          to={`/recipes/single/${element._id}`}
                           className={clsx(
                             styles.figTitle,
                             "text-black d-block mt-1 font-weight-semibold big"

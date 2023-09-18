@@ -45,7 +45,7 @@ const Feature = (props) => {
               {recipe.description}
             </p>
             <Link
-              to={`/recipes/${recipe._id}`}
+              to={`/recipes/single/${recipe._id}`}
               className={clsx(styles.arrowContainer, styles.circle)}
             >
               <FontAwesomeIcon icon={faArrowRight} />
