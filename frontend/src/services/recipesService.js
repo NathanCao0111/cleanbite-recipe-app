@@ -3,8 +3,10 @@ import { RecipesApi } from "../constants/apis";
 
 const recipesService = {
   all: async () => await axiosInstance.get(RecipesApi.GET_ALL_RECIPES),
-  created: async (date, page) =>
-    await axiosInstance.get(`/recipes/created?date=${date}&page=${page}`),
+  created: async (archived, page) =>
+    await axiosInstance.get(
+      `/recipes/created?archived=${archived}&page=${page}`
+    ),
   search: async (title, page) =>
     await axiosInstance.get(`/recipes/search?title=${title}&page=${page}`),
   favorites: async (mostLiked, page) =>

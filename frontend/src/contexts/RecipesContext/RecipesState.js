@@ -63,10 +63,10 @@ const RecipesState = ({ children }) => {
     }
   };
 
-  const fetchCreatedRecipes = async (date, page) => {
+  const fetchCreatedRecipes = async (archived, page) => {
     try {
       setRecipesLoading(true);
-      const result = await recipesService.created(date, page);
+      const result = await recipesService.created(archived, page);
       const data = result?.data?.data;
       setCreatedRecipes({
         pagination: data?.pagination,

@@ -4,8 +4,10 @@ import clsx from "clsx";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import { faCircleQuestion } from "@fortawesome/free-regular-svg-icons";
 import { Result, Spin, Pagination } from "antd";
 import RecipesContext from "../../contexts/RecipesContext/RecipesContext";
+import Faqs from "../../utils/FAQs";
 
 function CreatedRecipe() {
   const {
@@ -33,12 +35,12 @@ function CreatedRecipe() {
   };
 
   useEffect(() => {
-    if (selectedOption === "asc") {
-      fetchCreatedRecipes("asc");
+    if (selectedOption === "true") {
+      fetchCreatedRecipes("true");
     }
 
-    if (selectedOption === "desc") {
-      fetchCreatedRecipes("desc");
+    if (selectedOption === "false") {
+      fetchCreatedRecipes("false");
     }
   }, [selectedOption]);
 
@@ -71,15 +73,24 @@ function CreatedRecipe() {
               onChange={handleSelectChange}
             >
               <option value="" disabled hidden>
-                Date Created
+                Show Archived
               </option>
-              <option value="asc">Ascending</option>
-              <option value="desc">Descending</option>
+              <option value="true">Yes</option>
+              <option value="false">No</option>
             </select>
           </div>
         </div>
       </div>
       <hr></hr>
+      <div className={styles.description}>
+        <FontAwesomeIcon
+          icon={faCircleQuestion}
+          className={styles.hoverMe}
+          onClick={() =>
+            Faqs("Click on archived items to navigate to archived recipes page")
+          }
+        />
+      </div>
       {createdRecipes?.data.length ? (
         recipesLoading ? (
           <div className={styles.spinContainer}>
@@ -89,6 +100,46 @@ function CreatedRecipe() {
           <>
             <div className="row">
               {createdRecipes?.data?.map((element) => {
+                if (element.deleted) {
+                  return (
+                    <div className="col-lg-3 col-md-4 col-6" key={element._id}>
+                      <figure
+                        className={clsx(styles.figureArchived, "my-3 my-md-4")}
+                      >
+                        <Link
+                          to={`/recipes/archived`}
+                          className={clsx(
+                            styles.figLinkArchived,
+                            "stretched-link rounded-6"
+                          )}
+                        >
+                          <img src={element.image} alt={element.title} />
+                          <button>Archived</button>
+                        </Link>
+                        <figcaption className="mt-2">
+                          <div className="w-100 float-left">
+                            <div className="float-left">
+                              <strong>
+                                <FontAwesomeIcon icon={faHeart} />
+                                <span>{element.likes}</span>
+                              </strong>
+                            </div>
+                          </div>
+                          <Link
+                            to={`/recipes/archived`}
+                            className={clsx(
+                              styles.figTitleArchived,
+                              "text-black d-block mt-1 font-weight-semibold big"
+                            )}
+                          >
+                            {element.title}
+                          </Link>
+                        </figcaption>
+                      </figure>
+                    </div>
+                  );
+                }
+
                 return (
                   <div className="col-lg-3 col-md-4 col-6" key={element._id}>
                     <figure className={clsx(styles.figure, "my-3 my-md-4")}>

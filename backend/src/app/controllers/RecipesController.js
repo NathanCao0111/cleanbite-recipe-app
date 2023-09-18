@@ -36,36 +36,43 @@ class RecipesController {
   async created(req, res) {
     const { id } = req.user;
     const page = parseInt(req.query.page) || 1;
-    const limit = parseInt(req.query.limit) || 10;
+    const limit = parseInt(req.query.limit) || 12;
     const skip = (page - 1) * limit;
 
-    const date = req.query.date || "desc";
+    const archived = req.query.archived || "true";
     let data;
+    let dataCount;
 
-    if (date === "desc" || !!date) {
+    if (archived === "true" || !!archived) {
+      data = await Recipe.findWithDeleted({ userId: id })
+        .sort({
+          createdAt: -1,
+        })
+        .skip(skip)
+        .limit(limit);
+
+      dataCount = await Recipe.countDocumentsWithDeleted({
+        userId: id,
+      });
+    }
+
+    if (archived === "false") {
       data = await Recipe.find({ userId: id })
         .sort({
           createdAt: -1,
         })
         .skip(skip)
         .limit(limit);
-    }
 
-    if (date === "asc") {
-      data = await Recipe.find({ userId: id })
-        .sort({
-          createdAt: 1,
-        })
-        .skip(skip)
-        .limit(limit);
+      dataCount = await Recipe.countDocuments({
+        userId: id,
+      });
     }
 
     if (!data) {
       res.status(404);
       throw new Error("Recipes not found");
     }
-
-    const dataCount = await Recipe.countDocuments({ userId: id });
 
     resClientData(res, 200, {
       pagination: {
