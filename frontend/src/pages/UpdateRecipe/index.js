@@ -10,60 +10,58 @@ import {
   Select,
   message,
 } from "antd";
-import { Formik } from "formik";
+import { Formik, ErrorMessage } from "formik";
 import "../../scss/components/Button.scss";
 import styles from "../../scss/pages/UpdateRecipe/UpdateRecipe.module.scss";
 import RecipesContext from "../../contexts/RecipesContext/RecipesContext";
 import { recipeSchema } from "../../utils/RecipeSchema";
 import { nutritionFieldConfigs } from "../../utils/NutritionFieldConfigs";
 import recipesService from "../../services/recipesService";
+import { useParams } from "react-router-dom";
 
 const UpdateRecipe = () => {
+  const { recipe, recipesLoading, fetchUpdateRecipe, fetchSingleRecipe } =
+    useContext(RecipesContext);
+  const recipeId = useParams();
   const [loading, setLoading] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
   const [returnedFile, setReturnedFile] = useState(null);
 
   const initialValues = {
-    title: "",
-    description: "",
-    cuisine: "",
-    level: "",
-    ingredients: [],
-    method: [],
+    title: recipe?.title,
+    description: recipe?.description,
+    cuisine: recipe?.cuisine,
+    level: recipe?.level,
+    ingredients: recipe?.ingredients,
+    method: recipe?.method,
     time: {
-      preparation: "",
-      cooking: "",
+      preparation: recipe?.time?.preparation,
+      cooking: recipe?.time?.cooking,
     },
-    serves: "",
-    image: "",
+    serves: recipe?.serves,
+    image: recipe?.image,
     nutrition: {
-      kcal: "",
-      fat: "",
-      saturates: "",
-      carbs: "",
-      sugars: "",
-      fibre: "",
-      protein: "",
-      salt: "",
+      kcal: recipe?.nutrition?.kcal,
+      fat: recipe?.nutrition?.fat,
+      saturates: recipe?.nutrition?.saturates,
+      carbs: recipe?.nutrition?.carbs,
+      sugars: recipe?.nutrition?.sugars,
+      fibre: recipe?.nutrition?.fibre,
+      protein: recipe?.nutrition?.protein,
+      salt: recipe?.nutrition?.salt,
     },
-    categories: [],
+    categories: recipe?.categories,
   };
 
   const { TextArea } = Input;
   const { Option } = Select;
-  const { recipesLoading, fetchCreateRecipe } = useContext(RecipesContext);
 
-  const handleCreateRecipe = async (values) => {
-    try {
-      await fetchCreateRecipe({
-        ...values,
-        image: returnedFile,
-      });
-      setReturnedFile(null);
-      message.success("Create recipe successfully");
-    } catch (error) {
-      message.error(error.response.data.message || "Error creating recipe");
-    }
+  const handleUpdateRecipe = async (values) => {
+    await fetchUpdateRecipe(recipeId.id, {
+      ...values,
+      image: returnedFile || recipe?.image,
+    });
+    setReturnedFile(null);
   };
 
   const handleFileChange = (e) => {
@@ -96,6 +94,10 @@ const UpdateRecipe = () => {
     }
   }, [selectedFile]);
 
+  useEffect(() => {
+    fetchSingleRecipe(recipeId.id);
+  }, []);
+
   return (
     <section className={styles.wrapper}>
       <h5 className="py-3">Update Recipe</h5>
@@ -107,7 +109,7 @@ const UpdateRecipe = () => {
         <Formik
           initialValues={initialValues}
           validationSchema={recipeSchema}
-          onSubmit={handleCreateRecipe}
+          onSubmit={handleUpdateRecipe}
         >
           {({
             values,
@@ -129,28 +131,27 @@ const UpdateRecipe = () => {
                 <Card>
                   <Form.Item
                     label="Title"
-                    name="title"
                     rules={[{ required: true, message: "Title is required" }]}
                   >
                     <Input
-                      placeholder="E.g. Slow cooker beef bourguignon"
                       spellCheck={false}
                       name="title"
                       value={values.title}
                       onChange={handleChange}
                       onBlur={handleBlur}
                     />
+                    <ErrorMessage name="title">
+                      {(msg) => <div className={styles.error}>{msg}</div>}
+                    </ErrorMessage>
                   </Form.Item>
 
                   <Form.Item
                     label="Description"
-                    name="description"
                     rules={[
                       { required: true, message: "Description is required" },
                     ]}
                   >
                     <TextArea
-                      placeholder="E.g. Feed a crowd or freeze a batch of our comforting beef bourguignon. This classic recipe uses slow-cooked beef and red wine for a deliciously rich stew"
                       spellCheck={false}
                       name="description"
                       value={values.description}
@@ -159,11 +160,13 @@ const UpdateRecipe = () => {
                       rows={4}
                       maxLength={300}
                     />
+                    <ErrorMessage name="description">
+                      {(msg) => <div className={styles.error}>{msg}</div>}
+                    </ErrorMessage>
                   </Form.Item>
 
-                  <Form.Item label="Cuisine" name="cuisine" rules={[]}>
+                  <Form.Item label="Cuisine" rules={[]}>
                     <Input
-                      placeholder="E.g. French"
                       spellCheck={false}
                       name="cuisine"
                       value={values.cuisine}
@@ -172,7 +175,7 @@ const UpdateRecipe = () => {
                     />
                   </Form.Item>
 
-                  <Form.Item label="Level" name="level" rules={[]}>
+                  <Form.Item label="Level" rules={[]}>
                     <Radio.Group
                       name="level"
                       value={values.level}
@@ -186,10 +189,9 @@ const UpdateRecipe = () => {
                   </Form.Item>
 
                   <p>Ingredients</p>
-                  {values.ingredients.map((ingredient, index) => (
+                  {values?.ingredients?.map((ingredient, index) => (
                     <div key={index} className={styles.alignBtn}>
                       <Input
-                        placeholder="E.g. 3 tbsp olive oil"
                         spellCheck={false}
                         name={`ingredients[${index}]`}
                         value={values.ingredients[index]}
@@ -223,10 +225,9 @@ const UpdateRecipe = () => {
                   </Button>
 
                   <p style={{ marginTop: 40 }}>Methods</p>
-                  {values.method.map((element, index) => (
+                  {values?.method?.map((element, index) => (
                     <div key={index} className={styles.alignBtn}>
                       <TextArea
-                        placeholder="E.g. Turn the slow cooker to low and heat 2 tbsp of the oil in a large frying pan. Season the meat and fry for 3-4 mins in batches until browned all over, scooping out each batch with a slotted spoon and transferring the browned meat to a plate."
                         spellCheck={false}
                         name={`method[${index}]`}
                         value={values.method[index]}
@@ -260,7 +261,6 @@ const UpdateRecipe = () => {
 
                   <Form.Item
                     label="Preparation Time"
-                    name="preparation"
                     rules={[
                       {
                         required: true,
@@ -270,18 +270,19 @@ const UpdateRecipe = () => {
                     style={{ marginTop: 40 }}
                   >
                     <Input
-                      placeholder="E.g. 20 mins"
                       spellCheck={false}
                       name="time.preparation"
                       value={values.time.preparation}
                       onChange={handleChange}
                       onBlur={handleBlur}
                     />
+                    <ErrorMessage name="time.preparation">
+                      {(msg) => <div className={styles.error}>{msg}</div>}
+                    </ErrorMessage>
                   </Form.Item>
 
                   <Form.Item
                     label="Cooking Time"
-                    name="cooking"
                     rules={[
                       {
                         required: true,
@@ -290,34 +291,36 @@ const UpdateRecipe = () => {
                     ]}
                   >
                     <Input
-                      placeholder="E.g. 20 mins"
                       spellCheck={false}
                       name="time.cooking"
                       value={values.time.cooking}
                       onChange={handleChange}
                       onBlur={handleBlur}
                     />
+                    <ErrorMessage name="time.cooking">
+                      {(msg) => <div className={styles.error}>{msg}</div>}
+                    </ErrorMessage>
                   </Form.Item>
 
                   <Form.Item
                     label="Serves"
-                    name="serves"
                     rules={[{ required: true, message: "Serves is required" }]}
                   >
                     <Input
-                      placeholder="E.g. 6-8"
                       spellCheck={false}
                       name="serves"
                       value={values.serves}
                       onChange={handleChange}
                       onBlur={handleBlur}
                     />
+                    <ErrorMessage name="serves">
+                      {(msg) => <div className={styles.error}>{msg}</div>}
+                    </ErrorMessage>
                   </Form.Item>
 
-                  <Form.Item label="Categories" name="categories">
+                  <Form.Item label="Categories">
                     <Select
                       mode="multiple"
-                      placeholder="Please select in these categories"
                       name="categories"
                       value={values.categories}
                       onChange={(selectedOptions) =>
@@ -338,13 +341,8 @@ const UpdateRecipe = () => {
 
                   <h6>Nutrition Facts</h6>
                   {nutritionFieldConfigs?.map((field) => (
-                    <Form.Item
-                      key={field.name}
-                      label={field.label}
-                      name={field.name}
-                    >
+                    <Form.Item key={field.name} label={field.label}>
                       <Input
-                        placeholder={field.placeholder}
                         spellCheck={false}
                         name={`nutrition.${field.name}`}
                         value={values.nutrition[field.name]}
@@ -357,13 +355,7 @@ const UpdateRecipe = () => {
                   <h6>Image</h6>
                   <div className="d-flex flex-wrap pt-3 pt-md-5 pb-4 mb-2 align-items-center justify-content-center">
                     <div className={styles.recipeImg}>
-                      <img
-                        src={
-                          returnedFile ||
-                          "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
-                        }
-                        alt="recipe"
-                      />
+                      <img src={returnedFile || recipe?.image} alt="recipe" />
                     </div>
                     <div className={styles.recipeBtns}>
                       <Button color="outline-dark">
@@ -393,7 +385,7 @@ const UpdateRecipe = () => {
                       htmlType="submit"
                       className="form-button"
                     >
-                      Create Recipe
+                      Update Recipe
                     </Button>
                   </Form.Item>
                 </Card>

@@ -54,16 +54,11 @@ const CreateRecipe = () => {
   const { recipesLoading, fetchCreateRecipe } = useContext(RecipesContext);
 
   const handleCreateRecipe = async (values) => {
-    try {
-      await fetchCreateRecipe({
-        ...values,
-        image: returnedFile,
-      });
-      setReturnedFile(null);
-      message.success("Create recipe successfully");
-    } catch (error) {
-      message.error(error.response.data.message || "Error creating recipe");
-    }
+    await fetchCreateRecipe({
+      ...values,
+      image: returnedFile,
+    });
+    setReturnedFile(null);
   };
 
   const handleFileChange = (e) => {

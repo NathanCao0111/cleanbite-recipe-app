@@ -22,19 +22,19 @@ const recipesService = {
   archivedSingle: async (values) =>
     await axiosInstance.get(`/recipes/archived/${values}`),
   create: async (values) => {
-    await axiosInstance.post(RecipesApi.CREATE_RECIPE, values);
+    return await axiosInstance.post(RecipesApi.CREATE_RECIPE, values);
   },
   uploadRecipeImg: async (values) => {
     return await axiosInstance.post(RecipesApi.CREATE_RECIPE_IMAGE, values);
   },
-  update: async (values) => {
-    await axiosInstance.put(RecipesApi.UPDATE_RECIPE, values);
+  update: async (id, values) => {
+    return await axiosInstance.put(`recipes/update/${id}`, values);
   },
   updateFavorites: async (values) => {
     return await axiosInstance.put(`/recipes/like/${values}`);
   },
   restore: async (values) => {
-    await axiosInstance.patch(`/recipes/restore/${values}`);
+    return await axiosInstance.patch(`/recipes/restore/${values}`);
   },
   delete: async (values) =>
     await axiosInstance.delete(`/recipes/delete/${values}`),

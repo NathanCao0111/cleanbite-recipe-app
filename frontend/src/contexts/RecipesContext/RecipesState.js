@@ -1,11 +1,15 @@
 import { message } from "antd";
 import { useEffect, useState, useContext } from "react";
 import AuthContext from "../AuthContext/AuthContext";
+import SiteContext from "../SiteContext/SiteContext";
 import RecipesContext from "./RecipesContext";
 import recipesService from "../../services/recipesService";
+import { useNavigate } from "react-router-dom";
 
 const RecipesState = ({ children }) => {
+  const navigate = useNavigate();
   const { auth } = useContext(AuthContext);
+  const { fetchSiteAllRecipes } = useContext(SiteContext);
   const [recipes, setRecipes] = useState({
     pagination: {},
     data: [],
@@ -136,10 +140,34 @@ const RecipesState = ({ children }) => {
   const fetchCreateRecipe = async (values) => {
     try {
       setRecipesLoading(true);
-      await recipesService.create(values);
+      const result = await recipesService.create(values);
+      await fetchCreatedRecipes();
+      await fetchAllRecipes();
+      await fetchSiteAllRecipes();
+      message.success("Create recipe successfully");
+      navigate(`/recipes/single/${result?.data?.data?._id}`);
     } catch (error) {
       message.error(
         error?.response?.data?.message || "Error create the recipe"
+      );
+    } finally {
+      setRecipesLoading(false);
+    }
+  };
+
+  const fetchUpdateRecipe = async (id, values) => {
+    try {
+      setRecipesLoading(true);
+      const result = await recipesService.update(id, values);
+      await fetchSingleRecipe(id);
+      await fetchCreatedRecipes();
+      await fetchAllRecipes();
+      await fetchSiteAllRecipes();
+      message.success("Update recipe successfully");
+      navigate(`/recipes/single/${result?.data?.data?._id}`);
+    } catch (error) {
+      message.error(
+        error?.response?.data?.message || "Error updating the recipe"
       );
     } finally {
       setRecipesLoading(false);
@@ -269,6 +297,7 @@ const RecipesState = ({ children }) => {
         fetchFavoriteRecipes,
         fetchUpdateFavoritesRecipe,
         fetchCreateRecipe,
+        fetchUpdateRecipe,
         fetchArchivedRecipes,
         fetchArchivedRecipe,
         fetchDeleteRecipe,
