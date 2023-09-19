@@ -1,39 +1,41 @@
 {
-  "title": "Deep-filled Bramley apple pie",
-  "description": "Warm apple pie is a seasonal delight. This hearty version will happily feed a crowd",
-  "cuisine": "American",
-  "level": "Medium",
+  "title": "Chicken stroganoff",
+  "description": "Use chicken thigh fillets if you prefer in this chicken stroganoff, and use half-fat soured cream for a lighter version. Enjoy with pasta, mash or rice.",
+  "cuisine": "Russian",
+  "level": "Easy",
   "ingredients": [
-    "200g sultana",
-    "5 tbsp brandy",
-    "plain flour for dusting",
-    "750g (2 x 375g packs) of all-butter shortcrust pastry",
-    "5 medium Bramley apples, peeled, cored and finely sliced",
-    "140g golden caster sugar",
-    "¼ tsp each ground cinnamon, nutmeg and allspice",
-    "1 egg beaten with a splash of milk",
-    "vanilla ice cream or clotted cream, to serve"
+    "2 tbsp olive oil",
+    "4 skinless chicken breasts, cut into chunks",
+    "2 onions, finely chopped",
+    "4 garlic cloves, crushed",
+    "1 tbsp sweet paprika",
+    "400ml chicken stock",
+    "4 tsp Dijon mustard",
+    "2 tbsp Worcestershire sauce",
+    "200g soured cream or crème fraiche",
+    "a large handful of parsley, chopped",
+    "rice mash or pasta, to serve"
   ],
   "method": [
-    "Heat oven to 200C/fan 180C/gas 6. Tip the sultanas into a bowl with the brandy, microwave on high until warm and plump, then set aside. If the pastry is in two blocks, squish it together, then cut off a third and set aside. Roll out the rest of the pastry into a large circle, about the thickness of a £1 coin. Use it to line a 23cm shallow springform cake tin, making sure that it overhangs the rim all the way round. place in the fridge.",
-    "Tip the apples into the bowl with the sultanas, all but 2 tbsp of the sugar and the spices. Toss everything well to coat the apple. Roll out the rest of the pastry, then cut into a circle, using the base of the tin as a guide. Using your fingers, arrange the apple slices in the cake tin. Cover the apples with the circle of pastry and tuck down the sides. Brush the lid with egg, then fold back and pinch the overhang to seal. Brush the top generously with egg, then pierce 2 slits in the top and scatter on the remaining sugar.",
-    "Bake for 30-35 mins until golden. Leave to cool in its tin for a good hour, until the bottom is cool enough to touch. Run a knife around the pie’s edge, then open the side of the tin and remove the pie. Serve sliced with ice cream or clotted cream."
+    "Heat half the oil in a frying pan and fry the chicken pieces over a medium high heat, stirring frequently. until golden brown. Season and transfer to a plate.",
+    "Heat the remaining oil and lower the heat to medium. Fry the onion for 6-8 mins until softened but not golden, then stir in the garlic and paprika. Fry for a minute until fragrant, then pour in the stock, and add the Dijon and Worcestershire sauce. Tip in the seared chicken with any resting juices, and simmer for 5-6 mins until reduced slightly and the chicken is cooked through.",
+    "Over a low heat, stir in the soured cream until just combined to create a creamy sauce, and it’s just started to simmer. Scatter over the parsley and serve with rice, mash or pasta, if you like."
   ],
   "time": {
-    "preparation": "30 mins",
-    "cooking": "40 mins"
+    "preparation": "15 mins",
+    "cooking": "30 mins"
   },
   "serves": "4",
-  "categories": ["desserts", "breakfast"],
-  "image": "https://res.cloudinary.com/dihsjevvi/image/upload/v1694669511/cleanbite-recipe-app/recipes/Paneer-Korma_jleniw.jpg",
+  "categories": ["Meat"],
+  "image": "https://res.cloudinary.com/dihsjevvi/image/upload/v1695110212/cleanbite-recipe-app/recipes/chicken-stroganoff-recipe-4_lyn6mv.jpg",
   "nutrition": {
-    "kcal": "646",
-    "fat": "27g",
-    "saturates": "11g",
-    "carbs": "93g",
-    "sugars": "48g",
-    "fibre": "4g",
-    "protein": "8g",
-    "salt": "1g"
+    "kcal": "425",
+    "fat": "23g",
+    "saturates": "7g",
+    "carbs": "11g",
+    "sugars": "9g",
+    "fibre": "3g",
+    "protein": "43g",
+    "salt": "1.69g"
   }
 }

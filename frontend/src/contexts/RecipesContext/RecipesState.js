@@ -237,6 +237,7 @@ const RecipesState = ({ children }) => {
     try {
       setRecipesLoading(true);
       await recipesService.destroy(values);
+      message.success("Delete recipe successfully");
     } catch (error) {
       message.error(
         error?.response?.data?.message ||

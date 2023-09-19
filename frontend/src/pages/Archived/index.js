@@ -36,8 +36,10 @@ const Archived = () => {
   const [deletedAt, setDeletedAt] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalLoading, setModalLoading] = useState(false);
+  const [selectedModalElement, setSelectedModalElement] = useState({});
 
-  const showModal = () => {
+  const showModal = (element) => {
+    setSelectedModalElement(element);
     setIsModalOpen(true);
   };
 
@@ -48,11 +50,8 @@ const Archived = () => {
       await fetchDestroyRecipe(element._id);
       await fetchArchivedRecipes();
       await fetchCreatedRecipes();
-      await fetchAllRecipes();
-      await fetchSiteAllRecipes();
 
       setIsModalOpen(false);
-      message.success("Delete recipe successfully");
     } catch (error) {
       message.error(error?.response?.data?.message || "Error delete recipe");
     } finally {
@@ -194,7 +193,7 @@ const Archived = () => {
                                 items,
                                 onClick: ({ key }) => {
                                   if (key === "0") handleRestoreBtn(element);
-                                  if (key === "1") showModal();
+                                  if (key === "1") showModal(element);
                                 },
                               }}
                               placement="bottomRight"
@@ -222,26 +221,28 @@ const Archived = () => {
                         </Link>
                       </figcaption>
                     </figure>
-                    <Modal
-                      title="Delete recipe confirmation"
-                      centered
-                      open={isModalOpen}
-                      onOk={() => handleOk(element)}
-                      onCancel={handleCancel}
-                      okButtonProps={{
-                        style: {
-                          backgroundColor: "#ff642b",
-                          boxShadow: "0 0 0 2px rgba(255, 165, 5, 0.1)",
-                        },
-                      }}
-                      cancelButtonProps={{ type: "text" }}
-                      okText={modalLoading ? "Loading..." : "Delete"}
-                    >
-                      <p>Are you sure you want to delete this recipe?</p>
-                    </Modal>
                   </div>
                 );
               })}
+              <Modal
+                title="Delete recipe confirmation"
+                centered
+                open={isModalOpen}
+                onOk={() => handleOk(selectedModalElement)}
+                onCancel={handleCancel}
+                okButtonProps={{
+                  style: {
+                    backgroundColor: "#ff642b",
+                    boxShadow: "0 0 0 2px rgba(255, 165, 5, 0.1)",
+                  },
+                }}
+                cancelButtonProps={{ type: "text" }}
+                okText={modalLoading ? "Loading..." : "Delete"}
+              >
+                <p>
+                  Are you sure you want to delete {selectedModalElement.title}?
+                </p>
+              </Modal>
             </div>
             <div className="text-center py-5">
               <Pagination
