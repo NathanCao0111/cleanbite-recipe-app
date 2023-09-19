@@ -1,14 +1,20 @@
-import React, { useContext } from "react";
+import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import clsx from "clsx";
 import styles from "../../../scss/components/layout/Header.module.scss";
 import AuthContext from "../../../contexts/AuthContext/AuthContext";
 import { Dropdown, Space, Spin } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import {
+  faChevronDown,
+  faBars,
+  faXmark,
+} from "@fortawesome/free-solid-svg-icons";
 
 function Header() {
   const { auth, authLoading, handleLogout } = useContext(AuthContext);
   const navigate = useNavigate();
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
 
   const handleLogoutBtn = () => {
     // remove token from localStorage
@@ -83,12 +89,18 @@ function Header() {
   const notAuthenticatedNav = (
     <>
       <li>
-        <Link className="nav-link" to="/login">
+        <Link
+          className={clsx(styles.navLink, styles.mobileDisplay)}
+          to="/login"
+        >
           Recipes
         </Link>
       </li>
       <li>
-        <Link className="nav-link" to="/login">
+        <Link
+          className={clsx(styles.navLink, styles.mobileDisplay)}
+          to="/login"
+        >
           Create a Recipe
         </Link>
       </li>
@@ -99,30 +111,72 @@ function Header() {
       ) : (
         <>
           <li>
-            <Link className="nav-link" to="/login">
+            <Link className={clsx(styles.navAuth)} to="/login">
               Log in
             </Link>
           </li>
           <div className={styles.line}></div>
           <li>
-            <Link className="nav-link" to="/register">
+            <Link className={clsx(styles.navAuth)} to="/register">
               Register
             </Link>
           </li>
         </>
       )}
+      <li>
+        <FontAwesomeIcon
+          icon={faBars}
+          className={clsx(styles.hamburger)}
+          onClick={() => setMobileNavOpen(true)}
+        />
+      </li>
+      <div
+        className={clsx(
+          styles.mobileNavFull,
+          mobileNavOpen ? styles.openFlex : styles.closeFlex
+        )}
+      >
+        <FontAwesomeIcon
+          icon={faXmark}
+          onClick={() => setMobileNavOpen(false)}
+        />
+        <div className={styles.mobileLinks}>
+          <Link
+            to="/login"
+            className={clsx(styles.navItem, styles.link)}
+            onClick={() => {
+              setMobileNavOpen(false);
+            }}
+          >
+            Recipes
+          </Link>
+          <Link
+            to="/login"
+            className={clsx(styles.navItem, styles.link)}
+            onClick={() => setMobileNavOpen(false)}
+          >
+            Create a Recipe
+          </Link>
+        </div>
+      </div>
     </>
   );
 
   const isAuthenticatedNav = (
     <>
       <li>
-        <Link className="nav-link" to="/recipes/all">
+        <Link
+          className={clsx(styles.navLink, styles.mobileDisplay)}
+          to="/recipes/all"
+        >
           Recipes
         </Link>
       </li>
       <li>
-        <Link className="nav-link" to="/recipes/create">
+        <Link
+          className={clsx(styles.navLink, styles.mobileDisplay)}
+          to="/recipes/create"
+        >
           Create a Recipe
         </Link>
       </li>
@@ -155,6 +209,42 @@ function Header() {
           </Link>
         </Dropdown>
       </li>
+      <li>
+        <FontAwesomeIcon
+          icon={faBars}
+          className={clsx(styles.hamburger)}
+          onClick={() => setMobileNavOpen(true)}
+        />
+      </li>
+      <div
+        className={clsx(
+          styles.mobileNavFull,
+          mobileNavOpen ? styles.openFlex : styles.closeFlex
+        )}
+      >
+        <FontAwesomeIcon
+          icon={faXmark}
+          onClick={() => setMobileNavOpen(false)}
+        />
+        <div className={styles.mobileLinks}>
+          <Link
+            to="/recipes/all"
+            className={clsx(styles.navItem, styles.link)}
+            onClick={() => {
+              setMobileNavOpen(false);
+            }}
+          >
+            Recipes
+          </Link>
+          <Link
+            to="/recipes/create"
+            className={clsx(styles.navItem, styles.link)}
+            onClick={() => setMobileNavOpen(false)}
+          >
+            Create a Recipe
+          </Link>
+        </div>
+      </div>
     </>
   );
 

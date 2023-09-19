@@ -85,3 +85,13 @@
 		}
 	}
 }
+
+@media (max-width: 575px) {
+	.title {
+		font-size: 36px !important;
+	}
+
+	.description {
+		font-size: 16px !important;
+	}
+}

@@ -128,6 +128,7 @@ const RecipesState = ({ children }) => {
       const result = await recipesService.updateFavorites(values);
       const data = result?.data?.data;
       setRecipe(data);
+      message.success("Dislike recipe successfully");
     } catch (error) {
       message.error(
         error?.response?.data?.message || "Error updating recipe like"

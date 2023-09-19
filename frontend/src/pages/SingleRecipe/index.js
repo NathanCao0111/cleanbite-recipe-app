@@ -79,7 +79,7 @@ function SingleRecipe() {
 
   useEffect(() => {
     fetchSingleRecipe(recipeId.id);
-  }, []);
+  }, [recipeId.id]);
 
   useEffect(() => {
     if (recipe?.nutrition) {
