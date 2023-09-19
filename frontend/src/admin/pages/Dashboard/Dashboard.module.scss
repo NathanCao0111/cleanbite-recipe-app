@@ -1,0 +1,23 @@
+.container {
+  padding: 0 19px;
+  .widgets,
+  .charts {
+    padding-top: 4rem;
+    display: flex;
+    gap: 2rem;
+  }
+  .charts {
+    height: 44rem;
+  }
+  .listContainer {
+    box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.2);
+    padding: 3rem 2rem;
+    border-radius: 10px;
+    margin: 4rem 0;
+    h3 {
+      font-size: 2.2rem;
+      font-weight: 600;
+      margin-bottom: 3rem;
+    }
+  }
+}

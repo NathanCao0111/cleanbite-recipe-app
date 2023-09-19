@@ -1,0 +1,42 @@
+.progress {
+  flex: 3;
+  box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.2);
+  padding: 2rem;
+  border-radius: 10px;
+  height: 100%;
+  .upper {
+    display: flex;
+    justify-content: space-between;
+    h3 {
+      font-size: 2.2rem;
+      font-weight: 600;
+    }
+    .categories {
+      display: flex;
+      gap: 1.5rem;
+      .category {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        .dot {
+          display: block;
+          width: 10px;
+          height: 10px;
+          border-radius: 50%;
+        }
+        .dot.blue {
+          background-color: #3e98c7;
+        }
+        .dot.red {
+          background-color: #b6002c;
+        }
+        p {
+          font-size: 1.7rem;
+        }
+      }
+    }
+  }
+  .grid {
+    stroke: rgba(0, 0, 0, 0.1);
+  }
+}

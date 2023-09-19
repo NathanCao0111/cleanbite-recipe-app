@@ -1,0 +1,22 @@
+.table {
+  .tableHeader {
+    font-size: 1.8rem;
+    font-family: 'Blinker', sans-serif;
+    color: #000;
+  }
+  .tableCell {
+    font-size: 1.7rem;
+    font-family: 'Blinker', sans-serif;
+    color: #000;
+    .cell {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+      img {
+        width: 4rem;
+        height: 4rem;
+        object-fit: cover;
+      }
+    }
+  }
+}

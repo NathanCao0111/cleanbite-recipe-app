@@ -22,6 +22,7 @@ Cleanbite Recipe is a full-stack recipe website that focuses on:
 - [x] Make the website responsive
 - [x] Add email sending function
 - [x] Add Admin page
+- [x] Add soft delete
 - [ ] JWT Authentication with Refresh Tokens
 - [ ] Add Categories page
 
